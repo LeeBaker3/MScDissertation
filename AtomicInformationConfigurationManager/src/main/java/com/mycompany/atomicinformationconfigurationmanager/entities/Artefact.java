@@ -8,11 +8,11 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -30,10 +30,12 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "artefact")
+@AttributeOverride (name = "id", column = @Column(name = "ArtefactID"))
+
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Artefact.findAll", query = "SELECT a FROM Artefact a"),
-    @NamedQuery(name = "Artefact.findByArtefactID", query = "SELECT a FROM Artefact a WHERE a.artefactID = :artefactID"),
+    @NamedQuery(name = "Artefact.findByArtefactID", query = "SELECT a FROM Artefact a WHERE a.id = :artefactID"),
     @NamedQuery(name = "Artefact.findByVersionNumber", query = "SELECT a FROM Artefact a WHERE a.versionNumber = :versionNumber"),
     @NamedQuery(name = "Artefact.findByIsCurrentVersion", query = "SELECT a FROM Artefact a WHERE a.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Artefact.findByPreviousVersionReference", query = "SELECT a FROM Artefact a WHERE a.previousVersionReference = :previousVersionReference"),
@@ -41,28 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Artefact.findByArtefactName", query = "SELECT a FROM Artefact a WHERE a.artefactName = :artefactName"),
     @NamedQuery(name = "Artefact.findByArtefactMajorVersionNumber", query = "SELECT a FROM Artefact a WHERE a.artefactMajorVersionNumber = :artefactMajorVersionNumber"),
     @NamedQuery(name = "Artefact.findByArtefactMinorVersionNumber", query = "SELECT a FROM Artefact a WHERE a.artefactMinorVersionNumber = :artefactMinorVersionNumber")})
-public class Artefact implements Serializable {
+public class Artefact extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ArtefactID")
-    private Integer artefactID;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VersionNumber")
-    private int versionNumber;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "IsCurrentVersion")
-    private boolean isCurrentVersion;
-    @Size(max = 45)
-    @Column(name = "PreviousVersionReference")
-    private String previousVersionReference;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "EntityActive")
-    private boolean entityActive;
+   
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -90,57 +73,17 @@ public class Artefact implements Serializable {
     }
 
     public Artefact(Integer artefactID) {
-        this.artefactID = artefactID;
+        this.id = artefactID;
     }
 
     public Artefact(Integer artefactID, int versionNumber, boolean isCurrentVersion, boolean entityActive, String artefactName, String artefactMajorVersionNumber, String artefactMinorVersionNumber) {
-        this.artefactID = artefactID;
+        this.id = artefactID;
         this.versionNumber = versionNumber;
         this.isCurrentVersion = isCurrentVersion;
         this.entityActive = entityActive;
         this.artefactName = artefactName;
         this.artefactMajorVersionNumber = artefactMajorVersionNumber;
         this.artefactMinorVersionNumber = artefactMinorVersionNumber;
-    }
-
-    public Integer getArtefactID() {
-        return artefactID;
-    }
-
-    public void setArtefactID(Integer artefactID) {
-        this.artefactID = artefactID;
-    }
-
-    public int getVersionNumber() {
-        return versionNumber;
-    }
-
-    public void setVersionNumber(int versionNumber) {
-        this.versionNumber = versionNumber;
-    }
-
-    public boolean getIsCurrentVersion() {
-        return isCurrentVersion;
-    }
-
-    public void setIsCurrentVersion(boolean isCurrentVersion) {
-        this.isCurrentVersion = isCurrentVersion;
-    }
-
-    public String getPreviousVersionReference() {
-        return previousVersionReference;
-    }
-
-    public void setPreviousVersionReference(String previousVersionReference) {
-        this.previousVersionReference = previousVersionReference;
-    }
-
-    public boolean getEntityActive() {
-        return entityActive;
-    }
-
-    public void setEntityActive(boolean entityActive) {
-        this.entityActive = entityActive;
     }
 
     public String getArtefactName() {
@@ -196,7 +139,7 @@ public class Artefact implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (artefactID != null ? artefactID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -207,7 +150,7 @@ public class Artefact implements Serializable {
             return false;
         }
         Artefact other = (Artefact) object;
-        if ((this.artefactID == null && other.artefactID != null) || (this.artefactID != null && !this.artefactID.equals(other.artefactID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -215,7 +158,7 @@ public class Artefact implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.atomicinformationconfigurationmanager.entities.Artefact[ artefactID=" + artefactID + " ]";
+        return "com.mycompany.atomicinformationconfigurationmanager.entities.Artefact[ artefactID=" + id + " ]";
     }
     
 }
