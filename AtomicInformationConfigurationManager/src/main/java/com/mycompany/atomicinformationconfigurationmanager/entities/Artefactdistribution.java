@@ -8,10 +8,10 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -29,42 +29,25 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "artefactdistribution")
+@AttributeOverride (name = "id", column = @Column(name = "ArtefactDistributionID"))
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Artefactdistribution.findAll", query = "SELECT a FROM Artefactdistribution a"),
-    @NamedQuery(name = "Artefactdistribution.findByArtefactDistributionID", query = "SELECT a FROM Artefactdistribution a WHERE a.artefactDistributionID = :artefactDistributionID"),
+    @NamedQuery(name = "Artefactdistribution.findByArtefactDistributionID", query = "SELECT a FROM Artefactdistribution a WHERE a.id = :artefactDistributionID"),
     @NamedQuery(name = "Artefactdistribution.findByMethodOfDistributionID", query = "SELECT a FROM Artefactdistribution a WHERE a.methodOfDistributionID = :methodOfDistributionID"),
     @NamedQuery(name = "Artefactdistribution.findByVersionNumber", query = "SELECT a FROM Artefactdistribution a WHERE a.versionNumber = :versionNumber"),
     @NamedQuery(name = "Artefactdistribution.findByIsCurrentVersion", query = "SELECT a FROM Artefactdistribution a WHERE a.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Artefactdistribution.findByPreviousVersionReference", query = "SELECT a FROM Artefactdistribution a WHERE a.previousVersionReference = :previousVersionReference"),
     @NamedQuery(name = "Artefactdistribution.findByEntityActive", query = "SELECT a FROM Artefactdistribution a WHERE a.entityActive = :entityActive"),
     @NamedQuery(name = "Artefactdistribution.findByDateOfArtefactDistribution", query = "SELECT a FROM Artefactdistribution a WHERE a.dateOfArtefactDistribution = :dateOfArtefactDistribution")})
-public class Artefactdistribution implements Serializable {
+public class Artefactdistribution extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ArtefactDistributionID")
-    private Integer artefactDistributionID;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "MethodOfDistributionID")
     private int methodOfDistributionID;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VersionNumber")
-    private int versionNumber;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "IsCurrentVersion")
-    private boolean isCurrentVersion;
-    @Size(max = 45)
-    @Column(name = "PreviousVersionReference")
-    private String previousVersionReference;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "EntityActive")
-    private boolean entityActive;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "DateOfArtefactDistribution")
@@ -81,11 +64,11 @@ public class Artefactdistribution implements Serializable {
     }
 
     public Artefactdistribution(Integer artefactDistributionID) {
-        this.artefactDistributionID = artefactDistributionID;
+        this.id = artefactDistributionID;
     }
 
     public Artefactdistribution(Integer artefactDistributionID, int methodOfDistributionID, int versionNumber, boolean isCurrentVersion, boolean entityActive, Date dateOfArtefactDistribution) {
-        this.artefactDistributionID = artefactDistributionID;
+        this.id = artefactDistributionID;
         this.methodOfDistributionID = methodOfDistributionID;
         this.versionNumber = versionNumber;
         this.isCurrentVersion = isCurrentVersion;
@@ -94,11 +77,11 @@ public class Artefactdistribution implements Serializable {
     }
 
     public Integer getArtefactDistributionID() {
-        return artefactDistributionID;
+        return id;
     }
 
     public void setArtefactDistributionID(Integer artefactDistributionID) {
-        this.artefactDistributionID = artefactDistributionID;
+        this.id = artefactDistributionID;
     }
 
     public int getMethodOfDistributionID() {
@@ -107,38 +90,6 @@ public class Artefactdistribution implements Serializable {
 
     public void setMethodOfDistributionID(int methodOfDistributionID) {
         this.methodOfDistributionID = methodOfDistributionID;
-    }
-
-    public int getVersionNumber() {
-        return versionNumber;
-    }
-
-    public void setVersionNumber(int versionNumber) {
-        this.versionNumber = versionNumber;
-    }
-
-    public boolean getIsCurrentVersion() {
-        return isCurrentVersion;
-    }
-
-    public void setIsCurrentVersion(boolean isCurrentVersion) {
-        this.isCurrentVersion = isCurrentVersion;
-    }
-
-    public String getPreviousVersionReference() {
-        return previousVersionReference;
-    }
-
-    public void setPreviousVersionReference(String previousVersionReference) {
-        this.previousVersionReference = previousVersionReference;
-    }
-
-    public boolean getEntityActive() {
-        return entityActive;
-    }
-
-    public void setEntityActive(boolean entityActive) {
-        this.entityActive = entityActive;
     }
 
     public Date getDateOfArtefactDistribution() {
@@ -168,7 +119,7 @@ public class Artefactdistribution implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (artefactDistributionID != null ? artefactDistributionID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -179,7 +130,7 @@ public class Artefactdistribution implements Serializable {
             return false;
         }
         Artefactdistribution other = (Artefactdistribution) object;
-        if ((this.artefactDistributionID == null && other.artefactDistributionID != null) || (this.artefactDistributionID != null && !this.artefactDistributionID.equals(other.artefactDistributionID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -187,7 +138,7 @@ public class Artefactdistribution implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.atomicinformationconfigurationmanager.entities.Artefactdistribution[ artefactDistributionID=" + artefactDistributionID + " ]";
+        return "com.mycompany.atomicinformationconfigurationmanager.entities.Artefactdistribution[ artefactDistributionID=" + id + " ]";
     }
     
 }

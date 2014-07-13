@@ -31,15 +31,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Typeofatomicinformation.findAll", query = "SELECT t FROM Typeofatomicinformation t"),
-    @NamedQuery(name = "Typeofatomicinformation.findByTypeOfAtomicInformationID", query = "SELECT t FROM Typeofatomicinformation t WHERE t.typeOfAtomicInformationID = :typeOfAtomicInformationID"),
+    @NamedQuery(name = "Typeofatomicinformation.findByTypeOfAtomicInformationID", query = "SELECT t FROM Typeofatomicinformation t WHERE t.id = :typeOfAtomicInformationID"),
     @NamedQuery(name = "Typeofatomicinformation.findByType", query = "SELECT t FROM Typeofatomicinformation t WHERE t.type = :type")})
-public class Typeofatomicinformation implements Serializable {
+public class Typeofatomicinformation extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "TypeOfAtomicInformationID")
-    private Integer typeOfAtomicInformationID;
+   
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -52,20 +48,12 @@ public class Typeofatomicinformation implements Serializable {
     }
 
     public Typeofatomicinformation(Integer typeOfAtomicInformationID) {
-        this.typeOfAtomicInformationID = typeOfAtomicInformationID;
+        this.id = typeOfAtomicInformationID;
     }
 
     public Typeofatomicinformation(Integer typeOfAtomicInformationID, String type) {
-        this.typeOfAtomicInformationID = typeOfAtomicInformationID;
+        this.id = typeOfAtomicInformationID;
         this.type = type;
-    }
-
-    public Integer getTypeOfAtomicInformationID() {
-        return typeOfAtomicInformationID;
-    }
-
-    public void setTypeOfAtomicInformationID(Integer typeOfAtomicInformationID) {
-        this.typeOfAtomicInformationID = typeOfAtomicInformationID;
     }
 
     public String getType() {
@@ -88,7 +76,7 @@ public class Typeofatomicinformation implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (typeOfAtomicInformationID != null ? typeOfAtomicInformationID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -99,7 +87,7 @@ public class Typeofatomicinformation implements Serializable {
             return false;
         }
         Typeofatomicinformation other = (Typeofatomicinformation) object;
-        if ((this.typeOfAtomicInformationID == null && other.typeOfAtomicInformationID != null) || (this.typeOfAtomicInformationID != null && !this.typeOfAtomicInformationID.equals(other.typeOfAtomicInformationID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -107,7 +95,7 @@ public class Typeofatomicinformation implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.atomicinformationconfigurationmanager.entities.Typeofatomicinformation[ typeOfAtomicInformationID=" + typeOfAtomicInformationID + " ]";
+        return "com.mycompany.atomicinformationconfigurationmanager.entities.Typeofatomicinformation[ typeOfAtomicInformationID=" + id + " ]";
     }
     
 }

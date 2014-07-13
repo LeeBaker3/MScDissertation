@@ -7,6 +7,7 @@
 package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import java.io.Serializable;
+import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,18 +25,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "methodofdistribution")
+@AttributeOverride (name = "id", column = @Column(name = "MethodOfDistributionID"))
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Methodofdistribution.findAll", query = "SELECT m FROM Methodofdistribution m"),
-    @NamedQuery(name = "Methodofdistribution.findByMethodOfDistributionID", query = "SELECT m FROM Methodofdistribution m WHERE m.methodOfDistributionID = :methodOfDistributionID"),
+    @NamedQuery(name = "Methodofdistribution.findByMethodOfDistributionID", query = "SELECT m FROM Methodofdistribution m WHERE m.id = :methodOfDistributionID"),
     @NamedQuery(name = "Methodofdistribution.findByMethod", query = "SELECT m FROM Methodofdistribution m WHERE m.method = :method")})
-public class Methodofdistribution implements Serializable {
+public class Methodofdistribution extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MethodOfDistributionID")
-    private Integer methodOfDistributionID;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -46,20 +44,12 @@ public class Methodofdistribution implements Serializable {
     }
 
     public Methodofdistribution(Integer methodOfDistributionID) {
-        this.methodOfDistributionID = methodOfDistributionID;
+        this.id = methodOfDistributionID;
     }
 
     public Methodofdistribution(Integer methodOfDistributionID, String method) {
-        this.methodOfDistributionID = methodOfDistributionID;
+        this.id = methodOfDistributionID;
         this.method = method;
-    }
-
-    public Integer getMethodOfDistributionID() {
-        return methodOfDistributionID;
-    }
-
-    public void setMethodOfDistributionID(Integer methodOfDistributionID) {
-        this.methodOfDistributionID = methodOfDistributionID;
     }
 
     public String getMethod() {
@@ -73,7 +63,7 @@ public class Methodofdistribution implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (methodOfDistributionID != null ? methodOfDistributionID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -84,7 +74,7 @@ public class Methodofdistribution implements Serializable {
             return false;
         }
         Methodofdistribution other = (Methodofdistribution) object;
-        if ((this.methodOfDistributionID == null && other.methodOfDistributionID != null) || (this.methodOfDistributionID != null && !this.methodOfDistributionID.equals(other.methodOfDistributionID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -92,7 +82,7 @@ public class Methodofdistribution implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.atomicinformationconfigurationmanager.entities.Methodofdistribution[ methodOfDistributionID=" + methodOfDistributionID + " ]";
+        return "com.mycompany.atomicinformationconfigurationmanager.entities.Methodofdistribution[ methodOfDistributionID=" + id + " ]";
     }
     
 }

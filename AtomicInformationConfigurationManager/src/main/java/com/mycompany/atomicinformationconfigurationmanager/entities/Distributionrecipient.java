@@ -8,6 +8,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,10 +31,11 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "distributionrecipient")
+@AttributeOverride (name = "id", column = @Column(name = "DistributionRecipientID"))
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Distributionrecipient.findAll", query = "SELECT d FROM Distributionrecipient d"),
-    @NamedQuery(name = "Distributionrecipient.findByDistributionRecipientID", query = "SELECT d FROM Distributionrecipient d WHERE d.distributionRecipientID = :distributionRecipientID"),
+    @NamedQuery(name = "Distributionrecipient.findByDistributionRecipientID", query = "SELECT d FROM Distributionrecipient d WHERE d.id = :distributionRecipientID"),
     @NamedQuery(name = "Distributionrecipient.findByVersionNumber", query = "SELECT d FROM Distributionrecipient d WHERE d.versionNumber = :versionNumber"),
     @NamedQuery(name = "Distributionrecipient.findByIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Distributionrecipient.findByPreviousVersionReference", query = "SELECT d FROM Distributionrecipient d WHERE d.previousVersionReference = :previousVersionReference"),
@@ -44,28 +46,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Distributionrecipient.findByMobileNumber", query = "SELECT d FROM Distributionrecipient d WHERE d.mobileNumber = :mobileNumber"),
     @NamedQuery(name = "Distributionrecipient.findByOfficeNumber", query = "SELECT d FROM Distributionrecipient d WHERE d.officeNumber = :officeNumber"),
     @NamedQuery(name = "Distributionrecipient.findByCompanyName", query = "SELECT d FROM Distributionrecipient d WHERE d.companyName = :companyName")})
-public class Distributionrecipient implements Serializable {
+public class Distributionrecipient extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "DistributionRecipientID")
-    private Integer distributionRecipientID;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VersionNumber")
-    private int versionNumber;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "IsCurrentVersion")
-    private boolean isCurrentVersion;
-    @Size(max = 45)
-    @Column(name = "PreviousVersionReference")
-    private String previousVersionReference;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "EntityActive")
-    private boolean entityActive;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -98,56 +81,16 @@ public class Distributionrecipient implements Serializable {
     }
 
     public Distributionrecipient(Integer distributionRecipientID) {
-        this.distributionRecipientID = distributionRecipientID;
+        this.id = distributionRecipientID;
     }
 
     public Distributionrecipient(Integer distributionRecipientID, int versionNumber, boolean isCurrentVersion, boolean entityActive, String firstName, String surname) {
-        this.distributionRecipientID = distributionRecipientID;
+        this.id = distributionRecipientID;
         this.versionNumber = versionNumber;
         this.isCurrentVersion = isCurrentVersion;
         this.entityActive = entityActive;
         this.firstName = firstName;
         this.surname = surname;
-    }
-
-    public Integer getDistributionRecipientID() {
-        return distributionRecipientID;
-    }
-
-    public void setDistributionRecipientID(Integer distributionRecipientID) {
-        this.distributionRecipientID = distributionRecipientID;
-    }
-
-    public int getVersionNumber() {
-        return versionNumber;
-    }
-
-    public void setVersionNumber(int versionNumber) {
-        this.versionNumber = versionNumber;
-    }
-
-    public boolean getIsCurrentVersion() {
-        return isCurrentVersion;
-    }
-
-    public void setIsCurrentVersion(boolean isCurrentVersion) {
-        this.isCurrentVersion = isCurrentVersion;
-    }
-
-    public String getPreviousVersionReference() {
-        return previousVersionReference;
-    }
-
-    public void setPreviousVersionReference(String previousVersionReference) {
-        this.previousVersionReference = previousVersionReference;
-    }
-
-    public boolean getEntityActive() {
-        return entityActive;
-    }
-
-    public void setEntityActive(boolean entityActive) {
-        this.entityActive = entityActive;
     }
 
     public String getFirstName() {
@@ -218,7 +161,7 @@ public class Distributionrecipient implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (distributionRecipientID != null ? distributionRecipientID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -229,7 +172,7 @@ public class Distributionrecipient implements Serializable {
             return false;
         }
         Distributionrecipient other = (Distributionrecipient) object;
-        if ((this.distributionRecipientID == null && other.distributionRecipientID != null) || (this.distributionRecipientID != null && !this.distributionRecipientID.equals(other.distributionRecipientID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -237,7 +180,7 @@ public class Distributionrecipient implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.atomicinformationconfigurationmanager.entities.Distributionrecipient[ distributionRecipientID=" + distributionRecipientID + " ]";
+        return "com.mycompany.atomicinformationconfigurationmanager.entities.Distributionrecipient[ distributionRecipientID=" + id + " ]";
     }
     
 }

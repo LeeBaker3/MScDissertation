@@ -7,10 +7,10 @@
 package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import java.io.Serializable;
+import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -26,37 +26,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "atomicinformation")
+@AttributeOverride (name = "id", column = @Column(name = "AtomicInformationID"))
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Atomicinformation.findAll", query = "SELECT a FROM Atomicinformation a"),
-    @NamedQuery(name = "Atomicinformation.findByAtomicInformationID", query = "SELECT a FROM Atomicinformation a WHERE a.atomicInformationID = :atomicInformationID"),
+    @NamedQuery(name = "Atomicinformation.findByAtomicInformationID", query = "SELECT a FROM Atomicinformation a WHERE a.id = :atomicInformationID"),
     @NamedQuery(name = "Atomicinformation.findByVersionNumber", query = "SELECT a FROM Atomicinformation a WHERE a.versionNumber = :versionNumber"),
     @NamedQuery(name = "Atomicinformation.findByIsCurrentVersion", query = "SELECT a FROM Atomicinformation a WHERE a.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Atomicinformation.findByPreviousVersionReference", query = "SELECT a FROM Atomicinformation a WHERE a.previousVersionReference = :previousVersionReference"),
     @NamedQuery(name = "Atomicinformation.findByEntityActive", query = "SELECT a FROM Atomicinformation a WHERE a.entityActive = :entityActive"),
     @NamedQuery(name = "Atomicinformation.findByContent", query = "SELECT a FROM Atomicinformation a WHERE a.content = :content")})
-public class Atomicinformation implements Serializable {
+public class Atomicinformation extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "AtomicInformationID")
-    private Integer atomicInformationID;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "VersionNumber")
-    private int versionNumber;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "IsCurrentVersion")
-    private boolean isCurrentVersion;
-    @Size(max = 45)
-    @Column(name = "PreviousVersionReference")
-    private String previousVersionReference;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "EntityActive")
-    private boolean entityActive;
+   
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -76,55 +58,15 @@ public class Atomicinformation implements Serializable {
     }
 
     public Atomicinformation(Integer atomicInformationID) {
-        this.atomicInformationID = atomicInformationID;
+        this.id = atomicInformationID;
     }
 
     public Atomicinformation(Integer atomicInformationID, int versionNumber, boolean isCurrentVersion, boolean entityActive, String content) {
-        this.atomicInformationID = atomicInformationID;
+        this.id = atomicInformationID;
         this.versionNumber = versionNumber;
         this.isCurrentVersion = isCurrentVersion;
         this.entityActive = entityActive;
         this.content = content;
-    }
-
-    public Integer getAtomicInformationID() {
-        return atomicInformationID;
-    }
-
-    public void setAtomicInformationID(Integer atomicInformationID) {
-        this.atomicInformationID = atomicInformationID;
-    }
-
-    public int getVersionNumber() {
-        return versionNumber;
-    }
-
-    public void setVersionNumber(int versionNumber) {
-        this.versionNumber = versionNumber;
-    }
-
-    public boolean getIsCurrentVersion() {
-        return isCurrentVersion;
-    }
-
-    public void setIsCurrentVersion(boolean isCurrentVersion) {
-        this.isCurrentVersion = isCurrentVersion;
-    }
-
-    public String getPreviousVersionReference() {
-        return previousVersionReference;
-    }
-
-    public void setPreviousVersionReference(String previousVersionReference) {
-        this.previousVersionReference = previousVersionReference;
-    }
-
-    public boolean getEntityActive() {
-        return entityActive;
-    }
-
-    public void setEntityActive(boolean entityActive) {
-        this.entityActive = entityActive;
     }
 
     public String getContent() {
@@ -162,7 +104,7 @@ public class Atomicinformation implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (atomicInformationID != null ? atomicInformationID.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -173,7 +115,7 @@ public class Atomicinformation implements Serializable {
             return false;
         }
         Atomicinformation other = (Atomicinformation) object;
-        if ((this.atomicInformationID == null && other.atomicInformationID != null) || (this.atomicInformationID != null && !this.atomicInformationID.equals(other.atomicInformationID))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -181,7 +123,7 @@ public class Atomicinformation implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.atomicinformationconfigurationmanager.entities.Atomicinformation[ atomicInformationID=" + atomicInformationID + " ]";
+        return "com.mycompany.atomicinformationconfigurationmanager.entities.Atomicinformation[ atomicInformationID=" + id + " ]";
     }
     
 }
