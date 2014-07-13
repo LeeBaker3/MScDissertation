@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditArtefactdistributionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_artefactDistributionID}" for="artefactDistributionID" />
+                    <h:inputText id="artefactDistributionID" value="#{artefactdistributionController.selected.artefactDistributionID}" title="#{bundle.EditArtefactdistributionTitle_artefactDistributionID}" />
+                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_methodOfDistributionID}" for="methodOfDistributionID" />
+                    <h:inputText id="methodOfDistributionID" value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.EditArtefactdistributionTitle_methodOfDistributionID}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_methodOfDistributionID}"/>
+                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_dateOfArtefactDistribution}" for="dateOfArtefactDistribution" />
+                    <h:inputText id="dateOfArtefactDistribution" value="#{artefactdistributionController.selected.dateOfArtefactDistribution}" title="#{bundle.EditArtefactdistributionTitle_dateOfArtefactDistribution}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_dateOfArtefactDistribution}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_distributionRecipientID}" for="distributionRecipientID" />
+                    <h:selectOneMenu id="distributionRecipientID" value="#{artefactdistributionController.selected.distributionRecipientID}" title="#{bundle.EditArtefactdistributionTitle_distributionRecipientID}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_distributionRecipientID}">
+                        <f:selectItems value="#{distributionrecipientController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_artefactID}" for="artefactID" />
+                    <h:selectOneMenu id="artefactID" value="#{artefactdistributionController.selected.artefactID}" title="#{bundle.EditArtefactdistributionTitle_artefactID}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_artefactID}">
+                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{artefactdistributionController.selected.id}" title="#{bundle.EditArtefactdistributionTitle_id}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_versionNumber}" for="versionNumber" />
+                    <h:inputText id="versionNumber" value="#{artefactdistributionController.selected.versionNumber}" title="#{bundle.EditArtefactdistributionTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_versionNumber}"/>
+                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_previousVersionReference}" for="previousVersionReference" />
+                    <h:inputText id="previousVersionReference" value="#{artefactdistributionController.selected.previousVersionReference}" title="#{bundle.EditArtefactdistributionTitle_previousVersionReference}" />
+                </h:panelGrid>
+                <h:commandLink action="#{artefactdistributionController.update}" value="#{bundle.EditArtefactdistributionSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditArtefactdistributionViewLink}"/>
+                <br />
+                <h:commandLink action="#{artefactdistributionController.prepareList}" value="#{bundle.EditArtefactdistributionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditArtefactdistributionIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

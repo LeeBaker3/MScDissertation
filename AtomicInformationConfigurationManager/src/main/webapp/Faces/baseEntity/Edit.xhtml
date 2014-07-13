@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditBaseEntityTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditBaseEntityLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{baseEntityController.selected.id}" title="#{bundle.EditBaseEntityTitle_id}" required="true" requiredMessage="#{bundle.EditBaseEntityRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditBaseEntityLabel_versionNumber}" for="versionNumber" />
+                    <h:inputText id="versionNumber" value="#{baseEntityController.selected.versionNumber}" title="#{bundle.EditBaseEntityTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditBaseEntityRequiredMessage_versionNumber}"/>
+                    <h:outputLabel value="#{bundle.EditBaseEntityLabel_previousVersionReference}" for="previousVersionReference" />
+                    <h:inputText id="previousVersionReference" value="#{baseEntityController.selected.previousVersionReference}" title="#{bundle.EditBaseEntityTitle_previousVersionReference}" />
+                </h:panelGrid>
+                <h:commandLink action="#{baseEntityController.update}" value="#{bundle.EditBaseEntitySaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditBaseEntityViewLink}"/>
+                <br />
+                <h:commandLink action="#{baseEntityController.prepareList}" value="#{bundle.EditBaseEntityShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditBaseEntityIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

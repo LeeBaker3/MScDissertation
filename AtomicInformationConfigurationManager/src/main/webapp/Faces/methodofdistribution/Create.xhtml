@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateMethodofdistributionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateMethodofdistributionLabel_method}" for="method" />
+                    <h:inputText id="method" value="#{methodofdistributionController.selected.method}" title="#{bundle.CreateMethodofdistributionTitle_method}" required="true" requiredMessage="#{bundle.CreateMethodofdistributionRequiredMessage_method}"/>
+                    <h:outputLabel value="#{bundle.CreateMethodofdistributionLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{methodofdistributionController.selected.id}" title="#{bundle.CreateMethodofdistributionTitle_id}" required="true" requiredMessage="#{bundle.CreateMethodofdistributionRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateMethodofdistributionLabel_versionNumber}" for="versionNumber" />
+                    <h:inputText id="versionNumber" value="#{methodofdistributionController.selected.versionNumber}" title="#{bundle.CreateMethodofdistributionTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateMethodofdistributionRequiredMessage_versionNumber}"/>
+                    <h:outputLabel value="#{bundle.CreateMethodofdistributionLabel_previousVersionReference}" for="previousVersionReference" />
+                    <h:inputText id="previousVersionReference" value="#{methodofdistributionController.selected.previousVersionReference}" title="#{bundle.CreateMethodofdistributionTitle_previousVersionReference}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{methodofdistributionController.create}" value="#{bundle.CreateMethodofdistributionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{methodofdistributionController.prepareList}" value="#{bundle.CreateMethodofdistributionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateMethodofdistributionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

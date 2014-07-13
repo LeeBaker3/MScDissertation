@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTypeofatomicinformationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTypeofatomicinformationLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{typeofatomicinformationController.selected.type}" title="#{bundle.CreateTypeofatomicinformationTitle_type}" required="true" requiredMessage="#{bundle.CreateTypeofatomicinformationRequiredMessage_type}"/>
+                    <h:outputLabel value="#{bundle.CreateTypeofatomicinformationLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{typeofatomicinformationController.selected.id}" title="#{bundle.CreateTypeofatomicinformationTitle_id}" required="true" requiredMessage="#{bundle.CreateTypeofatomicinformationRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateTypeofatomicinformationLabel_versionNumber}" for="versionNumber" />
+                    <h:inputText id="versionNumber" value="#{typeofatomicinformationController.selected.versionNumber}" title="#{bundle.CreateTypeofatomicinformationTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateTypeofatomicinformationRequiredMessage_versionNumber}"/>
+                    <h:outputLabel value="#{bundle.CreateTypeofatomicinformationLabel_previousVersionReference}" for="previousVersionReference" />
+                    <h:inputText id="previousVersionReference" value="#{typeofatomicinformationController.selected.previousVersionReference}" title="#{bundle.CreateTypeofatomicinformationTitle_previousVersionReference}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{typeofatomicinformationController.create}" value="#{bundle.CreateTypeofatomicinformationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{typeofatomicinformationController.prepareList}" value="#{bundle.CreateTypeofatomicinformationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTypeofatomicinformationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

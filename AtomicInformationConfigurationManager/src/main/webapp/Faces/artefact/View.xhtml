@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewArtefactTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewArtefactLabel_artefactName}"/>
+                    <h:outputText value="#{artefactController.selected.artefactName}" title="#{bundle.ViewArtefactTitle_artefactName}"/>
+                    <h:outputText value="#{bundle.ViewArtefactLabel_artefactMajorVersionNumber}"/>
+                    <h:outputText value="#{artefactController.selected.artefactMajorVersionNumber}" title="#{bundle.ViewArtefactTitle_artefactMajorVersionNumber}"/>
+                    <h:outputText value="#{bundle.ViewArtefactLabel_artefactMinorVersionNumber}"/>
+                    <h:outputText value="#{artefactController.selected.artefactMinorVersionNumber}" title="#{bundle.ViewArtefactTitle_artefactMinorVersionNumber}"/>
+                    <h:outputText value="#{bundle.ViewArtefactLabel_projectID}"/>
+                    <h:outputText value="#{artefactController.selected.projectID}" title="#{bundle.ViewArtefactTitle_projectID}"/>
+                    <h:outputText value="#{bundle.ViewArtefactLabel_id}"/>
+                    <h:outputText value="#{artefactController.selected.id}" title="#{bundle.ViewArtefactTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewArtefactLabel_versionNumber}"/>
+                    <h:outputText value="#{artefactController.selected.versionNumber}" title="#{bundle.ViewArtefactTitle_versionNumber}"/>
+                    <h:outputText value="#{bundle.ViewArtefactLabel_previousVersionReference}"/>
+                    <h:outputText value="#{artefactController.selected.previousVersionReference}" title="#{bundle.ViewArtefactTitle_previousVersionReference}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{artefactController.destroyAndView}" value="#{bundle.ViewArtefactDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewArtefactEditLink}"/>
+                <br />
+                <h:commandLink action="#{artefactController.prepareCreate}" value="#{bundle.ViewArtefactCreateLink}" />
+                <br />
+                <h:commandLink action="#{artefactController.prepareList}" value="#{bundle.ViewArtefactShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewArtefactIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

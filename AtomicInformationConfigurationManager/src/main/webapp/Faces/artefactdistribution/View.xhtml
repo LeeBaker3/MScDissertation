@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewArtefactdistributionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_artefactDistributionID}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.artefactDistributionID}" title="#{bundle.ViewArtefactdistributionTitle_artefactDistributionID}"/>
+                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_methodOfDistributionID}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.ViewArtefactdistributionTitle_methodOfDistributionID}"/>
+                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_dateOfArtefactDistribution}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.dateOfArtefactDistribution}" title="#{bundle.ViewArtefactdistributionTitle_dateOfArtefactDistribution}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_distributionRecipientID}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.distributionRecipientID}" title="#{bundle.ViewArtefactdistributionTitle_distributionRecipientID}"/>
+                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_artefactID}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.artefactID}" title="#{bundle.ViewArtefactdistributionTitle_artefactID}"/>
+                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_id}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.id}" title="#{bundle.ViewArtefactdistributionTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_versionNumber}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.versionNumber}" title="#{bundle.ViewArtefactdistributionTitle_versionNumber}"/>
+                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_previousVersionReference}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.previousVersionReference}" title="#{bundle.ViewArtefactdistributionTitle_previousVersionReference}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{artefactdistributionController.destroyAndView}" value="#{bundle.ViewArtefactdistributionDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewArtefactdistributionEditLink}"/>
+                <br />
+                <h:commandLink action="#{artefactdistributionController.prepareCreate}" value="#{bundle.ViewArtefactdistributionCreateLink}" />
+                <br />
+                <h:commandLink action="#{artefactdistributionController.prepareList}" value="#{bundle.ViewArtefactdistributionShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewArtefactdistributionIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
