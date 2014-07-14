@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDistributionrecipientTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDistributionrecipientEmpty}" rendered="#{distributionrecipientController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{distributionrecipientController.items.rowCount > 0}">
+                    <h:outputText value="#{distributionrecipientController.pagination.pageFirstItem + 1}..#{distributionrecipientController.pagination.pageLastItem + 1}/#{distributionrecipientController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{distributionrecipientController.previous}" value="#{bundle.Previous} #{distributionrecipientController.pagination.pageSize}" rendered="#{distributionrecipientController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{distributionrecipientController.next}" value="#{bundle.Next} #{distributionrecipientController.pagination.pageSize}" rendered="#{distributionrecipientController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{distributionrecipientController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_distributionRecipientID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.distributionRecipientID}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_versionNumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.versionNumber}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_isCurrentVersion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.isCurrentVersion}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_previousVersionReference}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.previousVersionReference}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_entityActive}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.entityActive}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_firstName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.firstName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_surname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.surname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_EMailAddress}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.EMailAddress}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_mobileNumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mobileNumber}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_officeNumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.officeNumber}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_companyName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.companyName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_projectID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.projectID}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{distributionrecipientController.prepareView}" value="#{bundle.ListDistributionrecipientViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{distributionrecipientController.prepareEdit}" value="#{bundle.ListDistributionrecipientEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{distributionrecipientController.destroy}" value="#{bundle.ListDistributionrecipientDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{distributionrecipientController.prepareCreate}" value="#{bundle.ListDistributionrecipientCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDistributionrecipientIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

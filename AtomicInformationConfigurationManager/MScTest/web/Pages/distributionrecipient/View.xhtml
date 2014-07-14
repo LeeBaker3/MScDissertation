@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDistributionrecipientTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_distributionRecipientID}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.distributionRecipientID}" title="#{bundle.ViewDistributionrecipientTitle_distributionRecipientID}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_versionNumber}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.versionNumber}" title="#{bundle.ViewDistributionrecipientTitle_versionNumber}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_isCurrentVersion}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.isCurrentVersion}" title="#{bundle.ViewDistributionrecipientTitle_isCurrentVersion}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_previousVersionReference}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.previousVersionReference}" title="#{bundle.ViewDistributionrecipientTitle_previousVersionReference}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_entityActive}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.entityActive}" title="#{bundle.ViewDistributionrecipientTitle_entityActive}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_firstName}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.firstName}" title="#{bundle.ViewDistributionrecipientTitle_firstName}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_surname}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.surname}" title="#{bundle.ViewDistributionrecipientTitle_surname}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_EMailAddress}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.EMailAddress}" title="#{bundle.ViewDistributionrecipientTitle_EMailAddress}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_mobileNumber}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.mobileNumber}" title="#{bundle.ViewDistributionrecipientTitle_mobileNumber}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_officeNumber}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.officeNumber}" title="#{bundle.ViewDistributionrecipientTitle_officeNumber}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_companyName}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.companyName}" title="#{bundle.ViewDistributionrecipientTitle_companyName}"/>
+                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_projectID}"/>
+                    <h:outputText value="#{distributionrecipientController.selected.projectID}" title="#{bundle.ViewDistributionrecipientTitle_projectID}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{distributionrecipientController.destroyAndView}" value="#{bundle.ViewDistributionrecipientDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDistributionrecipientEditLink}"/>
+                <br />
+                <h:commandLink action="#{distributionrecipientController.prepareCreate}" value="#{bundle.ViewDistributionrecipientCreateLink}" />
+                <br />
+                <h:commandLink action="#{distributionrecipientController.prepareList}" value="#{bundle.ViewDistributionrecipientShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDistributionrecipientIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

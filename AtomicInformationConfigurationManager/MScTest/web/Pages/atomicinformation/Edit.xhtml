@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditAtomicinformationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_atomicInformationID}" for="atomicInformationID" />
+                    <h:inputText id="atomicInformationID" value="#{atomicinformationController.selected.atomicInformationID}" title="#{bundle.EditAtomicinformationTitle_atomicInformationID}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_atomicInformationID}"/>
+                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_versionNumber}" for="versionNumber" />
+                    <h:inputText id="versionNumber" value="#{atomicinformationController.selected.versionNumber}" title="#{bundle.EditAtomicinformationTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_versionNumber}"/>
+                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_isCurrentVersion}" for="isCurrentVersion" />
+                    <h:inputText id="isCurrentVersion" value="#{atomicinformationController.selected.isCurrentVersion}" title="#{bundle.EditAtomicinformationTitle_isCurrentVersion}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_isCurrentVersion}"/>
+                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_previousVersionReference}" for="previousVersionReference" />
+                    <h:inputText id="previousVersionReference" value="#{atomicinformationController.selected.previousVersionReference}" title="#{bundle.EditAtomicinformationTitle_previousVersionReference}" />
+                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_entityActive}" for="entityActive" />
+                    <h:inputText id="entityActive" value="#{atomicinformationController.selected.entityActive}" title="#{bundle.EditAtomicinformationTitle_entityActive}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_entityActive}"/>
+                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_content}" for="content" />
+                    <h:inputText id="content" value="#{atomicinformationController.selected.content}" title="#{bundle.EditAtomicinformationTitle_content}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_content}"/>
+                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_typeOfAtomicInformationID}" for="typeOfAtomicInformationID" />
+                    <h:selectOneMenu id="typeOfAtomicInformationID" value="#{atomicinformationController.selected.typeOfAtomicInformationID}" title="#{bundle.EditAtomicinformationTitle_typeOfAtomicInformationID}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_typeOfAtomicInformationID}">
+                        <f:selectItems value="#{typeofatomicinformationController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_artefactID}" for="artefactID" />
+                    <h:selectOneMenu id="artefactID" value="#{atomicinformationController.selected.artefactID}" title="#{bundle.EditAtomicinformationTitle_artefactID}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_artefactID}">
+                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_projectID}" for="projectID" />
+                    <h:selectOneMenu id="projectID" value="#{atomicinformationController.selected.projectID}" title="#{bundle.EditAtomicinformationTitle_projectID}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_projectID}">
+                        <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{atomicinformationController.update}" value="#{bundle.EditAtomicinformationSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditAtomicinformationViewLink}"/>
+                <br />
+                <h:commandLink action="#{atomicinformationController.prepareList}" value="#{bundle.EditAtomicinformationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditAtomicinformationIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

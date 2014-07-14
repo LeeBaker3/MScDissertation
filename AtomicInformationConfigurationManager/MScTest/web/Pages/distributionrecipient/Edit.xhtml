@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDistributionrecipientTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_distributionRecipientID}" for="distributionRecipientID" />
+                    <h:inputText id="distributionRecipientID" value="#{distributionrecipientController.selected.distributionRecipientID}" title="#{bundle.EditDistributionrecipientTitle_distributionRecipientID}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_distributionRecipientID}"/>
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_versionNumber}" for="versionNumber" />
+                    <h:inputText id="versionNumber" value="#{distributionrecipientController.selected.versionNumber}" title="#{bundle.EditDistributionrecipientTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_versionNumber}"/>
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_isCurrentVersion}" for="isCurrentVersion" />
+                    <h:inputText id="isCurrentVersion" value="#{distributionrecipientController.selected.isCurrentVersion}" title="#{bundle.EditDistributionrecipientTitle_isCurrentVersion}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_isCurrentVersion}"/>
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_previousVersionReference}" for="previousVersionReference" />
+                    <h:inputText id="previousVersionReference" value="#{distributionrecipientController.selected.previousVersionReference}" title="#{bundle.EditDistributionrecipientTitle_previousVersionReference}" />
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_entityActive}" for="entityActive" />
+                    <h:inputText id="entityActive" value="#{distributionrecipientController.selected.entityActive}" title="#{bundle.EditDistributionrecipientTitle_entityActive}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_entityActive}"/>
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_firstName}" for="firstName" />
+                    <h:inputText id="firstName" value="#{distributionrecipientController.selected.firstName}" title="#{bundle.EditDistributionrecipientTitle_firstName}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_firstName}"/>
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_surname}" for="surname" />
+                    <h:inputText id="surname" value="#{distributionrecipientController.selected.surname}" title="#{bundle.EditDistributionrecipientTitle_surname}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_surname}"/>
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_EMailAddress}" for="EMailAddress" />
+                    <h:inputText id="EMailAddress" value="#{distributionrecipientController.selected.EMailAddress}" title="#{bundle.EditDistributionrecipientTitle_EMailAddress}" />
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_mobileNumber}" for="mobileNumber" />
+                    <h:inputText id="mobileNumber" value="#{distributionrecipientController.selected.mobileNumber}" title="#{bundle.EditDistributionrecipientTitle_mobileNumber}" />
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_officeNumber}" for="officeNumber" />
+                    <h:inputText id="officeNumber" value="#{distributionrecipientController.selected.officeNumber}" title="#{bundle.EditDistributionrecipientTitle_officeNumber}" />
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_companyName}" for="companyName" />
+                    <h:inputText id="companyName" value="#{distributionrecipientController.selected.companyName}" title="#{bundle.EditDistributionrecipientTitle_companyName}" />
+                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_projectID}" for="projectID" />
+                    <h:selectOneMenu id="projectID" value="#{distributionrecipientController.selected.projectID}" title="#{bundle.EditDistributionrecipientTitle_projectID}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_projectID}">
+                        <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{distributionrecipientController.update}" value="#{bundle.EditDistributionrecipientSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditDistributionrecipientViewLink}"/>
+                <br />
+                <h:commandLink action="#{distributionrecipientController.prepareList}" value="#{bundle.EditDistributionrecipientShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditDistributionrecipientIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

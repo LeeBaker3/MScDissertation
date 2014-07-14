@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateArtefactTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateArtefactLabel_artefactID}" for="artefactID" />
+                    <h:inputText id="artefactID" value="#{artefactController.selected.artefactID}" title="#{bundle.CreateArtefactTitle_artefactID}" required="true" requiredMessage="#{bundle.CreateArtefactRequiredMessage_artefactID}"/>
+                    <h:outputLabel value="#{bundle.CreateArtefactLabel_versionNumber}" for="versionNumber" />
+                    <h:inputText id="versionNumber" value="#{artefactController.selected.versionNumber}" title="#{bundle.CreateArtefactTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateArtefactRequiredMessage_versionNumber}"/>
+                    <h:outputLabel value="#{bundle.CreateArtefactLabel_isCurrentVersion}" for="isCurrentVersion" />
+                    <h:inputText id="isCurrentVersion" value="#{artefactController.selected.isCurrentVersion}" title="#{bundle.CreateArtefactTitle_isCurrentVersion}" required="true" requiredMessage="#{bundle.CreateArtefactRequiredMessage_isCurrentVersion}"/>
+                    <h:outputLabel value="#{bundle.CreateArtefactLabel_previousVersionReference}" for="previousVersionReference" />
+                    <h:inputText id="previousVersionReference" value="#{artefactController.selected.previousVersionReference}" title="#{bundle.CreateArtefactTitle_previousVersionReference}" />
+                    <h:outputLabel value="#{bundle.CreateArtefactLabel_entityActive}" for="entityActive" />
+                    <h:inputText id="entityActive" value="#{artefactController.selected.entityActive}" title="#{bundle.CreateArtefactTitle_entityActive}" required="true" requiredMessage="#{bundle.CreateArtefactRequiredMessage_entityActive}"/>
+                    <h:outputLabel value="#{bundle.CreateArtefactLabel_artefactName}" for="artefactName" />
+                    <h:inputText id="artefactName" value="#{artefactController.selected.artefactName}" title="#{bundle.CreateArtefactTitle_artefactName}" required="true" requiredMessage="#{bundle.CreateArtefactRequiredMessage_artefactName}"/>
+                    <h:outputLabel value="#{bundle.CreateArtefactLabel_artefactMajorVersionNumber}" for="artefactMajorVersionNumber" />
+                    <h:inputText id="artefactMajorVersionNumber" value="#{artefactController.selected.artefactMajorVersionNumber}" title="#{bundle.CreateArtefactTitle_artefactMajorVersionNumber}" required="true" requiredMessage="#{bundle.CreateArtefactRequiredMessage_artefactMajorVersionNumber}"/>
+                    <h:outputLabel value="#{bundle.CreateArtefactLabel_artefactMinorVersionNumber}" for="artefactMinorVersionNumber" />
+                    <h:inputText id="artefactMinorVersionNumber" value="#{artefactController.selected.artefactMinorVersionNumber}" title="#{bundle.CreateArtefactTitle_artefactMinorVersionNumber}" required="true" requiredMessage="#{bundle.CreateArtefactRequiredMessage_artefactMinorVersionNumber}"/>
+                    <h:outputLabel value="#{bundle.CreateArtefactLabel_projectID}" for="projectID" />
+                    <h:selectOneMenu id="projectID" value="#{artefactController.selected.projectID}" title="#{bundle.CreateArtefactTitle_projectID}" required="true" requiredMessage="#{bundle.CreateArtefactRequiredMessage_projectID}">
+                        <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{artefactController.create}" value="#{bundle.CreateArtefactSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{artefactController.prepareList}" value="#{bundle.CreateArtefactShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateArtefactIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
