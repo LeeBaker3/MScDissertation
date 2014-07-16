@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class DistributionrecipientFacade extends AbstractFacade<Distributionrecipient> {
-    @PersistenceContext(unitName = "com.mycompany_AtomicInformationConfigurationManager_war_1.0-SNAPSHOTPU")
+    @PersistenceContext(unitName = "AtomicInformationConfigManagerPU")
     private EntityManager em;
 
     @Override

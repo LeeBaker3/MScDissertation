@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ArtefactFacade extends AbstractFacade<Artefact> {
-    @PersistenceContext(unitName = "com.mycompany_AtomicInformationConfigurationManager_war_1.0-SNAPSHOTPU")
+    @PersistenceContext(unitName = "AtomicInformationConfigManagerPU")
     private EntityManager em;
 
     @Override
