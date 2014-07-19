@@ -31,8 +31,6 @@
                     <h:selectOneMenu id="projectID" value="#{distributionrecipientController.selected.projectID}" title="#{bundle.EditDistributionrecipientTitle_projectID}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_projectID}">
                         <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{distributionrecipientController.selected.id}" title="#{bundle.EditDistributionrecipientTitle_id}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{distributionrecipientController.selected.versionNumber}" title="#{bundle.EditDistributionrecipientTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_previousVersionReference}" for="previousVersionReference" />

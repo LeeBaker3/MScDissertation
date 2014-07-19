@@ -10,6 +10,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -25,8 +27,8 @@ import javax.validation.constraints.Size;
 public class BaseEntity implements Serializable {
 
 @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 @Basic(optional = false)
-@NotNull
 protected Integer id;
 
 @Basic(optional = false)

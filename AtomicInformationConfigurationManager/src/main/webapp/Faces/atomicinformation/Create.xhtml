@@ -29,8 +29,6 @@
                     <h:selectOneMenu id="projectID" value="#{atomicinformationController.selected.projectID}" title="#{bundle.CreateAtomicinformationTitle_projectID}" required="true" requiredMessage="#{bundle.CreateAtomicinformationRequiredMessage_projectID}">
                         <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateAtomicinformationLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{atomicinformationController.selected.id}" title="#{bundle.CreateAtomicinformationTitle_id}" required="true" requiredMessage="#{bundle.CreateAtomicinformationRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.CreateAtomicinformationLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{atomicinformationController.selected.versionNumber}" title="#{bundle.CreateAtomicinformationTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateAtomicinformationRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.CreateAtomicinformationLabel_previousVersionReference}" for="previousVersionReference" />

@@ -15,8 +15,6 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_artefactDistributionID}" for="artefactDistributionID" />
-                    <h:inputText id="artefactDistributionID" value="#{artefactdistributionController.selected.artefactDistributionID}" title="#{bundle.EditArtefactdistributionTitle_artefactDistributionID}" />
                     <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_methodOfDistributionID}" for="methodOfDistributionID" />
                     <h:inputText id="methodOfDistributionID" value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.EditArtefactdistributionTitle_methodOfDistributionID}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_methodOfDistributionID}"/>
                     <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_dateOfArtefactDistribution}" for="dateOfArtefactDistribution" />
@@ -31,8 +29,6 @@
                     <h:selectOneMenu id="artefactID" value="#{artefactdistributionController.selected.artefactID}" title="#{bundle.EditArtefactdistributionTitle_artefactID}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_artefactID}">
                         <f:selectItems value="#{artefactController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{artefactdistributionController.selected.id}" title="#{bundle.EditArtefactdistributionTitle_id}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{artefactdistributionController.selected.versionNumber}" title="#{bundle.EditArtefactdistributionTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_previousVersionReference}" for="previousVersionReference" />
