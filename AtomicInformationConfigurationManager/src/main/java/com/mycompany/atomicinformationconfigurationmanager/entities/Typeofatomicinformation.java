@@ -8,6 +8,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,6 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "typeofatomicinformation")
+@AttributeOverride(name = "id", column = @Column(name = "TypeOfAtomicInformationID"))
+
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Typeofatomicinformation.findAll", query = "SELECT t FROM Typeofatomicinformation t"),

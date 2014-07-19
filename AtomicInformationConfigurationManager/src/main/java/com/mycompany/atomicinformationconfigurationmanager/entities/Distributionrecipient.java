@@ -60,7 +60,7 @@ public class Distributionrecipient extends BaseEntity implements Serializable {
     @Column(name = "Surname")
     private String surname;
     @Size(max = 100)
-    @Column(name = "E-MailAddress")
+    @Column(name = "EMailAddress")
     private String eMailAddress;
     @Size(max = 45)
     @Column(name = "MobileNumber")
