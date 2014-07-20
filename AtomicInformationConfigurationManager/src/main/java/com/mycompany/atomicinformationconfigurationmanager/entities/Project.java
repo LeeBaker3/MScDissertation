@@ -137,4 +137,8 @@ public class Project extends BaseEntity implements Serializable {
         return "com.mycompany.atomicinformationconfigurationmanager.entities.Project[ projectID=" + id + " ]";
     }
     
+    @Override
+    public String getColumnString() {
+        return getProjectName() + " " + getProjectReference();
+    } 
 }

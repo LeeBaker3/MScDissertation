@@ -183,4 +183,8 @@ public class Distributionrecipient extends BaseEntity implements Serializable {
         return "com.mycompany.atomicinformationconfigurationmanager.entities.Distributionrecipient[ distributionRecipientID=" + id + " ]";
     }
     
+    @Override
+    public String getColumnString() {
+        return getFirstName() + " " + getSurname();
+    } 
 }

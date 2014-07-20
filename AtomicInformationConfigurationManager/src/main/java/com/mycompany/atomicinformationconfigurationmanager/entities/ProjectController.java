@@ -185,7 +185,7 @@ public class ProjectController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-
+    
     public Project getProject(java.lang.Integer id) {
         return ejbFacade.find(id);
     }

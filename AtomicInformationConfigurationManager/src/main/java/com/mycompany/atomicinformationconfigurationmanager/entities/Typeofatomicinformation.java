@@ -101,4 +101,8 @@ public class Typeofatomicinformation extends BaseEntity implements Serializable 
         return "com.mycompany.atomicinformationconfigurationmanager.entities.Typeofatomicinformation[ typeOfAtomicInformationID=" + id + " ]";
     }
     
+    @Override
+    public String getColumnString() {
+        return getType();
+    } 
 }

@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -49,6 +50,13 @@ protected String previousVersionReference;
 @NotNull
 @Column(name = "EntityActive")
 protected boolean entityActive;
+
+/*  The columnString variable is used to build the entity identifier
+    that will be displayed to the user but doesn't contain the fully
+    qualified name of the toString method
+*/
+@Transient
+protected String columnString;
 
     public Integer getId() {
         return id;
@@ -89,4 +97,9 @@ protected boolean entityActive;
     public void setEntityActive(boolean EntityActive) {
         this.entityActive = EntityActive;
     }
+    
+    public String getColumnString() {
+        return columnString;
+    }
+
 }

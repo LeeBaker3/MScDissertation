@@ -126,4 +126,8 @@ public class Atomicinformation extends BaseEntity implements Serializable {
         return "com.mycompany.atomicinformationconfigurationmanager.entities.Atomicinformation[ atomicInformationID=" + id + " ]";
     }
     
+    @Override
+    public String getColumnString() {
+        return this.typeOfAtomicInformationID.getColumnString() + ":" + getContent();
+    } 
 }
