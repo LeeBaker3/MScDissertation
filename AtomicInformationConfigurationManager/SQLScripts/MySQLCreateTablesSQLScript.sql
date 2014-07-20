@@ -3,23 +3,11 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
--- -----------------------------------------------------
 -- Schema AtomicInformationConfigurationManagerDB
 -- -----------------------------------------------------
 -- Author: Lee Baker
 -- Descritpion: Relational Database For Liverpool University MSc Dissertation 
 CREATE SCHEMA IF NOT EXISTS `AtomicInformationConfigurationManagerDB` ;
-USE `mydb` ;
-
--- -----------------------------------------------------
--- Table `mydb`.`timestamps_1`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`timestamps_1` (
-  `create_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` TIMESTAMP NULL);
 
 USE `AtomicInformationConfigurationManagerDB` ;
 
@@ -27,7 +15,7 @@ USE `AtomicInformationConfigurationManagerDB` ;
 -- Table `AtomicInformationConfigurationManagerDB`.`Project`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`Project` (
-  `ProjectID` INT NOT NULL,
+  `ProjectID` INT NOT NULL AUTO_INCREMENT,
   `ProjectReference` VARCHAR(45) NULL,
   `ProjectName` VARCHAR(45) NULL,
   `VersionNumber` INT NOT NULL,
@@ -42,7 +30,7 @@ ENGINE = InnoDB;
 -- Table `AtomicInformationConfigurationManagerDB`.`Artefact`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`Artefact` (
-  `ArtefactID` INT NOT NULL,
+  `ArtefactID` INT NOT NULL AUTO_INCREMENT,
   `VersionNumber` INT NOT NULL,
   `IsCurrentVersion` TINYINT(1) NOT NULL,
   `PreviousVersionReference` VARCHAR(45) NULL,
@@ -65,8 +53,12 @@ ENGINE = InnoDB;
 -- Table `AtomicInformationConfigurationManagerDB`.`TypeOfAtomicInformation`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`TypeOfAtomicInformation` (
-  `TypeOfAtomicInformationID` INT NOT NULL,
+  `TypeOfAtomicInformationID` INT NOT NULL AUTO_INCREMENT,
   `Type` VARCHAR(45) NOT NULL,
+  `VersionNumber` INT NOT NULL,
+  `IsCurrentVersion` TINYINT(1) NOT NULL,
+  `PreviousVersionReference` VARCHAR(45) NULL,
+  `EntityActive` TINYINT(1) NOT NULL,
   PRIMARY KEY (`TypeOfAtomicInformationID`))
 ENGINE = InnoDB;
 
@@ -75,7 +67,7 @@ ENGINE = InnoDB;
 -- Table `AtomicInformationConfigurationManagerDB`.`AtomicInformation`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`AtomicInformation` (
-  `AtomicInformationID` INT NOT NULL,
+  `AtomicInformationID` INT NOT NULL AUTO_INCREMENT,
   `ArtefactID` INT NOT NULL,
   `TypeOfAtomicInformationID` INT NOT NULL,
   `VersionNumber` INT NOT NULL,
@@ -110,8 +102,12 @@ ENGINE = InnoDB;
 -- Table `AtomicInformationConfigurationManagerDB`.`MethodOfDistribution`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`MethodOfDistribution` (
-  `MethodOfDistributionID` INT NOT NULL,
+  `MethodOfDistributionID` INT NOT NULL AUTO_INCREMENT,
   `Method` VARCHAR(45) NOT NULL,
+  `VersionNumber` INT NOT NULL,
+  `IsCurrentVersion` TINYINT(1) NOT NULL,
+  `PreviousVersionReference` VARCHAR(45) NULL,
+  `EntityActive` TINYINT(1) NOT NULL,
   PRIMARY KEY (`MethodOfDistributionID`))
 ENGINE = InnoDB;
 
@@ -120,7 +116,7 @@ ENGINE = InnoDB;
 -- Table `AtomicInformationConfigurationManagerDB`.`DistributionRecipient`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`DistributionRecipient` (
-  `DistributionRecipientID` INT NOT NULL,
+  `DistributionRecipientID` INT NOT NULL AUTO_INCREMENT,
   `ProjectID` INT NOT NULL,
   `VersionNumber` INT NOT NULL,
   `IsCurrentVersion` TINYINT(1) NOT NULL,
@@ -128,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`Distributi
   `EntityActive` TINYINT(1) NOT NULL,
   `FirstName` VARCHAR(45) NOT NULL,
   `Surname` VARCHAR(45) NOT NULL,
-  `E-MailAddress` VARCHAR(100) NULL,
+  `EMailAddress` VARCHAR(100) NULL,
   `MobileNumber` VARCHAR(45) NULL,
   `OfficeNumber` VARCHAR(45) NULL,
   `CompanyName` VARCHAR(50) NULL,
@@ -146,7 +142,7 @@ ENGINE = InnoDB;
 -- Table `AtomicInformationConfigurationManagerDB`.`ArtefactDistribution`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`ArtefactDistribution` (
-  `ArtefactDistributionID` INT NOT NULL,
+  `ArtefactDistributionID` INT NOT NULL AUTO_INCREMENT,
   `ArtefactID` INT NOT NULL,
   `MethodOfDistributionID` INT NOT NULL,
   `VersionNumber` INT NOT NULL,
