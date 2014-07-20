@@ -29,10 +29,14 @@
                     <h:selectOneMenu id="projectID" value="#{atomicinformationController.selected.projectID}" title="#{bundle.CreateAtomicinformationTitle_projectID}" required="true" requiredMessage="#{bundle.CreateAtomicinformationRequiredMessage_projectID}">
                         <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
+                    
+                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
                     <h:outputLabel value="#{bundle.CreateAtomicinformationLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{atomicinformationController.selected.versionNumber}" title="#{bundle.CreateAtomicinformationTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateAtomicinformationRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.CreateAtomicinformationLabel_previousVersionReference}" for="previousVersionReference" />
                     <h:inputText id="previousVersionReference" value="#{atomicinformationController.selected.previousVersionReference}" title="#{bundle.CreateAtomicinformationTitle_previousVersionReference}" />
+                    -->
+                    
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{atomicinformationController.create}" value="#{bundle.CreateAtomicinformationSaveLink}" />

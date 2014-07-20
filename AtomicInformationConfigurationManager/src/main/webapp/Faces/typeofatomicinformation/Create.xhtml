@@ -17,10 +17,14 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateTypeofatomicinformationLabel_type}" for="type" />
                     <h:inputText id="type" value="#{typeofatomicinformationController.selected.type}" title="#{bundle.CreateTypeofatomicinformationTitle_type}" required="true" requiredMessage="#{bundle.CreateTypeofatomicinformationRequiredMessage_type}"/>
+                    
+                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
                     <h:outputLabel value="#{bundle.CreateTypeofatomicinformationLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{typeofatomicinformationController.selected.versionNumber}" title="#{bundle.CreateTypeofatomicinformationTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateTypeofatomicinformationRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.CreateTypeofatomicinformationLabel_previousVersionReference}" for="previousVersionReference" />
                     <h:inputText id="previousVersionReference" value="#{typeofatomicinformationController.selected.previousVersionReference}" title="#{bundle.CreateTypeofatomicinformationTitle_previousVersionReference}" />
+                    -->
+                    
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{typeofatomicinformationController.create}" value="#{bundle.CreateTypeofatomicinformationSaveLink}" />

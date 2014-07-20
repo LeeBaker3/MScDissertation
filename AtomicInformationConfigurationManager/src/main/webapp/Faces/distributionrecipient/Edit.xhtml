@@ -31,10 +31,14 @@
                     <h:selectOneMenu id="projectID" value="#{distributionrecipientController.selected.projectID}" title="#{bundle.EditDistributionrecipientTitle_projectID}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_projectID}">
                         <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
+                    
+                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
                     <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{distributionrecipientController.selected.versionNumber}" title="#{bundle.EditDistributionrecipientTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditDistributionrecipientRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.EditDistributionrecipientLabel_previousVersionReference}" for="previousVersionReference" />
                     <h:inputText id="previousVersionReference" value="#{distributionrecipientController.selected.previousVersionReference}" title="#{bundle.EditDistributionrecipientTitle_previousVersionReference}" />
+                    -->
+                    
                 </h:panelGrid>
                 <h:commandLink action="#{distributionrecipientController.update}" value="#{bundle.EditDistributionrecipientSaveLink}"/>
                 <br />

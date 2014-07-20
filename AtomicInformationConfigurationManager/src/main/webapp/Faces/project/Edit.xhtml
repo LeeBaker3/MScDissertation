@@ -19,10 +19,14 @@
                     <h:inputText id="projectReference" value="#{projectController.selected.projectReference}" title="#{bundle.EditProjectTitle_projectReference}" />
                     <h:outputLabel value="#{bundle.EditProjectLabel_projectName}" for="projectName" />
                     <h:inputText id="projectName" value="#{projectController.selected.projectName}" title="#{bundle.EditProjectTitle_projectName}" />
+                    
+                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
                     <h:outputLabel value="#{bundle.EditProjectLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{projectController.selected.versionNumber}" title="#{bundle.EditProjectTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditProjectRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.EditProjectLabel_previousVersionReference}" for="previousVersionReference" />
                     <h:inputText id="previousVersionReference" value="#{projectController.selected.previousVersionReference}" title="#{bundle.EditProjectTitle_previousVersionReference}" />
+                    -->
+                    
                 </h:panelGrid>
                 <h:commandLink action="#{projectController.update}" value="#{bundle.EditProjectSaveLink}"/>
                 <br />

@@ -17,10 +17,14 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateMethodofdistributionLabel_method}" for="method" />
                     <h:inputText id="method" value="#{methodofdistributionController.selected.method}" title="#{bundle.CreateMethodofdistributionTitle_method}" required="true" requiredMessage="#{bundle.CreateMethodofdistributionRequiredMessage_method}"/>
+                    
+                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
                     <h:outputLabel value="#{bundle.CreateMethodofdistributionLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{methodofdistributionController.selected.versionNumber}" title="#{bundle.CreateMethodofdistributionTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateMethodofdistributionRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.CreateMethodofdistributionLabel_previousVersionReference}" for="previousVersionReference" />
                     <h:inputText id="previousVersionReference" value="#{methodofdistributionController.selected.previousVersionReference}" title="#{bundle.CreateMethodofdistributionTitle_previousVersionReference}" />
+                    -->
+                    
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{methodofdistributionController.create}" value="#{bundle.CreateMethodofdistributionSaveLink}" />
