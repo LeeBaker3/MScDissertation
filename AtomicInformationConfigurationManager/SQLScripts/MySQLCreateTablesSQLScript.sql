@@ -164,6 +164,11 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`ArtefactDi
     FOREIGN KEY (`DistributionRecipientID`)
     REFERENCES `AtomicInformationConfigurationManagerDB`.`DistributionRecipient` (`DistributionRecipientID`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ArtefactDistribution_MethodOfDistributionID`
+    FOREIGN KEY (`MethodOfDistributionID`)
+    REFERENCES `AtomicInformationConfigurationManagerDB`.`MethodOfDistribution` (`MethodOfDistributionID`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -171,3 +176,42 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+-- -----------------------------------------------------
+-- insert Standard Methods of Distribution into methodsofdistribution Table
+-- -----------------------------------------------------
+
+INSERT INTO methodofdistribution (`Method`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
+	VALUES ('E-Mail', 1, true, NULL, true);
+
+INSERT INTO methodofdistribution (`Method`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
+	VALUES ('Post', 1, true, NULL, true);
+
+INSERT INTO methodofdistribution (`Method`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
+	VALUES ('FTP', 1, true, NULL, true);
+
+INSERT INTO methodofdistribution (`Method`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
+	VALUES ('Courier', 1, true, NULL, true);
+
+INSERT INTO methodofdistribution (`Method`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
+	VALUES ('Other', 1, true, NULL, true);
+
+-- -----------------------------------------------------
+-- insert Standard Types of Atomic Infromation into typesofatomicinfromation Table
+-- -----------------------------------------------------
+
+INSERT INTO typeofatomicinformation (`Type`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
+	VALUES ('Requirement', 1, true, '', true);
+
+INSERT INTO typeofatomicinformation (`Type`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
+	VALUES ('Function', 1, true, '', true);
+
+INSERT INTO typeofatomicinformation (`Type`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
+	VALUES ('Stakeholder', 1, true, '', true);
+
+INSERT INTO typeofatomicinformation (`Type`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
+	VALUES ('Project Manager', 1, true, '', true);
+
+INSERT INTO typeofatomicinformation (`Type`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
+	VALUES ('Project Sponsor', 1, true, '', true);
