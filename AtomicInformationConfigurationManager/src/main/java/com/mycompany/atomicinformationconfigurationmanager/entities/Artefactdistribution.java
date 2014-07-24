@@ -43,10 +43,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Artefactdistribution extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MethodOfDistributionID")
-    private int methodOfDistributionID;
+    @JoinColumn(name = "MethodOfDistributionID", referencedColumnName = "MethodOfDistributionID")
+    @ManyToOne(optional = false)
+    private Methodofdistribution methodOfDistributionID;
     
     @Basic(optional = false)
     @NotNull
@@ -69,7 +68,7 @@ public class Artefactdistribution extends BaseEntity implements Serializable {
 
     public Artefactdistribution(Integer artefactDistributionID, int methodOfDistributionID, int versionNumber, boolean isCurrentVersion, boolean entityActive, Date dateOfArtefactDistribution) {
         this.id = artefactDistributionID;
-        this.methodOfDistributionID = methodOfDistributionID;
+        //this.methodOfDistributionID = methodOfDistributionID;
         this.versionNumber = versionNumber;
         this.isCurrentVersion = isCurrentVersion;
         this.entityActive = entityActive;
@@ -84,11 +83,11 @@ public class Artefactdistribution extends BaseEntity implements Serializable {
         this.id = artefactDistributionID;
     }
 
-    public int getMethodOfDistributionID() {
+    public Methodofdistribution getMethodOfDistributionID() {
         return methodOfDistributionID;
     }
 
-    public void setMethodOfDistributionID(int methodOfDistributionID) {
+    public void setMethodOfDistributionID(Methodofdistribution methodOfDistributionID) {
         this.methodOfDistributionID = methodOfDistributionID;
     }
 
