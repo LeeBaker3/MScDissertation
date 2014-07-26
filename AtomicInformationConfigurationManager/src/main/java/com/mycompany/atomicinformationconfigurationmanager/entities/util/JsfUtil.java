@@ -1,6 +1,5 @@
 package com.mycompany.atomicinformationconfigurationmanager.entities.util;
 
-import com.mycompany.atomicinformationconfigurationmanager.entities.BaseEntity;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -24,23 +23,6 @@ public class JsfUtil {
         return items;
     }
         
-        /*  used to get a entity description that is end user friendly
-        *   and doesn't display the fully qualified name.
-        */
-        public static SelectItem[] getColumnSelectItems(List<BaseEntity> entities, boolean selectOne) {
-        int size = selectOne ? entities.size() + 1 : entities.size();
-        SelectItem[] items = new SelectItem[size];
-        int i = 0;
-        if (selectOne) {
-            items[0] = new SelectItem("", "---");
-            i++;
-        }
-        for (BaseEntity x : entities) {
-            items[i++] = new SelectItem(x, x.getColumnString());
-        }
-        return items;
-    }
-
     
     public static void addErrorMessage(Exception ex, String defaultMsg) {
         String msg = ex.getLocalizedMessage();

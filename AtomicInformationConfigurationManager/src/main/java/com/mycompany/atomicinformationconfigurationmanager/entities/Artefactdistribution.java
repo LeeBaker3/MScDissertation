@@ -137,12 +137,6 @@ public class Artefactdistribution extends BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.atomicinformationconfigurationmanager.entities.Artefactdistribution[ artefactDistributionID=" + id + " ]";
-    }
-    
-    @Override
-    public String getColumnString() {
-        return this.artefactID.getArtefactName() + "distributed to " + this.distributionRecipientID.getColumnString();
+        return this.artefactID.getArtefactName() + "distributed to " + this.distributionRecipientID.toString();
     } 
-    
 }

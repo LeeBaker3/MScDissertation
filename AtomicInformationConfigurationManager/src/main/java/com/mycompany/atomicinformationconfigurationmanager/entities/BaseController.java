@@ -27,6 +27,6 @@ public class BaseController implements Serializable{
     private com.mycompany.atomicinformationconfigurationmanager.entities.BaseEntityFacade ejbFacade;
     
         public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getColumnSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 }

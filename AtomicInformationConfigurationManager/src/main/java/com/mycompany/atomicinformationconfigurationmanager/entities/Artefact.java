@@ -158,11 +158,6 @@ public class Artefact extends BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.atomicinformationconfigurationmanager.entities.Artefact[ artefactID=" + id + " ]";
-    }
-    
-    @Override
-    public String getColumnString() {
         return getArtefactName();
-    } 
+    }
 }

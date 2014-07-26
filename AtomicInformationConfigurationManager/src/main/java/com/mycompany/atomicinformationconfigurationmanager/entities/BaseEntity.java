@@ -51,13 +51,6 @@ protected String previousVersionReference;
 @Column(name = "EntityActive")
 protected boolean entityActive;
 
-/*  The columnString variable is used to build the entity identifier
-    that will be displayed to the user but doesn't contain the fully
-    qualified name of the toString method
-*/
-@Transient
-protected String columnString;
-
     public Integer getId() {
         return id;
     }
@@ -97,9 +90,4 @@ protected String columnString;
     public void setEntityActive(boolean EntityActive) {
         this.entityActive = EntityActive;
     }
-    
-    public String getColumnString() {
-        return columnString;
-    }
-
 }

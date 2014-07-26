@@ -27,11 +27,11 @@
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_distributionRecipientID}" for="distributionRecipientID" />
                     <h:selectOneMenu id="distributionRecipientID" value="#{artefactdistributionController.selected.distributionRecipientID}" title="#{bundle.CreateArtefactdistributionTitle_distributionRecipientID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_distributionRecipientID}">
-                        <f:selectItems value="#{distributionrecipientController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{distributionrecipientController.itemsAvailableSelectOne}" />
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_artefactID}" for="artefactID" />
                     <h:selectOneMenu id="artefactID" value="#{artefactdistributionController.selected.artefactID}" title="#{bundle.CreateArtefactdistributionTitle_artefactID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_artefactID}">
-                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}" itemLabel="#()"/>
                     </h:selectOneMenu>
                     
                     <!-- IDE Generated Code - Not required - Lee Baker 20/07/14
