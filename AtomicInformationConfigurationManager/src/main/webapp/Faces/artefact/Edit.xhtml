@@ -25,14 +25,6 @@
                     <h:selectOneMenu id="projectID" value="#{artefactController.selected.projectID}" title="#{bundle.EditArtefactTitle_projectID}" required="true" requiredMessage="#{bundle.EditArtefactRequiredMessage_projectID}">
                         <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    
-                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                    <h:outputLabel value="#{bundle.EditArtefactLabel_versionNumber}" for="versionNumber" />
-                    <h:inputText id="versionNumber" value="#{artefactController.selected.versionNumber}" title="#{bundle.EditArtefactTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditArtefactRequiredMessage_versionNumber}"/>
-                    <h:outputLabel value="#{bundle.EditArtefactLabel_previousVersionReference}" for="previousVersionReference" />
-                    <h:inputText id="previousVersionReference" value="#{artefactController.selected.previousVersionReference}" title="#{bundle.EditArtefactTitle_previousVersionReference}" />
-                    -->
-                    
                 </h:panelGrid>
                 <h:commandLink action="#{artefactController.update}" value="#{bundle.EditArtefactSaveLink}"/>
                 <br />

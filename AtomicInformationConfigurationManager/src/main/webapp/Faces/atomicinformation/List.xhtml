@@ -30,19 +30,19 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAtomicinformationTitle_typeOfAtomicInformationID}"/>
                             </f:facet>
-                            <h:outputText value="#{item.typeOfAtomicInformationID}"/>
+                            <h:outputText value="#{item.typeOfAtomicInformationID.type}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAtomicinformationTitle_artefactID}"/>
                             </f:facet>
-                            <h:outputText value="#{item.artefactID}"/>
+                            <h:outputText value="#{item.artefactID.artefactName}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAtomicinformationTitle_projectID}"/>
                             </f:facet>
-                            <h:outputText value="#{item.projectID}"/>
+                            <h:outputText value="#{item.projectID.projectName} #{item.projectID.projectReference}"/>
                         </h:column>
                         
                         <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14

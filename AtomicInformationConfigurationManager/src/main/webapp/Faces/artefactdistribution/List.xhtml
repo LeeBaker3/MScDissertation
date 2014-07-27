@@ -30,7 +30,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListArtefactdistributionTitle_methodOfDistributionID}"/>
                             </f:facet>
-                            <h:outputText value="#{item.methodOfDistributionID}"/>
+                            <h:outputText value="#{item.methodOfDistributionID.method}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -44,13 +44,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListArtefactdistributionTitle_distributionRecipientID}"/>
                             </f:facet>
-                            <h:outputText value="#{item.distributionRecipientID}"/>
+                            <h:outputText value="#{item.distributionRecipientID.firstName} #{item.distributionRecipientID.surname}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListArtefactdistributionTitle_artefactID}"/>
                             </f:facet>
-                            <h:outputText value="#{item.artefactID}"/>
+                            <h:outputText value="#{item.artefactID.artefactName}"/>
                         </h:column>
                         
                         <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
