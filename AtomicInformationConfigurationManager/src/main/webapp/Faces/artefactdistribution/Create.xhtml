@@ -15,22 +15,26 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
+
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_methodOfDistributionID}" for="methodOfDistributionID" />
-                    <h:inputText id="methodOfDistributionID" value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.CreateArtefactdistributionTitle_methodOfDistributionID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_methodOfDistributionID}"/>
+                    <h:selectOneMenu id="methodOfDistributionID" value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.CreateArtefactdistributionTitle_methodOfDistributionID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_distributionRecipientID}">
+                        <f:selectItems value="#{methodofdistributionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_dateOfArtefactDistribution}" for="dateOfArtefactDistribution" />
                     <h:inputText id="dateOfArtefactDistribution" value="#{artefactdistributionController.selected.dateOfArtefactDistribution}" title="#{bundle.CreateArtefactdistributionTitle_dateOfArtefactDistribution}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_dateOfArtefactDistribution}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_distributionRecipientID}" for="distributionRecipientID" />
                     <h:selectOneMenu id="distributionRecipientID" value="#{artefactdistributionController.selected.distributionRecipientID}" title="#{bundle.CreateArtefactdistributionTitle_distributionRecipientID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_distributionRecipientID}">
-                        <f:selectItems value="#{distributionrecipientController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{distributionrecipientController.itemsAvailableSelectOne}" />
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_artefactID}" for="artefactID" />
                     <h:selectOneMenu id="artefactID" value="#{artefactdistributionController.selected.artefactID}" title="#{bundle.CreateArtefactdistributionTitle_artefactID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_artefactID}">
-                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}" itemLabel="#()"/>
                     </h:selectOneMenu>
                     
-                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
+                    <!-- IDE Generated Code - Not required - Lee Baker 20/07/14
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{artefactdistributionController.selected.versionNumber}" title="#{bundle.CreateArtefactdistributionTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_previousVersionReference}" for="previousVersionReference" />

@@ -15,18 +15,16 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_artefactDistributionID}"/>
-                    <h:outputText value="#{artefactdistributionController.selected.artefactDistributionID}" title="#{bundle.ViewArtefactdistributionTitle_artefactDistributionID}"/>
                     <h:outputText value="#{bundle.ViewArtefactdistributionLabel_methodOfDistributionID}"/>
-                    <h:outputText value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.ViewArtefactdistributionTitle_methodOfDistributionID}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.methodOfDistributionID.method}" title="#{bundle.ViewArtefactdistributionTitle_methodOfDistributionID}"/>
                     <h:outputText value="#{bundle.ViewArtefactdistributionLabel_dateOfArtefactDistribution}"/>
                     <h:outputText value="#{artefactdistributionController.selected.dateOfArtefactDistribution}" title="#{bundle.ViewArtefactdistributionTitle_dateOfArtefactDistribution}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewArtefactdistributionLabel_distributionRecipientID}"/>
-                    <h:outputText value="#{artefactdistributionController.selected.distributionRecipientID}" title="#{bundle.ViewArtefactdistributionTitle_distributionRecipientID}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.distributionRecipientID.firstName} #{artefactdistributionController.selected.distributionRecipientID.surname}" title="#{bundle.ViewArtefactdistributionTitle_distributionRecipientID}"/>
                     <h:outputText value="#{bundle.ViewArtefactdistributionLabel_artefactID}"/>
-                    <h:outputText value="#{artefactdistributionController.selected.artefactID}" title="#{bundle.ViewArtefactdistributionTitle_artefactID}"/>
+                    <h:outputText value="#{artefactdistributionController.selected.artefactID.artefactName}" title="#{bundle.ViewArtefactdistributionTitle_artefactID}"/>
                     
                     <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
                     <h:outputText value="#{bundle.ViewArtefactdistributionLabel_id}"/>

@@ -82,11 +82,6 @@ public class Methodofdistribution extends BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.atomicinformationconfigurationmanager.entities.Methodofdistribution[ methodOfDistributionID=" + id + " ]";
-    }
-    
-    @Override
-    public String getColumnString() {
         return getMethod();
-    } 
+    }
 }

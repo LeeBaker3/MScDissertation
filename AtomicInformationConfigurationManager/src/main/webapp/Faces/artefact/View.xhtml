@@ -22,17 +22,8 @@
                     <h:outputText value="#{bundle.ViewArtefactLabel_artefactMinorVersionNumber}"/>
                     <h:outputText value="#{artefactController.selected.artefactMinorVersionNumber}" title="#{bundle.ViewArtefactTitle_artefactMinorVersionNumber}"/>
                     <h:outputText value="#{bundle.ViewArtefactLabel_projectID}"/>
-                    <h:outputText value="#{artefactController.selected.projectID}" title="#{bundle.ViewArtefactTitle_projectID}"/>
-                    
-                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                    <h:outputText value="#{bundle.ViewArtefactLabel_id}"/>
-                    <h:outputText value="#{artefactController.selected.id}" title="#{bundle.ViewArtefactTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewArtefactLabel_versionNumber}"/>
-                    <h:outputText value="#{artefactController.selected.versionNumber}" title="#{bundle.ViewArtefactTitle_versionNumber}"/>
-                    <h:outputText value="#{bundle.ViewArtefactLabel_previousVersionReference}"/>
-                    <h:outputText value="#{artefactController.selected.previousVersionReference}" title="#{bundle.ViewArtefactTitle_previousVersionReference}"/>
-                    -->
-                    
+                    <h:outputText value="#{artefactController.selected.projectID.projectName} #{artefactController.selected.projectID.projectReference}" title="#{bundle.ViewArtefactTitle_projectID}"/>
+                </h:panelGrid>
                 <br />
                 <h:commandLink action="#{artefactController.destroyAndView}" value="#{bundle.ViewArtefactDestroyLink}"/>
                 <br />

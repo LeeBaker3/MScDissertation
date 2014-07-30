@@ -15,8 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_methodOfDistributionID}" for="methodOfDistributionID" />
-                    <h:inputText id="methodOfDistributionID" value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.EditArtefactdistributionTitle_methodOfDistributionID}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_methodOfDistributionID}"/>
+                    <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_methodOfDistributionID}" for="methodOfDistributionID" />
+                    <h:selectOneMenu id="methodOfDistributionID" value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.CreateArtefactdistributionTitle_methodOfDistributionID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_distributionRecipientID}">
+                        <f:selectItems value="#{methodofdistributionController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_dateOfArtefactDistribution}" for="dateOfArtefactDistribution" />
                     <h:inputText id="dateOfArtefactDistribution" value="#{artefactdistributionController.selected.dateOfArtefactDistribution}" title="#{bundle.EditArtefactdistributionTitle_dateOfArtefactDistribution}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_dateOfArtefactDistribution}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
