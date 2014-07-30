@@ -7,6 +7,7 @@
 package com.mycompany.atomicinformationconfigurationmanager.stateful;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.Project;
+import java.io.Serializable;
 import javax.ejb.Stateful;
 import javax.inject.Named;
 
@@ -15,14 +16,14 @@ import javax.inject.Named;
  * @author Lee Baker
  * 
  * This class is used to hold the currently selected project by the user
+ * the variable project holds the reference to the Project Entity that has 
+ * been selected.
  */
 @Named("selectedProject")
 @Stateful
-public class SelectedProject {
+public class SelectedProject implements Serializable {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-    
+
     private Project project;
 
     public Project getProject() {
