@@ -6,9 +6,11 @@
 
 package com.mycompany.atomicinformationconfigurationmanager.entities;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,4 +30,10 @@ public class ArtefactFacade extends AbstractFacade<Artefact> {
         super(Artefact.class);
     }
     
+    public List<Artefact> findByProjectID (String projectID){
+        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByProjectID", Artefact.class);
+        query.setParameter("projectID", projectID);
+        List<Artefact> result = query.getResultList();
+        return result;
+    }
 }

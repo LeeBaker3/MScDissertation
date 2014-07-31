@@ -2,6 +2,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
+import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 @Named("artefactController")
 @SessionScoped
@@ -26,6 +28,7 @@ public class ArtefactController implements Serializable {
     private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private Project selectedProject;
 
     public ArtefactController() {
     }
@@ -41,7 +44,12 @@ public class ArtefactController implements Serializable {
     private ArtefactFacade getFacade() {
         return ejbFacade;
     }
-
+    
+    @Inject
+    public void setSelectedProject(SelectedProject selectedProject){
+        this.selectedProject = selectedProject.getProject();
+    }
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -51,6 +59,11 @@ public class ArtefactController implements Serializable {
                     return getFacade().count();
                 }
 
+                
+                /* TO DO Change following method to call search Query for ProjectID
+                *
+                */
+                
                 @Override
                 public DataModel createPageDataModel() {
                     return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
@@ -60,6 +73,7 @@ public class ArtefactController implements Serializable {
         return pagination;
     }
 
+    
     public String prepareList() {
         recreateModel();
         return "List";

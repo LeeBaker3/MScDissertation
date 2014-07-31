@@ -9,6 +9,7 @@ package com.mycompany.atomicinformationconfigurationmanager.stateful;
 import com.mycompany.atomicinformationconfigurationmanager.entities.Project;
 import java.io.Serializable;
 import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 /**
@@ -21,8 +22,8 @@ import javax.inject.Named;
  */
 @Named("selectedProject")
 @Stateful
+@SessionScoped
 public class SelectedProject implements Serializable {
-
 
     private Project project;
 
