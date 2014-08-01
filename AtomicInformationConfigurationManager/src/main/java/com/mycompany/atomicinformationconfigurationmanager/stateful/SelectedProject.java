@@ -17,6 +17,7 @@ import javax.inject.Named;
  * @author Lee Baker
  * 
  * This class is used to hold the currently selected project by the user
+<<<<<<< HEAD
  * the variable project holds the reference to the Project Entity that has 
  * been selected.
  */
