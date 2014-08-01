@@ -58,8 +58,7 @@ public class ArtefactController implements Serializable {
                 public int getItemsCount() {
                     return getFacade().count();
                 }
-
-                
+ 
                 /* TO DO Change following method to call search Query for ProjectID
                 *
                 */
