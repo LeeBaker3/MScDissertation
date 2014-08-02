@@ -18,7 +18,7 @@ import javax.faces.model.SelectItem;
 
 @Named("atomicinformationController")
 @SessionScoped
-public class AtomicinformationController implements Serializable {
+public class AtomicinformationController extends BaseController implements Serializable {
 
     private Atomicinformation current;
     private DataModel items = null;
