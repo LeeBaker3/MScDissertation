@@ -18,7 +18,7 @@ import javax.faces.model.SelectItem;
 
 @Named("baseEntityController")
 @SessionScoped
-public class BaseEntityController implements Serializable {
+public class BaseEntityController extends BaseController implements Serializable {
 
     private BaseEntity current;
     private DataModel items = null;

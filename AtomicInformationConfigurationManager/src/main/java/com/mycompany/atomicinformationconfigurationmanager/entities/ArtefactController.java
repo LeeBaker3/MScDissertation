@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 @Named("artefactController")
 @SessionScoped
-public class ArtefactController implements Serializable {
+public class ArtefactController extends BaseController implements Serializable {
 
     private Artefact current;
     private DataModel items = null;
@@ -99,6 +99,7 @@ public class ArtefactController implements Serializable {
             if(selectedProject != null){
                 current.setProjectID(selectedProject.getProject());
             }
+            setNewEntityActive(current);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactCreated"));
             return prepareCreate();

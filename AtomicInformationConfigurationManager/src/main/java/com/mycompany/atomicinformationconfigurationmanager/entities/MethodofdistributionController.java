@@ -18,7 +18,7 @@ import javax.faces.model.SelectItem;
 
 @Named("methodofdistributionController")
 @SessionScoped
-public class MethodofdistributionController implements Serializable {
+public class MethodofdistributionController extends BaseController implements Serializable {
 
     private Methodofdistribution current;
     private DataModel items = null;

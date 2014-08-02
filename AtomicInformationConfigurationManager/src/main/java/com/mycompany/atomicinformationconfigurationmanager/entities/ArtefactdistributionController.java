@@ -18,7 +18,7 @@ import javax.faces.model.SelectItem;
 
 @Named("artefactdistributionController")
 @SessionScoped
-public class ArtefactdistributionController implements Serializable {
+public class ArtefactdistributionController extends BaseController implements Serializable {
 
     private Artefactdistribution current;
     private DataModel items = null;

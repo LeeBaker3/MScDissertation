@@ -18,7 +18,7 @@ import javax.faces.model.SelectItem;
 
 @Named("projectController")
 @SessionScoped
-public class ProjectController implements Serializable {
+public class ProjectController extends BaseController implements Serializable {
 
     private Project current;
     private DataModel items = null;

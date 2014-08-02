@@ -18,7 +18,7 @@ import javax.faces.model.SelectItem;
 
 @Named("typeofatomicinformationController")
 @SessionScoped
-public class TypeofatomicinformationController implements Serializable {
+public class TypeofatomicinformationController extends BaseController implements Serializable {
 
     private Typeofatomicinformation current;
     private DataModel items = null;
