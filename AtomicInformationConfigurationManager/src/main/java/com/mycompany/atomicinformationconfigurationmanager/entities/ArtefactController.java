@@ -46,10 +46,7 @@ public class ArtefactController implements Serializable {
     private ArtefactFacade getFacade() {
         return ejbFacade;
     }
-    
-
-
-            
+         
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -98,6 +95,10 @@ public class ArtefactController implements Serializable {
 
     public String create() {
         try {
+            //If a project has been selected then create new Artefact with selected Project
+            if(selectedProject != null){
+                current.setProjectID(selectedProject.getProject());
+            }
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactCreated"));
             return prepareCreate();
