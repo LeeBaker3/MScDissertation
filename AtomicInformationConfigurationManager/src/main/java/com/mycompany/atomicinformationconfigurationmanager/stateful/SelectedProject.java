@@ -6,6 +6,7 @@
 
 package com.mycompany.atomicinformationconfigurationmanager.stateful;
 
+import com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.Project;
 import java.io.Serializable;
 import javax.ejb.Stateful;
@@ -27,16 +28,13 @@ import javax.inject.Named;
 public class SelectedProject implements Serializable {
 
     private Project project;
-
+    
     public Project getProject() {
         return project;
     }
 
     public void setProject(Project project) {
         this.project = project;
-    }
-    
-    public void select(){
     }
     
 }

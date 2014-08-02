@@ -30,9 +30,9 @@ public class ArtefactFacade extends AbstractFacade<Artefact> {
         super(Artefact.class);
     }
     
-    public List<Artefact> findByProjectID (String projectID){
+    public List<Artefact> findByProjectID (Project project){
         TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByProjectID", Artefact.class);
-        query.setParameter("projectID", projectID);
+        query.setParameter("projectID", project);
         List<Artefact> result = query.getResultList();
         return result;
     }

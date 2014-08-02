@@ -20,8 +20,9 @@
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{selectedProject.select}" value="#{bundle.MainMenuSelectLink_selectProject}" />
+                <h:link outcome="/Faces/appentry/MainMenu" value="Show Main Menu" />
                 <br />
+                <h:commandLink action="/Faces/artefact/List" value="#{bundle.MainMenuSelectLink_selectProject}"/>
             </h:form> 
         </ui:define>
      </ui:composition>   

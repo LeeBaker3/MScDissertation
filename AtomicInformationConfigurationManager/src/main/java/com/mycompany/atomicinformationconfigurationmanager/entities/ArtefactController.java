@@ -28,7 +28,9 @@ public class ArtefactController implements Serializable {
     private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private Project selectedProject;
+    
+    @Inject 
+    private SelectedProject selectedProject;   
 
     public ArtefactController() {
     }
@@ -45,11 +47,9 @@ public class ArtefactController implements Serializable {
         return ejbFacade;
     }
     
-    @Inject
-    public void setSelectedProject(SelectedProject selectedProject){
-        this.selectedProject = selectedProject.getProject();
-    }
-    
+
+
+            
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -62,11 +62,17 @@ public class ArtefactController implements Serializable {
                 /* TO DO Change following method to call search Query for ProjectID
                 *
                 */
-                
                 @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                public DataModel createPageDataModel(){
+                        
+                if (selectedProject !=null){
+                        return new ListDataModel(getFacade().findByProjectID(selectedProject.getProject()));
+                    }
+                else {
+                        return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    }   
                 }
+
             };
         }
         return pagination;
@@ -165,9 +171,7 @@ public class ArtefactController implements Serializable {
     }
 
     public DataModel getItems() {
-        if (items == null) {
             items = getPagination().createPageDataModel();
-        }
         return items;
     }
 
