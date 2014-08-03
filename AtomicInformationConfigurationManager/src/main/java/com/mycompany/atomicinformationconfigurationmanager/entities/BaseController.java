@@ -26,7 +26,11 @@ public class BaseController implements Serializable{
     
     private com.mycompany.atomicinformationconfigurationmanager.entities.BaseEntityFacade ejbFacade;
     
-    public void setNewEntityActive(BaseEntity entity){
+    public void setEntityActive(BaseEntity entity){
         entity.entityActive = true;
+    }
+    
+    public void setEntityInActive(BaseEntity entity){
+        entity.entityActive = false;
     }
 }

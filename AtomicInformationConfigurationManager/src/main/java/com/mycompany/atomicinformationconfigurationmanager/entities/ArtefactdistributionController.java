@@ -179,11 +179,11 @@ public class ArtefactdistributionController extends BaseController implements Se
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), true);
     }
 
     public Artefactdistribution getArtefactdistribution(java.lang.Integer id) {

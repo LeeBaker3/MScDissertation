@@ -179,11 +179,11 @@ public class BaseEntityController extends BaseController implements Serializable
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), true);
     }
 
     public BaseEntity getBaseEntity(java.lang.Integer id) {

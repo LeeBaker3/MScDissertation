@@ -179,11 +179,11 @@ public class TypeofatomicinformationController extends BaseController implements
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), true);
     }
 
     public Typeofatomicinformation getTypeofatomicinformation(java.lang.Integer id) {

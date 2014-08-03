@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Artefactdistribution.findAll", query = "SELECT a FROM Artefactdistribution a"),
+    @NamedQuery(name = "Artefactdistribution.findAllEntityActive", query = "SELECT a FROM Artefactdistribution a WHERE a.entityActive = TRUE"),
     @NamedQuery(name = "Artefactdistribution.findByArtefactDistributionID", query = "SELECT a FROM Artefactdistribution a WHERE a.id = :artefactDistributionID"),
     @NamedQuery(name = "Artefactdistribution.findByMethodOfDistributionID", query = "SELECT a FROM Artefactdistribution a WHERE a.methodOfDistributionID = :methodOfDistributionID"),
     @NamedQuery(name = "Artefactdistribution.findByVersionNumber", query = "SELECT a FROM Artefactdistribution a WHERE a.versionNumber = :versionNumber"),

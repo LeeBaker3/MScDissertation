@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Distributionrecipient.findAll", query = "SELECT d FROM Distributionrecipient d"),
+    @NamedQuery(name = "Distributionrecipient.findAllEntityActive", query = "SELECT d FROM Distributionrecipient d WHERE d.entityActive = TRUE"),
     @NamedQuery(name = "Distributionrecipient.findByDistributionRecipientID", query = "SELECT d FROM Distributionrecipient d WHERE d.id = :distributionRecipientID"),
     @NamedQuery(name = "Distributionrecipient.findByVersionNumber", query = "SELECT d FROM Distributionrecipient d WHERE d.versionNumber = :versionNumber"),
     @NamedQuery(name = "Distributionrecipient.findByIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.isCurrentVersion = :isCurrentVersion"),

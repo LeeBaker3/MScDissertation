@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Methodofdistribution.findAll", query = "SELECT m FROM Methodofdistribution m"),
+    @NamedQuery(name = "Methodofdistribution.findAllEntityActive", query = "SELECT m FROM Methodofdistribution m WHERE m.entityActive = TRUE"),
     @NamedQuery(name = "Methodofdistribution.findByMethodOfDistributionID", query = "SELECT m FROM Methodofdistribution m WHERE m.id = :methodOfDistributionID"),
     @NamedQuery(name = "Methodofdistribution.findByMethod", query = "SELECT m FROM Methodofdistribution m WHERE m.method = :method")})
 public class Methodofdistribution extends BaseEntity implements Serializable {

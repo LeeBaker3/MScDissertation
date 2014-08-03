@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
+    @NamedQuery(name = "Project.findAllEntityActive", query = "SELECT p FROM Project p WHERE p.entityActive = TRUE"),
     @NamedQuery(name = "Project.findByProjectID", query = "SELECT p FROM Project p WHERE p.id = :projectID"),
     @NamedQuery(name = "Project.findByProjectReference", query = "SELECT p FROM Project p WHERE p.projectReference = :projectReference"),
     @NamedQuery(name = "Project.findByProjectName", query = "SELECT p FROM Project p WHERE p.projectName = :projectName"),
