@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Artefact.findAll", query = "SELECT a FROM Artefact a"),
+    @NamedQuery(name = "Artefact.findAllEntityActive", query = "SELECT a FROM Artefact a WHERE a.entityActive = TRUE"),
     @NamedQuery(name = "Artefact.findByProjectID", query = "SELECT a FROM Artefact a WHERE a.projectID = :projectID"),
     @NamedQuery(name = "Artefact.findByArtefactID", query = "SELECT a FROM Artefact a WHERE a.id = :artefactID"),
     @NamedQuery(name = "Artefact.findByVersionNumber", query = "SELECT a FROM Artefact a WHERE a.versionNumber = :versionNumber"),

@@ -8,6 +8,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -33,11 +34,25 @@ public abstract class AbstractFacade<T> {
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
     }
+    
+    /*
+    *   03/08/14  @Lee Baker
+    *   Method added to to set EntityActive property of Entity to 'false'
+    */
+    public void entityInactive (T entity) {
+       getEntityManager().merge(entity); 
+    }
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
 
+    public List<T> findAllEntityActive() {
+        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findAllEntityActive", entityClass);
+        List<T> results = query.getResultList();
+        return results;
+    }
+    
     public List<T> findAll() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));

@@ -17,6 +17,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import sun.misc.VM;
 
 @Named("artefactController")
 @SessionScoped
@@ -56,8 +57,9 @@ public class ArtefactController extends BaseController implements Serializable {
                     return getFacade().count();
                 }
  
-                /* TO DO Change following method to call search Query for ProjectID
-                *
+                /* 
+                *   02/08/14 @Lee Baker
+                *   IDE Code modified to with if else statement to return artefacts for selected project 
                 */
                 @Override
                 public DataModel createPageDataModel(){
@@ -95,11 +97,14 @@ public class ArtefactController extends BaseController implements Serializable {
 
     public String create() {
         try {
-            //If a project has been selected then create new Artefact with selected Project
+            /*  
+            *   02/08/14 @Lee Baker
+            *   If a project has been selected then create new Artefact with a reference selected Project
+            */
             if(selectedProject != null){
                 current.setProjectID(selectedProject.getProject());
             }
-            setNewEntityActive(current);
+            setEntityActive(current);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactCreated"));
             return prepareCreate();
@@ -134,6 +139,28 @@ public class ArtefactController extends BaseController implements Serializable {
         recreateModel();
         return "List";
     }
+    
+    public String disable(){
+        current = (Artefact) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDisable();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
+    
+    public String disableAndView() {
+        performDisable();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return "View";
+        } else {
+            // all items were removed - go back to list
+            recreateModel();
+            return "List";
+        }
+    }
 
     public String destroyAndView() {
         performDestroy();
@@ -152,6 +179,16 @@ public class ArtefactController extends BaseController implements Serializable {
         try {
             getFacade().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+    
+    private void performDisable() {
+        setEntityInActive(current);
+        try {
+            getFacade().entityInactive(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactDisabled"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -198,11 +235,11 @@ public class ArtefactController extends BaseController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), true);
     }
 
     public Artefact getArtefact(java.lang.Integer id) {
