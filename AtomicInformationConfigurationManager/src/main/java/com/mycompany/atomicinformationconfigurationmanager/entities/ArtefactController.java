@@ -52,9 +52,20 @@ public class ArtefactController extends BaseController implements Serializable {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
 
+                /* 
+                *   03/08/14 @Lee Baker
+                *   IDE Code modified to use countEntityActive() instead of count()
+                */   
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    int localCount;
+                        if (selectedProject != null){
+                            localCount = getFacade().countEntityActiveAndProjectID(selectedProject.getProject(), true);
+                            }
+                        else {
+                            localCount = getFacade().countEntityActive(true);
+                        }
+                    return localCount;
                 }
  
                 /* 
@@ -65,10 +76,10 @@ public class ArtefactController extends BaseController implements Serializable {
                 public DataModel createPageDataModel(){
                         
                 if (selectedProject !=null){
-                        return new ListDataModel(getFacade().findByProjectID(selectedProject.getProject()));
+                        return new ListDataModel(getFacade().findByEntityActiveAndProjectID(selectedProject.getProject(), true));
                     }
                 else {
-                        return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                        return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true));
                     }   
                 }
 
@@ -195,7 +206,14 @@ public class ArtefactController extends BaseController implements Serializable {
     }
 
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count;
+         if (selectedProject != null){
+             count = getFacade().countEntityActiveAndProjectID(selectedProject.getProject(), true);
+         }
+         else {
+             count = getFacade().countEntityActive(true);
+         }
+        
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -205,7 +223,13 @@ public class ArtefactController extends BaseController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            if (selectedProject != null){
+                current = getFacade().findRangeEntityActiveAndProjectID(new int[]{selectedItemIndex, selectedItemIndex + 1},true,selectedProject.getProject()).get(0);
+            }
+            else {
+                current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
+            }
+            
         }
     }
 
@@ -235,11 +259,11 @@ public class ArtefactController extends BaseController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), false);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), true);
     }
 
     public Artefact getArtefact(java.lang.Integer id) {
