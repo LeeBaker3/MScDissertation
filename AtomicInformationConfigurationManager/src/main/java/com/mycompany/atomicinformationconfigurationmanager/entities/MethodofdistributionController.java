@@ -53,7 +53,7 @@ public class MethodofdistributionController extends BaseController implements Se
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true));
                 }
             };
         }
@@ -147,7 +147,7 @@ public class MethodofdistributionController extends BaseController implements Se
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
         }
     }
 
@@ -179,11 +179,11 @@ public class MethodofdistributionController extends BaseController implements Se
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), false);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), true);
     }
 
     public Methodofdistribution getMethodofdistribution(java.lang.Integer id) {
