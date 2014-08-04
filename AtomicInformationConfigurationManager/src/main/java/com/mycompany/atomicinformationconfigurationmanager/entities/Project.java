@@ -30,8 +30,15 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Project.findByEntityActiveAndProjectID", query = "SELECT p FROM Project p WHERE p.id = :projectID AND p.entityActive = :entityActive"),
+    @NamedQuery(name = "Project.findByEntityActiveAndProjectReference", query = "SELECT p FROM Project p WHERE p.projectReference = :projectReference AND p.entityActive = :entityActive"),
+    @NamedQuery(name = "Project.findByEntityActiveAndProjectName", query = "SELECT p FROM Project p WHERE p.projectName = :projectName AND p.entityActive = :entityActive"),
+    @NamedQuery(name = "Project.findByEntityActiveAndVersionNumber", query = "SELECT p FROM Project p WHERE p.versionNumber = :versionNumber AND p.entityActive = :entityActive"),
+    @NamedQuery(name = "Project.findByEntityActiveAndIsCurrentVersion", query = "SELECT p FROM Project p WHERE p.isCurrentVersion = :isCurrentVersion AND p.entityActive = :entityActive"),
+    @NamedQuery(name = "Project.findByEntityActiveAndPreviousVersionReference", query = "SELECT p FROM Project p WHERE p.previousVersionReference = :previousVersionReference AND p.entityActive = :entityActive"),
+    
     @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
-    @NamedQuery(name = "Project.findAllEntityActive", query = "SELECT p FROM Project p WHERE p.entityActive = TRUE"),
+    @NamedQuery(name = "Project.findByEntityActive", query = "SELECT p FROM Project p WHERE p.entityActive = :entityActive"),
     @NamedQuery(name = "Project.findByProjectID", query = "SELECT p FROM Project p WHERE p.id = :projectID"),
     @NamedQuery(name = "Project.findByProjectReference", query = "SELECT p FROM Project p WHERE p.projectReference = :projectReference"),
     @NamedQuery(name = "Project.findByProjectName", query = "SELECT p FROM Project p WHERE p.projectName = :projectName"),

@@ -32,8 +32,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @AttributeOverride (name = "id", column = @Column(name = "ArtefactDistributionID"))
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndArtefactDistributionID", query = "SELECT a FROM Artefactdistribution a WHERE a.id = :artefactDistributionID AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndMethodOfDistributionID", query = "SELECT a FROM Artefactdistribution a WHERE a.methodOfDistributionID = :methodOfDistributionID AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndVersionNumber", query = "SELECT a FROM Artefactdistribution a WHERE a.versionNumber = :versionNumber AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndIsCurrentVersion", query = "SELECT a FROM Artefactdistribution a WHERE a.isCurrentVersion = :isCurrentVersion AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndPreviousVersionReference", query = "SELECT a FROM Artefactdistribution a WHERE a.previousVersionReference = :previousVersionReference AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndEntityActive", query = "SELECT a FROM Artefactdistribution a WHERE a.entityActive = :entityActive AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndDateOfArtefactDistribution", query = "SELECT a FROM Artefactdistribution a WHERE a.dateOfArtefactDistribution = :dateOfArtefactDistribution AND a.entityActive = :entityActive"),
+    
     @NamedQuery(name = "Artefactdistribution.findAll", query = "SELECT a FROM Artefactdistribution a"),
-    @NamedQuery(name = "Artefactdistribution.findAllEntityActive", query = "SELECT a FROM Artefactdistribution a WHERE a.entityActive = TRUE"),
+    @NamedQuery(name = "Artefactdistribution.findByEntityActive", query = "SELECT a FROM Artefactdistribution a WHERE a.entityActive = :entityActive"),
     @NamedQuery(name = "Artefactdistribution.findByArtefactDistributionID", query = "SELECT a FROM Artefactdistribution a WHERE a.id = :artefactDistributionID"),
     @NamedQuery(name = "Artefactdistribution.findByMethodOfDistributionID", query = "SELECT a FROM Artefactdistribution a WHERE a.methodOfDistributionID = :methodOfDistributionID"),
     @NamedQuery(name = "Artefactdistribution.findByVersionNumber", query = "SELECT a FROM Artefactdistribution a WHERE a.versionNumber = :versionNumber"),

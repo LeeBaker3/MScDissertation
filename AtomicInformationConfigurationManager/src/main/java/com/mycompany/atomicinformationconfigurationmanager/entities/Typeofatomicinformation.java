@@ -33,8 +33,11 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Typeofatomicinformation.findByEntityActiveAndTypeOfAtomicInformationID", query = "SELECT t FROM Typeofatomicinformation t WHERE t.id = :typeOfAtomicInformationID AND t.entityActive = :entityActive"),
+    @NamedQuery(name = "Typeofatomicinformation.findByEntityActiveAndType", query = "SELECT t FROM Typeofatomicinformation t WHERE t.type = :type AND t.entityActive = :entityActive"),
+    
     @NamedQuery(name = "Typeofatomicinformation.findAll", query = "SELECT t FROM Typeofatomicinformation t"),
-    @NamedQuery(name = "Typeofatomicinformation.findAllEntityActive", query = "SELECT t FROM Typeofatomicinformation t WHERE t.entityActive = TRUE"),
+    @NamedQuery(name = "Typeofatomicinformation.findByEntityActive", query = "SELECT t FROM Typeofatomicinformation t WHERE t.entityActive = :entityActive"),
     @NamedQuery(name = "Typeofatomicinformation.findByTypeOfAtomicInformationID", query = "SELECT t FROM Typeofatomicinformation t WHERE t.id = :typeOfAtomicInformationID"),
     @NamedQuery(name = "Typeofatomicinformation.findByType", query = "SELECT t FROM Typeofatomicinformation t WHERE t.type = :type")})
 public class Typeofatomicinformation extends BaseEntity implements Serializable {
