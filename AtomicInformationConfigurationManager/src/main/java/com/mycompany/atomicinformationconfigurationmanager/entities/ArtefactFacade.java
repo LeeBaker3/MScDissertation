@@ -30,10 +30,29 @@ public class ArtefactFacade extends AbstractFacade<Artefact> {
         super(Artefact.class);
     }
     
-    public List<Artefact> findByProjectID (Project project){
-        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByProjectID", Artefact.class);
+    public List<Artefact> findByEntityActiveAndProjectID (Project project, boolean entityActive){
+        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByEntityActiveAndProjectID", Artefact.class);
         query.setParameter("projectID", project);
-        List<Artefact> result = query.getResultList();
-        return result;
+        query.setParameter("entityActive", entityActive);
+        List<Artefact> results = query.getResultList();
+        return results;
+    }
+    
+    public List<Artefact> findRangeEntityActiveAndProjectID (int[] range, Boolean entityActive, Project project){
+        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByEntityActiveAndProjectID", Artefact.class);
+        query.setParameter("projectID", project);
+        query.setParameter("entityActive", entityActive);
+        query.setMaxResults(range[1] - range[0] + 1);
+        query.setFirstResult(range[0]);
+        List<Artefact> results = query.getResultList();
+        return results;
+    }
+    
+        public int countEntityActiveAndProjectID(Project project, Boolean entityActive){
+        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByEntityActiveAndProjectID", Artefact.class);
+        query.setParameter("projectID", project);
+        query.setParameter("entityActive", entityActive);
+        List<Artefact> results = query.getResultList();
+        return results.size();
     }
 }

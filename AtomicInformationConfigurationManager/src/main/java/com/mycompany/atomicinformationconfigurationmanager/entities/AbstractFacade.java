@@ -8,7 +8,9 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Parameter;
 import javax.persistence.TypedQuery;
+import sun.awt.SunHints;
 
 /**
  *
@@ -46,19 +48,49 @@ public abstract class AbstractFacade<T> {
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
-
-    public List<T> findAllEntityActive() {
-        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findAllEntityActive", entityClass);
+    
+    /*
+    *   04/08/14 Following 3 methoods return all records of an entity type
+    * filtered based on whether the EntityActive attribute is set to true or false
+    */
+    
+ 
+    //   03/08/14 @Lee Baker
+    //   Added Method to find only Database Records that have the attribute Entity Active set to TRUE       
+    public List<T> findAllEntityActive(Boolean entityActive) {
+        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findByEntityActive", entityClass);
+        query.setParameter("entityActive", entityActive);
         List<T> results = query.getResultList();
         return results;
     }
     
-    public List<T> findAll() {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        cq.select(cq.from(entityClass));
-        return getEntityManager().createQuery(cq).getResultList();
+    //   03/08/14 @Lee Baker
+    //  Added Method to find only Database Records that have the attribute Entity Active set to TRUE 
+    //  when disbaled after an edit 
+    public List<T> findRangeEntityActive(int[] range, Boolean entityActive) {
+        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findByEntityActive", entityClass);
+        query.setParameter("entityActive", entityActive);
+        query.setMaxResults(range[1] - range[0] + 1);
+        query.setFirstResult(range[0]);
+        List<T> results = query.getResultList();
+        return results;
     }
-
+    
+    public int countEntityActive(Boolean entityActive){
+        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findByEntityActive", entityClass);
+        query.setParameter("entityActive", entityActive);
+        List<T> results = query.getResultList();
+        return results.size();
+    }
+    
+    
+    
+    
+    /*  
+    *   04/08/14 @Lee Baker
+    *   Follow 3 methods are IDE generated an return all records of an entity type
+    */
+    
     public List<T> findRange(int[] range) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
@@ -66,6 +98,12 @@ public abstract class AbstractFacade<T> {
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
         return q.getResultList();
+    }
+    
+    public List<T> findAll() {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
     public int count() {
@@ -75,5 +113,4 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
 }
