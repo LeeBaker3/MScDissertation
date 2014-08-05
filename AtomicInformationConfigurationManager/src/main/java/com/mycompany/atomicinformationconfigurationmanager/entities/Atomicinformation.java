@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Atomicinformation.findByEntityActiveAndEntityActive", query = "SELECT a FROM Atomicinformation a WHERE a.entityActive = :entityActive AND a.entityActive = :entityActive"),
     @NamedQuery(name = "Atomicinformation.findByEntityActiveAndContent", query = "SELECT a FROM Atomicinformation a WHERE a.content = :content AND a.entityActive = :entityActive"),
     
+    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndProjectID", query = "SELECT a FROM Atomicinformation a WHERE a.id = :atomicInformationID AND a.projectID = :projectID"),
+    
+    
     @NamedQuery(name = "Atomicinformation.findAll", query = "SELECT a FROM Atomicinformation a"),
     @NamedQuery(name = "Atomicinformation.findByEntityActive", query = "SELECT a FROM Atomicinformation a WHERE a.entityActive = :entityActive"),
     @NamedQuery(name = "Atomicinformation.findByAtomicInformationID", query = "SELECT a FROM Atomicinformation a WHERE a.id = :atomicInformationID"),

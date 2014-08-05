@@ -2,6 +2,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
+import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 @Named("atomicinformationController")
 @SessionScoped
@@ -26,6 +28,11 @@ public class AtomicinformationController extends BaseController implements Seria
     private com.mycompany.atomicinformationconfigurationmanager.entities.AtomicinformationFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+    @Inject
+    private SelectedArtefact selectedArtefact;
+    @Inject
+    private ArtefactController artefactController;
 
     public AtomicinformationController() {
     }
@@ -48,7 +55,14 @@ public class AtomicinformationController extends BaseController implements Seria
 
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    int localCount;
+                    if (artefactController.getCurrent()!=null){
+                        localCount = getFacade().countEntityActiveAndProjectIDAndArtefactID();
+                    }
+                    else{
+                        localCount = getFacade().countEntityActive(true);
+                    }
+                    return localCount;
                 }
 
                 @Override
