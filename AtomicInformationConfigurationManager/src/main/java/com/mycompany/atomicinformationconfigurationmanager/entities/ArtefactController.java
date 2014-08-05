@@ -2,6 +2,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
+import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
 import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ import sun.misc.VM;
 public class ArtefactController extends BaseController implements Serializable {
 
     private Artefact current;
+
     private DataModel items = null;
     @EJB
     private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactFacade ejbFacade;
@@ -31,9 +33,19 @@ public class ArtefactController extends BaseController implements Serializable {
     private int selectedItemIndex;
     
     @Inject 
-    private SelectedProject selectedProject;   
+    private SelectedProject selectedProject; 
+    @Inject
+    private SelectedArtefact selectedArtefact;
 
     public ArtefactController() {
+    }
+    
+    public Artefact getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Artefact current) {
+        this.current = current;
     }
 
     public Artefact getSelected() {
@@ -229,7 +241,6 @@ public class ArtefactController extends BaseController implements Serializable {
             else {
                 current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
             }
-            
         }
     }
 
