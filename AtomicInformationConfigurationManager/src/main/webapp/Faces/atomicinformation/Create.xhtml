@@ -21,10 +21,6 @@
                     <h:selectOneMenu id="typeOfAtomicInformationID" value="#{atomicinformationController.selected.typeOfAtomicInformationID}" title="#{bundle.CreateAtomicinformationTitle_typeOfAtomicInformationID}" required="true" requiredMessage="#{bundle.CreateAtomicinformationRequiredMessage_typeOfAtomicInformationID}">
                         <f:selectItems value="#{typeofatomicinformationController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateAtomicinformationLabel_artefactID}" for="artefactID" />
-                    <h:selectOneMenu id="artefactID" value="#{atomicinformationController.selected.artefactID}" title="#{bundle.CreateAtomicinformationTitle_artefactID}" required="true" requiredMessage="#{bundle.CreateAtomicinformationRequiredMessage_artefactID}">
-                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateAtomicinformationLabel_projectID}" for="projectID" />
                     <h:selectOneMenu id="projectID" value="#{atomicinformationController.selected.projectID}" title="#{bundle.CreateAtomicinformationTitle_projectID}" required="true" requiredMessage="#{bundle.CreateAtomicinformationRequiredMessage_projectID}">
                         <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
