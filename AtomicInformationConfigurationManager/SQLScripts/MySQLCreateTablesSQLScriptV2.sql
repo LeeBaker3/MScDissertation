@@ -183,9 +183,9 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`ArtefactAt
   PRIMARY KEY (`ArtefactAtomicInformationID`),
   INDEX `AtomicInformationID_idx` (`AtomicInformationID` ASC),
   INDEX `ArtefactID_idx` (`ArtefactID` ASC),
-  CONSTRAINT `ArtefactAtomicInformation_ArtefactAtomicInformationID`
+  CONSTRAINT `ArtefactAtomicInformation_AtomicInformationID`
     FOREIGN KEY (`AtomicInformationID`)
-    REFERENCES `AtomicInformationConfigurationManagerDB`.`ArtefactAtomicInformation` (`ArtefactAtomicInformationID`)
+    REFERENCES `AtomicInformationConfigurationManagerDB`.`AtomicInformation` (`AtomicInformationID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `ArtefactAtomicInformation_ArtefactID`
