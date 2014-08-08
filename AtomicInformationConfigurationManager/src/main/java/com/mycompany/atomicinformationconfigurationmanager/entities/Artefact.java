@@ -13,6 +13,9 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -31,7 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "artefact")
 @AttributeOverride (name = "id", column = @Column(name = "ArtefactID"))
-
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Artefact.findByEntityActiveAndProjectID", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.projectID = :projectID"),
@@ -54,6 +56,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Artefact.findByArtefactMajorVersionNumber", query = "SELECT a FROM Artefact a WHERE a.artefactMajorVersionNumber = :artefactMajorVersionNumber"),
     @NamedQuery(name = "Artefact.findByArtefactMinorVersionNumber", query = "SELECT a FROM Artefact a WHERE a.artefactMinorVersionNumber = :artefactMinorVersionNumber")})
 public class Artefact extends BaseEntity implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artefactID")
+    private Collection<Artefactatomicinformation> artefactatomicinformationCollection;
     private static final long serialVersionUID = 1L;
    
     @Basic(optional = false)
@@ -71,8 +76,6 @@ public class Artefact extends BaseEntity implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "ArtefactMinorVersionNumber")
     private String artefactMinorVersionNumber;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artefactID")
-    private Collection<Atomicinformation> atomicinformationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artefactID")
     private Collection<Artefactdistribution> artefactdistributionCollection;
     @JoinColumn(name = "ProjectID", referencedColumnName = "ProjectID")
@@ -121,15 +124,6 @@ public class Artefact extends BaseEntity implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Atomicinformation> getAtomicinformationCollection() {
-        return atomicinformationCollection;
-    }
-
-    public void setAtomicinformationCollection(Collection<Atomicinformation> atomicinformationCollection) {
-        this.atomicinformationCollection = atomicinformationCollection;
-    }
-
-    @XmlTransient
     public Collection<Artefactdistribution> getArtefactdistributionCollection() {
         return artefactdistributionCollection;
     }
@@ -170,4 +164,29 @@ public class Artefact extends BaseEntity implements Serializable {
     public String toString() {
         return getArtefactName();
     }
+
+    public Artefact(Integer artefactID, int versionNumber, boolean isCurrentVersion, boolean entityActive) {
+        this.id = artefactID;
+        this.versionNumber = versionNumber;
+        this.isCurrentVersion = isCurrentVersion;
+        this.entityActive = entityActive;
+    }
+
+    public Integer getArtefactID() {
+        return id;
+    }
+
+    public void setArtefactID(Integer artefactID) {
+        this.id = artefactID;
+    }
+
+    @XmlTransient
+    public Collection<Artefactatomicinformation> getArtefactatomicinformationCollection() {
+        return artefactatomicinformationCollection;
+    }
+
+    public void setArtefactatomicinformationCollection(Collection<Artefactatomicinformation> artefactatomicinformationCollection) {
+        this.artefactatomicinformationCollection = artefactatomicinformationCollection;
+    }
+
 }

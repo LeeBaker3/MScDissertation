@@ -163,25 +163,12 @@ public class ArtefactController extends BaseController implements Serializable {
         return "List";
     }
     
-    public String disable(){
-        current = (Artefact) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDisable();
-        recreatePagination();
-        recreateModel();
-        return "List";
-    }
-    
-    public String disableAndView() {
-        performDisable();
-        recreateModel();
-        updateCurrentItem();
-        if (selectedItemIndex >= 0) {
-            return "View";
-        } else {
-            // all items were removed - go back to list
-            recreateModel();
-            return "List";
+    private void performDestroy() {
+        try {
+            getFacade().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -197,16 +184,33 @@ public class ArtefactController extends BaseController implements Serializable {
             return "List";
         }
     }
+    
+    /*  
+    *   02/08/14 @Lee Baker
+    *   Code added to disable entity instead of destroying it
+    */   
+    public String disable(){
+        current = (Artefact) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDisable();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
 
-    private void performDestroy() {
-        try {
-            getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactDeleted"));
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+    public String disableAndView() {
+        performDisable();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return "View";
+        } else {
+            // all items were removed - go back to list
+            recreateModel();
+            return "List";
         }
     }
-    
+
     private void performDisable() {
         setEntityInActive(current);
         try {

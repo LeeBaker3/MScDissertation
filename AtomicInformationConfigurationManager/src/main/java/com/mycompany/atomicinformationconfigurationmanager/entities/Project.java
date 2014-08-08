@@ -9,13 +9,18 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.AttributeOverride;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -47,7 +52,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Project.findByPreviousVersionReference", query = "SELECT p FROM Project p WHERE p.previousVersionReference = :previousVersionReference"),
     @NamedQuery(name = "Project.findByEntityActive", query = "SELECT p FROM Project p WHERE p.entityActive = :entityActive")})
 public class Project extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
 
     @Size(max = 45)
     @Column(name = "ProjectReference")
