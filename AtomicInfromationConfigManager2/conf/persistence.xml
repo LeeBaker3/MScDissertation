@@ -10,6 +10,7 @@
     <class>com.mycompany.atomicinformationconfigurationmanager.entities.Project</class>
     <class>com.mycompany.atomicinformationconfigurationmanager.entities.Typeofatomicinformation</class>
     <class>com.mycompany.atomicinformationconfigurationmanager.entities.BaseEntity</class>
+    <class>com.mycompany.atomicinformationconfigurationmanager.entities.Artefactatomicinformation</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
     </properties>
