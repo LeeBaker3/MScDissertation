@@ -2,7 +2,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
-import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
+import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -30,9 +30,8 @@ public class AtomicinformationController extends BaseController implements Seria
     private int selectedItemIndex;
     
     @Inject
-    private SelectedArtefact selectedArtefact;
-    @Inject
-    private ArtefactController artefactController;
+    private  SelectedProject selectedProject;
+    
 
     public AtomicinformationController() {
     }
@@ -52,22 +51,37 @@ public class AtomicinformationController extends BaseController implements Seria
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
-
+                
+                /* 
+                *   08/08/14 @Lee Baker
+                *   IDE Code modified to with if else statement to return atomic infromation for selected project 
+                */
                 @Override
                 public int getItemsCount() {
                     int localCount;
-                    if (artefactController.getCurrent()!=null){
-                        localCount = getFacade().countEntityActiveAndProjectIDAndArtefactID();
+                    if (selectedProject.getProject()!=null){
+                        localCount = getFacade().countEntityActiveAndProjectID(true, selectedProject.getProject());
                     }
                     else{
                         localCount = getFacade().countEntityActive(true);
                     }
                     return localCount;
                 }
-
+                
+                /* 
+                *   08/08/14 @Lee Baker
+                *   IDE Code modified to with if else statement to return atomic infromation for selected project 
+                */
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true));
+                    
+                    if (selectedProject != null){
+                        return  new  ListDataModel(getFacade().findByEntityActiveAndProjectID(true, selectedProject.getProject()));
+                    }
+                    else{
+                      return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true));  
+                    }
+                    
                 }
             };
         }
@@ -93,6 +107,14 @@ public class AtomicinformationController extends BaseController implements Seria
 
     public String create() {
         try {
+            /*  
+            *   02/08/14 @Lee Baker
+            *   If a project has been selected then create new AtomicInfromation with a reference selected Project
+            */
+            if(selectedProject !=null){
+                current.setProjectID(selectedProject.getProject());
+            }
+            setEntityActive(current);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationCreated"));
             return prepareCreate();
@@ -150,8 +172,52 @@ public class AtomicinformationController extends BaseController implements Seria
         }
     }
 
+    /*  
+    *   08/08/14 @Lee Baker
+    *   Code added to disable entity instead of destroying it
+    */   
+    public String disbale() {
+        current = (Atomicinformation) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        perfromDisable();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
+
+    public String disableAndView() {
+        perfromDisable();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return "View";
+        } else {
+            // all items were removed - go back to list
+            recreateModel();
+            return "List";
+        }
+    }
+
+    private void perfromDisable() {
+        setEntityInActive(current);
+        try {
+            getFacade().entityInactive(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationDisabled"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+    
+    
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count;
+        if (selectedProject != null){
+             count = getFacade().countEntityActiveAndProjectID(true, selectedProject.getProject());
+         }
+         else {
+             count = getFacade().countEntityActive(true);
+         }
+                 
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -161,7 +227,12 @@ public class AtomicinformationController extends BaseController implements Seria
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
+            if (selectedProject != null){
+                current = getFacade().findRangeEntityActiveAndProjectID(new int[]{selectedItemIndex, selectedItemIndex + 1},true, selectedProject.getProject()).get(0);
+            }
+            else {
+                current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
+            }
         }
     }
 

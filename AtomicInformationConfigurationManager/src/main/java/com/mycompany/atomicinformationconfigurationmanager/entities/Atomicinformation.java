@@ -35,8 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Atomicinformation.findByEntityActiveAndPreviousVersionReference", query = "SELECT a FROM Atomicinformation a WHERE a.previousVersionReference = :previousVersionReference AND a.entityActive = :entityActive"),
     @NamedQuery(name = "Atomicinformation.findByEntityActiveAndEntityActive", query = "SELECT a FROM Atomicinformation a WHERE a.entityActive = :entityActive AND a.entityActive = :entityActive"),
     @NamedQuery(name = "Atomicinformation.findByEntityActiveAndContent", query = "SELECT a FROM Atomicinformation a WHERE a.content = :content AND a.entityActive = :entityActive"),
-    
-    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndProjectID", query = "SELECT a FROM Atomicinformation a WHERE a.id = :atomicInformationID AND a.projectID = :projectID"),
+    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndProjectID", query = "SELECT a FROM Atomicinformation a WHERE a.entityActive = :entityActive AND a.projectID = :projectID"),
     
     
     @NamedQuery(name = "Atomicinformation.findAll", query = "SELECT a FROM Atomicinformation a"),
@@ -58,9 +57,6 @@ public class Atomicinformation extends BaseEntity implements Serializable {
     @JoinColumn(name = "TypeOfAtomicInformationID", referencedColumnName = "TypeOfAtomicInformationID")
     @ManyToOne(optional = false)
     private Typeofatomicinformation typeOfAtomicInformationID;
-    @JoinColumn(name = "ArtefactID", referencedColumnName = "ArtefactID")
-    @ManyToOne(optional = false)
-    private Artefact artefactID;
     @JoinColumn(name = "ProjectID", referencedColumnName = "ProjectID")
     @ManyToOne(optional = false)
     private Project projectID;
@@ -94,14 +90,6 @@ public class Atomicinformation extends BaseEntity implements Serializable {
 
     public void setTypeOfAtomicInformationID(Typeofatomicinformation typeOfAtomicInformationID) {
         this.typeOfAtomicInformationID = typeOfAtomicInformationID;
-    }
-
-    public Artefact getArtefactID() {
-        return artefactID;
-    }
-
-    public void setArtefactID(Artefact artefactID) {
-        this.artefactID = artefactID;
     }
 
     public Project getProjectID() {
