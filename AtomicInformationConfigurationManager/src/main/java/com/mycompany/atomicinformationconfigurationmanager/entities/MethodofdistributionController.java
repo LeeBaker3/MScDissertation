@@ -23,7 +23,7 @@ public class MethodofdistributionController extends BaseController implements Se
     private Methodofdistribution current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.MethodofdistributionFacade ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.MethodofdistributionSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -38,7 +38,7 @@ public class MethodofdistributionController extends BaseController implements Se
         return current;
     }
 
-    private MethodofdistributionFacade getFacade() {
+    private MethodofdistributionSaveRetrieve getFacade() {
         return ejbFacade;
     }
 

@@ -23,7 +23,7 @@ public class ProjectController extends BaseController implements Serializable {
     private Project current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.ProjectFacade ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.ProjectSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -38,7 +38,7 @@ public class ProjectController extends BaseController implements Serializable {
         return current;
     }
 
-    private ProjectFacade getFacade() {
+    private ProjectSaveRetrieve getFacade() {
         return ejbFacade;
     }
 

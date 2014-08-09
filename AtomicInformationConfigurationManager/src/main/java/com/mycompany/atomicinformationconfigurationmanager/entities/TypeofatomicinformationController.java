@@ -23,7 +23,7 @@ public class TypeofatomicinformationController extends BaseController implements
     private Typeofatomicinformation current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.TypeofatomicinformationFacade ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.TypeofatomicinformationSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -38,7 +38,7 @@ public class TypeofatomicinformationController extends BaseController implements
         return current;
     }
 
-    private TypeofatomicinformationFacade getFacade() {
+    private TypeofatomicinformationSaveRetrieve getFacade() {
         return ejbFacade;
     }
 
