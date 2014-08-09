@@ -79,6 +79,11 @@ public class ProjectController extends BaseController implements Serializable {
 
     public String create() {
         try {
+            /*  
+            *   09/08/14 @Lee Baker
+            *   Set entityActive = true when created
+            */
+            setEntityActive(current);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProjectCreated"));
             return prepareCreate();
@@ -136,8 +141,47 @@ public class ProjectController extends BaseController implements Serializable {
         }
     }
 
+    /*  
+    *   09/08/14 @Lee Baker
+    *   Code added to disable entity instead of destroying it
+    */       
+     public String disable() {
+        current = (Project) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDisable();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
+
+    public String disableAndView() {
+        performDisable();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return "View";
+        } else {
+            // all items were removed - go back to list
+            recreateModel();
+            return "List";
+        }
+    }
+
+    private void performDisable() {
+        setEntityInActive(current);
+        try {
+            getFacade().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProjectDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+   
+    
+    
+    
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count = getFacade().countEntityActive(true);
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;

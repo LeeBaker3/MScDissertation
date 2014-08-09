@@ -14,9 +14,7 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditArtefactatomicinformationLabel_artefactAtomicInformationID}" for="artefactAtomicInformationID" />
-                    <h:inputText id="artefactAtomicInformationID" value="#{artefactatomicinformationController.selected.artefactAtomicInformationID}" title="#{bundle.EditArtefactatomicinformationTitle_artefactAtomicInformationID}" />
+                <h:panelGrid columns="2">             
                     <h:outputLabel value="#{bundle.EditArtefactatomicinformationLabel_artefactID}" for="artefactID" />
                     <h:selectOneMenu id="artefactID" value="#{artefactatomicinformationController.selected.artefactID}" title="#{bundle.EditArtefactatomicinformationTitle_artefactID}" required="true" requiredMessage="#{bundle.EditArtefactatomicinformationRequiredMessage_artefactID}">
                         <f:selectItems value="#{artefactController.itemsAvailableSelectOne}"/>
@@ -25,8 +23,6 @@
                     <h:selectOneMenu id="atomicInformationID" value="#{artefactatomicinformationController.selected.atomicInformationID}" title="#{bundle.EditArtefactatomicinformationTitle_atomicInformationID}" required="true" requiredMessage="#{bundle.EditArtefactatomicinformationRequiredMessage_atomicInformationID}">
                         <f:selectItems value="#{atomicinformationController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditArtefactatomicinformationLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{artefactatomicinformationController.selected.id}" title="#{bundle.EditArtefactatomicinformationTitle_id}" required="true" requiredMessage="#{bundle.EditArtefactatomicinformationRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.EditArtefactatomicinformationLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{artefactatomicinformationController.selected.versionNumber}" title="#{bundle.EditArtefactatomicinformationTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditArtefactatomicinformationRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.EditArtefactatomicinformationLabel_previousVersionReference}" for="previousVersionReference" />

@@ -22,39 +22,21 @@
                     <h:dataTable value="#{artefactatomicinformationController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactatomicinformationTitle_artefactAtomicInformationID}"/>
+                                <h:outputText value="#{bundle.ListArtefactatomicinformationTitle_artefactID_artefactName}"/>
                             </f:facet>
-                            <h:outputText value="#{item.artefactAtomicInformationID}"/>
+                            <h:outputText value="#{item.artefactID.artefactName}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactatomicinformationTitle_artefactID}"/>
+                                <h:outputText value="#{bundle.ListArtefactatomicinformationTitle_atomicInformationID_content}"/>
                             </f:facet>
-                            <h:outputText value="#{item.artefactID}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactatomicinformationTitle_atomicInformationID}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.atomicInformationID}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactatomicinformationTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
+                            <h:outputText value="#{item.atomicInformationID.content}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListArtefactatomicinformationTitle_versionNumber}"/>
                             </f:facet>
                             <h:outputText value="#{item.versionNumber}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactatomicinformationTitle_previousVersionReference}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.previousVersionReference}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

@@ -100,7 +100,6 @@ public class ArtefactController extends BaseController implements Serializable {
         return pagination;
     }
 
-    
     public String prepareList() {
         recreateModel();
         return "List";
@@ -123,7 +122,8 @@ public class ArtefactController extends BaseController implements Serializable {
             /*  
             *   02/08/14 @Lee Baker
             *   If a project has been selected then create new Artefact with a reference selected Project
-            */
+            *   and set entityActive when created
+            */ 
             if(selectedProject != null){
                 current.setProjectID(selectedProject.getProject());
             }
