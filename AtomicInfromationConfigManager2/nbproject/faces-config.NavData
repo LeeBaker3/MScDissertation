@@ -9,7 +9,6 @@
         <Node id="Faces/artefactdistribution/Edit.xhtml" x="1150" y="600" zoom="true"/>
         <Node id="Faces/typeofatomicinformation/Edit.xhtml" x="400" y="1050" zoom="true"/>
         <Node id="Faces/project/Edit.xhtml" x="650" y="600" zoom="true"/>
-        <Node id="Faces/baseEntity/List.xhtml" x="650" y="750" zoom="true"/>
         <Node id="Faces/artefact/View.xhtml" x="650" y="900" zoom="true"/>
         <Node id="Faces/artefact/Create.xhtml" x="1650" y="300" zoom="true"/>
         <Node id="Faces/artefact/Edit.xhtml" x="1400" y="300" zoom="true"/>
@@ -17,11 +16,9 @@
         <Node id="Faces/artefactdistribution/Create.xhtml" x="900" y="750" zoom="true"/>
         <Node id="Faces/artefactdistribution/View.xhtml" x="146" y="848" zoom="true"/>
         <Node id="Faces/methodofdistribution/List.xhtml" x="400" y="900" zoom="true"/>
-        <Node id="Faces/baseEntity/Create.xhtml" x="900" y="600" zoom="true"/>
         <Node id="Faces/project/List.xhtml" x="1150" y="300" zoom="true"/>
         <Node id="Faces/methodofdistribution/View.xhtml" x="1150" y="150" zoom="true"/>
         <Node id="Faces/distributionrecipient/View.xhtml" x="1150" y="450" zoom="true"/>
-        <Node id="Faces/baseEntity/Edit.xhtml" x="900" y="300" zoom="true"/>
         <Node id="Faces/distributionrecipient/Create.xhtml" x="104" y="704" zoom="true"/>
         <Node id="Faces/project/View.xhtml" x="400" y="750" zoom="true"/>
         <Node id="Faces/typeofatomicinformation/Create.xhtml" x="400" y="450" zoom="true"/>
@@ -35,7 +32,6 @@
         <Node id="Faces/atomicinformation/View.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="Faces/distributionrecipient/Edit.xhtml" x="87" y="97" zoom="false"/>
         <Node id="Faces/appentry/MainMenu.xhtml" x="650" y="300" zoom="true"/>
-        <Node id="Faces/baseEntity/View.xhtml" x="900" y="150" zoom="true"/>
         <Node id="Faces/distributionrecipient/List.xhtml" x="400" y="300" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
