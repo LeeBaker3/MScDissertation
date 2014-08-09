@@ -36,7 +36,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @AttributeOverride (name = "id", column = @Column(name = "ArtefactAtomicInformationID"))
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Artefactatomicinformation.findByEntityActiveAndArtefactID", query = "SELECT a FROM Artefactatomicinformation a WHERE a.artefactID = :artefactID AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactatomicinformation.findByEntityActiveAndArtefactAtomicInformationID", query = "SELECT a FROM Artefactatomicinformation a WHERE a.id = :artefactAtomicInformationID AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactatomicinformation.findByEntityActiveAndVersionNumber", query = "SELECT a FROM Artefactatomicinformation a WHERE a.versionNumber = :versionNumber AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactatomicinformation.findByEntityActiveAndIsCurrentVersion", query = "SELECT a FROM Artefactatomicinformation a WHERE a.isCurrentVersion = :isCurrentVersion AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactatomicinformation.findByEntityActiveAndPreviousVersionReference", query = "SELECT a FROM Artefactatomicinformation a WHERE a.previousVersionReference = :previousVersionReference AND a.entityActive = :entityActive"),
+    
     @NamedQuery(name = "Artefactatomicinformation.findAll", query = "SELECT a FROM Artefactatomicinformation a"),
+    @NamedQuery(name = "Artefactatomicinformation.findByArtefactID", query = "SELECT a FROM Artefactatomicinformation a WHERE a.artefactID = :artefactID"),
     @NamedQuery(name = "Artefactatomicinformation.findByArtefactAtomicInformationID", query = "SELECT a FROM Artefactatomicinformation a WHERE a.id = :artefactAtomicInformationID"),
     @NamedQuery(name = "Artefactatomicinformation.findByVersionNumber", query = "SELECT a FROM Artefactatomicinformation a WHERE a.versionNumber = :versionNumber"),
     @NamedQuery(name = "Artefactatomicinformation.findByIsCurrentVersion", query = "SELECT a FROM Artefactatomicinformation a WHERE a.isCurrentVersion = :isCurrentVersion"),

@@ -21,10 +21,6 @@
                     <h:inputText id="artefactMajorVersionNumber" value="#{artefactController.selected.artefactMajorVersionNumber}" title="#{bundle.EditArtefactTitle_artefactMajorVersionNumber}" required="true" requiredMessage="#{bundle.EditArtefactRequiredMessage_artefactMajorVersionNumber}"/>
                     <h:outputLabel value="#{bundle.EditArtefactLabel_artefactMinorVersionNumber}" for="artefactMinorVersionNumber" />
                     <h:inputText id="artefactMinorVersionNumber" value="#{artefactController.selected.artefactMinorVersionNumber}" title="#{bundle.EditArtefactTitle_artefactMinorVersionNumber}" required="true" requiredMessage="#{bundle.EditArtefactRequiredMessage_artefactMinorVersionNumber}"/>
-                    <h:outputLabel value="#{bundle.EditArtefactLabel_projectID}" for="projectID" />
-                    <h:selectOneMenu id="projectID" value="#{artefactController.selected.projectID}" title="#{bundle.EditArtefactTitle_projectID}" required="true" requiredMessage="#{bundle.EditArtefactRequiredMessage_projectID}">
-                        <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                 </h:panelGrid>
                 <h:commandLink action="#{artefactController.update}" value="#{bundle.EditArtefactSaveLink}"/>
                 <br />

@@ -34,8 +34,6 @@ public class ArtefactController extends BaseController implements Serializable {
     
     @Inject 
     private SelectedProject selectedProject; 
-    @Inject
-    private SelectedArtefact selectedArtefact;
 
     public ArtefactController() {
     }
@@ -71,7 +69,7 @@ public class ArtefactController extends BaseController implements Serializable {
                 @Override
                 public int getItemsCount() {
                     int localCount;
-                        if (selectedProject != null){
+                        if (selectedProject.getProject() != null){
                             localCount = getFacade().countEntityActiveAndProjectID(selectedProject.getProject(), true);
                             }
                         else {
@@ -86,20 +84,18 @@ public class ArtefactController extends BaseController implements Serializable {
                 */
                 @Override
                 public DataModel createPageDataModel(){
-                        
-                if (selectedProject !=null){
-                        return new ListDataModel(getFacade().findByEntityActiveAndProjectID(selectedProject.getProject(), true));
+                if (selectedProject.getProject() !=null){
+                        return new ListDataModel(getFacade().findRangeEntityActiveAndProjectID(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true,selectedProject.getProject()));
                     }
                 else {
                         return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true));
-                    }   
+                    }
                 }
-
             };
-        }
+        }                
         return pagination;
     }
-
+         
     public String prepareList() {
         recreateModel();
         return "List";
@@ -124,7 +120,7 @@ public class ArtefactController extends BaseController implements Serializable {
             *   If a project has been selected then create new Artefact with a reference selected Project
             *   and set entityActive when created
             */ 
-            if(selectedProject != null){
+            if(selectedProject.getProject() != null){
                 current.setProjectID(selectedProject.getProject());
             }
             setEntityActive(current);
@@ -223,7 +219,7 @@ public class ArtefactController extends BaseController implements Serializable {
 
     private void updateCurrentItem() {
         int count;
-         if (selectedProject != null){
+         if (selectedProject.getProject() != null){
              count = getFacade().countEntityActiveAndProjectID(selectedProject.getProject(), true);
          }
          else {
@@ -239,7 +235,7 @@ public class ArtefactController extends BaseController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            if (selectedProject != null){
+            if (selectedProject.getProject() != null){
                 current = getFacade().findRangeEntityActiveAndProjectID(new int[]{selectedItemIndex, selectedItemIndex + 1},true,selectedProject.getProject()).get(0);
             }
             else {
@@ -252,7 +248,10 @@ public class ArtefactController extends BaseController implements Serializable {
             items = getPagination().createPageDataModel();
         return items;
     }
-
+    /* 
+    *   End of modified IDE code
+    */   
+    
     private void recreateModel() {
         items = null;
     }

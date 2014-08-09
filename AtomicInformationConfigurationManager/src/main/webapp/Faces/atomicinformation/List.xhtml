@@ -38,29 +38,6 @@
                             </f:facet>
                             <h:outputText value="#{item.projectID.projectName} #{item.projectID.projectReference}"/>
                         </h:column>
-                        
-                        <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAtomicinformationTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAtomicinformationTitle_versionNumber}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.versionNumber}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAtomicinformationTitle_previousVersionReference}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.previousVersionReference}"/>
-                        </h:column>
-                        -->
-                        
-                        
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
@@ -69,7 +46,7 @@
                             <h:outputText value=" "/>
                             <h:commandLink action="#{atomicinformationController.prepareEdit}" value="#{bundle.ListAtomicinformationEditLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{atomicinformationController.destroy}" value="#{bundle.ListAtomicinformationDestroyLink}"/>
+                            <h:commandLink action="#{atomicinformationController.disable}" value="#{bundle.ListAtomicinformationDisableLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>

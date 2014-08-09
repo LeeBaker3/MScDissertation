@@ -2,6 +2,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
+import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -15,10 +16,12 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import org.apache.jasper.xmlparser.ParserUtils;
 
 @Named("artefactatomicinformationController")
 @SessionScoped
-public class ArtefactatomicinformationController implements Serializable {
+public class ArtefactatomicinformationController extends BaseController implements Serializable {
 
     private Artefactatomicinformation current;
     private DataModel items = null;
@@ -26,6 +29,9 @@ public class ArtefactatomicinformationController implements Serializable {
     private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactatomicinformationSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+    @Inject
+    private ArtefactController artefactController; 
 
     public ArtefactatomicinformationController() {
     }
@@ -45,15 +51,35 @@ public class ArtefactatomicinformationController implements Serializable {
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
-
+                
+                /* 
+                *   03/08/14 @Lee Baker
+                *   IDE Code modified to use countEntityActive() instead of count()
+                */ 
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    int localCount;
+                    if (artefactController.getCurrent()!=null){
+                        localCount = getFacade().countEntityActiveAndArtefactID(true, artefactController.getCurrent());
+                    }
+                    else{
+                        localCount = getFacade().countEntityActive(true);
+                    }
+                    return localCount;
                 }
 
+                /* 
+                *   09/08/14 @Lee Baker
+                *   IDE Code modified to with if else statement to return artefacts for selected project 
+                */                
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    if(artefactController.getCurrent() !=null){
+                        return new ListDataModel(getFacade().findRangeEntityActiveAndArtefactID(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, artefactController.getCurrent()));
+                    }
+                    else{
+                        return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    }
                 }
             };
         }
@@ -79,6 +105,15 @@ public class ArtefactatomicinformationController implements Serializable {
 
     public String create() {
         try {
+            /*  
+            *   02/08/14 @Lee Baker
+            *   If a Artefact has been selected then create new Artefactatomicinformation with a reference selected Artefact
+            *   and set entityActive when created
+            */
+            if(artefactController.getCurrent() !=null){
+                current.setArtefactID(artefactController.getCurrent());
+            }
+            setEntityActive(current);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationCreated"));
             return prepareCreate();
@@ -135,9 +170,51 @@ public class ArtefactatomicinformationController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
+    
+    /*  
+    *   09/08/14 @Lee Baker
+    *   Code added to disable entity instead of destroying it
+    */  
+    public String disable() {
+        current = (Artefactatomicinformation) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDisable();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
 
+    public String disableAndView() {
+        performDisable();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return "View";
+        } else {
+            // all items were removed - go back to list
+            recreateModel();
+            return "List";
+        }
+    }
+
+    private void performDisable() {
+        setEntityInActive(current);
+        try {
+            getFacade().entityInactive(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+    
     private void updateCurrentItem() {
         int count = getFacade().count();
+        if(artefactController.getCurrent() != null){
+            count = getFacade().countEntityActiveAndArtefactID(true, artefactController.getCurrent());
+        }
+        else {
+            count = getFacade().countEntityActive(true);
+        }
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -147,16 +224,20 @@ public class ArtefactatomicinformationController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            if(artefactController.getCurrent() !=null){
+                current = getFacade().findRangeEntityActiveAndArtefactID(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, artefactController.getCurrent()).get(0);
+            }
+            current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
         }
     }
 
     public DataModel getItems() {
-        if (items == null) {
             items = getPagination().createPageDataModel();
-        }
         return items;
     }
+    /* 
+    *   End of modified IDE code
+    */  
 
     private void recreateModel() {
         items = null;

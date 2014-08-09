@@ -20,20 +20,10 @@
                     <h:outputText value="#{bundle.ViewAtomicinformationLabel_typeOfAtomicInformationID}"/>
                     <h:outputText value="#{atomicinformationController.selected.typeOfAtomicInformationID.type}" title="#{bundle.ViewAtomicinformationTitle_typeOfAtomicInformationID}"/>
                     <h:outputText value="#{bundle.ViewAtomicinformationLabel_projectID}"/>
-                    <h:outputText value="#{atomicinformationController.selected.projectID.projectName} #{atomicinformationController.selected.projectID.projectReference}" title="#{bundle.ViewAtomicinformationTitle_projectID}"/>
-                    
-                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                    <h:outputText value="#{bundle.ViewAtomicinformationLabel_id}"/>
-                    <h:outputText value="#{atomicinformationController.selected.id}" title="#{bundle.ViewAtomicinformationTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewAtomicinformationLabel_versionNumber}"/>
-                    <h:outputText value="#{atomicinformationController.selected.versionNumber}" title="#{bundle.ViewAtomicinformationTitle_versionNumber}"/>
-                    <h:outputText value="#{bundle.ViewAtomicinformationLabel_previousVersionReference}"/>
-                    <h:outputText value="#{atomicinformationController.selected.previousVersionReference}" title="#{bundle.ViewAtomicinformationTitle_previousVersionReference}"/>
-                    -->
-                    
+                    <h:outputText value="#{atomicinformationController.selected.projectID.projectName} #{atomicinformationController.selected.projectID.projectReference}" title="#{bundle.ViewAtomicinformationTitle_projectID}"/>  
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{atomicinformationController.destroyAndView}" value="#{bundle.ViewAtomicinformationDestroyLink}"/>
+                <h:commandLink action="#{atomicinformationController.disableAndView}" value="#{bundle.ViewAtomicinformationDisableLink}"/>
                 <br />
                 <br />
                 <h:link outcome="Edit" value="#{bundle.ViewAtomicinformationEditLink}"/>

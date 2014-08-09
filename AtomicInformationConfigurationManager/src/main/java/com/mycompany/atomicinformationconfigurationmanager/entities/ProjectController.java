@@ -170,15 +170,12 @@ public class ProjectController extends BaseController implements Serializable {
     private void performDisable() {
         setEntityInActive(current);
         try {
-            getFacade().remove(current);
+            getFacade().entityInactive(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProjectDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
-   
-    
-    
     
     private void updateCurrentItem() {
         int count = getFacade().countEntityActive(true);
@@ -196,11 +193,13 @@ public class ProjectController extends BaseController implements Serializable {
     }
 
     public DataModel getItems() {
-        if (items == null) {
             items = getPagination().createPageDataModel();
-        }
         return items;
     }
+    /* 
+    *   End of modified IDE code
+    */      
+    
 
     private void recreateModel() {
         items = null;

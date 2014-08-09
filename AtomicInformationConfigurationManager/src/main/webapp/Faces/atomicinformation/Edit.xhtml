@@ -21,18 +21,6 @@
                     <h:selectOneMenu id="typeOfAtomicInformationID" value="#{atomicinformationController.selected.typeOfAtomicInformationID}" title="#{bundle.EditAtomicinformationTitle_typeOfAtomicInformationID}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_typeOfAtomicInformationID}">
                         <f:selectItems value="#{typeofatomicinformationController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_projectID}" for="projectID" />
-                    <h:selectOneMenu id="projectID" value="#{atomicinformationController.selected.projectID}" title="#{bundle.EditAtomicinformationTitle_projectID}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_projectID}">
-                        <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    
-                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_versionNumber}" for="versionNumber" />
-                    <h:inputText id="versionNumber" value="#{atomicinformationController.selected.versionNumber}" title="#{bundle.EditAtomicinformationTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_versionNumber}"/>
-                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_previousVersionReference}" for="previousVersionReference" />
-                    <h:inputText id="previousVersionReference" value="#{atomicinformationController.selected.previousVersionReference}" title="#{bundle.EditAtomicinformationTitle_previousVersionReference}" />
-                    -->
-                    
                 </h:panelGrid>
                 <h:commandLink action="#{atomicinformationController.update}" value="#{bundle.EditAtomicinformationSaveLink}"/>
                 <br />

@@ -75,8 +75,8 @@ public class AtomicinformationController extends BaseController implements Seria
                 @Override
                 public DataModel createPageDataModel() {
                     
-                    if (selectedProject != null){
-                        return  new  ListDataModel(getFacade().findByEntityActiveAndProjectID(true, selectedProject.getProject()));
+                    if (selectedProject.getProject() != null){
+                        return  new  ListDataModel(getFacade().findRangeEntityActiveAndProjectID(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, selectedProject.getProject()));
                     }
                     else{
                       return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true));  
@@ -111,7 +111,7 @@ public class AtomicinformationController extends BaseController implements Seria
             *   02/08/14 @Lee Baker
             *   If a project has been selected then create new AtomicInfromation with a reference selected Project
             */
-            if(selectedProject !=null){
+            if(selectedProject.getProject() !=null){
                 current.setProjectID(selectedProject.getProject());
             }
             setEntityActive(current);
@@ -211,7 +211,7 @@ public class AtomicinformationController extends BaseController implements Seria
     
     private void updateCurrentItem() {
         int count;
-        if (selectedProject != null){
+        if (selectedProject.getProject() != null){
              count = getFacade().countEntityActiveAndProjectID(true, selectedProject.getProject());
          }
          else {
@@ -227,7 +227,7 @@ public class AtomicinformationController extends BaseController implements Seria
             }
         }
         if (selectedItemIndex >= 0) {
-            if (selectedProject != null){
+            if (selectedProject.getProject() != null){
                 current = getFacade().findRangeEntityActiveAndProjectID(new int[]{selectedItemIndex, selectedItemIndex + 1},true, selectedProject.getProject()).get(0);
             }
             else {
@@ -237,11 +237,12 @@ public class AtomicinformationController extends BaseController implements Seria
     }
 
     public DataModel getItems() {
-        if (items == null) {
             items = getPagination().createPageDataModel();
-        }
         return items;
     }
+    /* 
+    *   End of modified IDE code
+    */  
 
     private void recreateModel() {
         items = null;
