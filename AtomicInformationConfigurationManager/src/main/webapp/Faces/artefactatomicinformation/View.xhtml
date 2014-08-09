@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewArtefactatomicinformationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewArtefactatomicinformationLabel_artefactAtomicInformationID}"/>
+                    <h:outputText value="#{artefactatomicinformationController.selected.artefactAtomicInformationID}" title="#{bundle.ViewArtefactatomicinformationTitle_artefactAtomicInformationID}"/>
+                    <h:outputText value="#{bundle.ViewArtefactatomicinformationLabel_artefactID}"/>
+                    <h:outputText value="#{artefactatomicinformationController.selected.artefactID}" title="#{bundle.ViewArtefactatomicinformationTitle_artefactID}"/>
+                    <h:outputText value="#{bundle.ViewArtefactatomicinformationLabel_atomicInformationID}"/>
+                    <h:outputText value="#{artefactatomicinformationController.selected.atomicInformationID}" title="#{bundle.ViewArtefactatomicinformationTitle_atomicInformationID}"/>
+                    <h:outputText value="#{bundle.ViewArtefactatomicinformationLabel_id}"/>
+                    <h:outputText value="#{artefactatomicinformationController.selected.id}" title="#{bundle.ViewArtefactatomicinformationTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewArtefactatomicinformationLabel_versionNumber}"/>
+                    <h:outputText value="#{artefactatomicinformationController.selected.versionNumber}" title="#{bundle.ViewArtefactatomicinformationTitle_versionNumber}"/>
+                    <h:outputText value="#{bundle.ViewArtefactatomicinformationLabel_previousVersionReference}"/>
+                    <h:outputText value="#{artefactatomicinformationController.selected.previousVersionReference}" title="#{bundle.ViewArtefactatomicinformationTitle_previousVersionReference}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{artefactatomicinformationController.destroyAndView}" value="#{bundle.ViewArtefactatomicinformationDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewArtefactatomicinformationEditLink}"/>
+                <br />
+                <h:commandLink action="#{artefactatomicinformationController.prepareCreate}" value="#{bundle.ViewArtefactatomicinformationCreateLink}" />
+                <br />
+                <h:commandLink action="#{artefactatomicinformationController.prepareList}" value="#{bundle.ViewArtefactatomicinformationShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewArtefactatomicinformationIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

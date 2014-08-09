@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateArtefactatomicinformationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_artefactAtomicInformationID}" for="artefactAtomicInformationID" />
+                    <h:inputText id="artefactAtomicInformationID" value="#{artefactatomicinformationController.selected.artefactAtomicInformationID}" title="#{bundle.CreateArtefactatomicinformationTitle_artefactAtomicInformationID}" />
+                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_artefactID}" for="artefactID" />
+                    <h:selectOneMenu id="artefactID" value="#{artefactatomicinformationController.selected.artefactID}" title="#{bundle.CreateArtefactatomicinformationTitle_artefactID}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_artefactID}">
+                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_atomicInformationID}" for="atomicInformationID" />
+                    <h:selectOneMenu id="atomicInformationID" value="#{artefactatomicinformationController.selected.atomicInformationID}" title="#{bundle.CreateArtefactatomicinformationTitle_atomicInformationID}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_atomicInformationID}">
+                        <f:selectItems value="#{atomicinformationController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{artefactatomicinformationController.selected.id}" title="#{bundle.CreateArtefactatomicinformationTitle_id}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_versionNumber}" for="versionNumber" />
+                    <h:inputText id="versionNumber" value="#{artefactatomicinformationController.selected.versionNumber}" title="#{bundle.CreateArtefactatomicinformationTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_versionNumber}"/>
+                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_previousVersionReference}" for="previousVersionReference" />
+                    <h:inputText id="previousVersionReference" value="#{artefactatomicinformationController.selected.previousVersionReference}" title="#{bundle.CreateArtefactatomicinformationTitle_previousVersionReference}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{artefactatomicinformationController.create}" value="#{bundle.CreateArtefactatomicinformationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{artefactatomicinformationController.prepareList}" value="#{bundle.CreateArtefactatomicinformationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateArtefactatomicinformationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
