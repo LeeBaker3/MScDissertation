@@ -28,7 +28,7 @@ public class ArtefactController extends BaseController implements Serializable {
 
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactFacade ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
@@ -56,7 +56,7 @@ public class ArtefactController extends BaseController implements Serializable {
         return current;
     }
 
-    private ArtefactFacade getFacade() {
+    private ArtefactSaveRetrieve getFacade() {
         return ejbFacade;
     }
          

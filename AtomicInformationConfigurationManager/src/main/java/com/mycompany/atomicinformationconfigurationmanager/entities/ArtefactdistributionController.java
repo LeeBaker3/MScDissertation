@@ -23,7 +23,7 @@ public class ArtefactdistributionController extends BaseController implements Se
     private Artefactdistribution current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactdistributionFacade ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactdistributionSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -38,7 +38,7 @@ public class ArtefactdistributionController extends BaseController implements Se
         return current;
     }
 
-    private ArtefactdistributionFacade getFacade() {
+    private ArtefactdistributionSaveRetrieve getFacade() {
         return ejbFacade;
     }
 
