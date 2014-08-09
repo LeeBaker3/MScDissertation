@@ -25,7 +25,7 @@ public class AtomicinformationController extends BaseController implements Seria
     private Atomicinformation current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.AtomicinformationFacade ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.AtomicinformationSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
@@ -44,7 +44,7 @@ public class AtomicinformationController extends BaseController implements Seria
         return current;
     }
 
-    private AtomicinformationFacade getFacade() {
+    private AtomicinformationSaveRetrieve getFacade() {
         return ejbFacade;
     }
 

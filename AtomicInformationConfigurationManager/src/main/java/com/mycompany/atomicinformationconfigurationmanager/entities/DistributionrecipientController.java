@@ -23,7 +23,7 @@ public class DistributionrecipientController extends BaseController implements S
     private Distributionrecipient current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.DistributionrecipientFacade ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.DistributionrecipientSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -38,7 +38,7 @@ public class DistributionrecipientController extends BaseController implements S
         return current;
     }
 
-    private DistributionrecipientFacade getFacade() {
+    private DistributionrecipientSaveRetrieve getFacade() {
         return ejbFacade;
     }
 

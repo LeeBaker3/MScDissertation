@@ -23,7 +23,7 @@ public class BaseEntityController extends BaseController implements Serializable
     private BaseEntity current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.BaseEntityFacade ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.BaseSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -38,7 +38,7 @@ public class BaseEntityController extends BaseController implements Serializable
         return current;
     }
 
-    private BaseEntityFacade getFacade() {
+    private BaseSaveRetrieve getFacade() {
         return ejbFacade;
     }
 
