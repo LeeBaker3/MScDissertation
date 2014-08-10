@@ -102,9 +102,37 @@ public class AtomicinformationController extends BaseController implements Seria
     public String prepareCreate() {
         current = new Atomicinformation();
         selectedItemIndex = -1;
-        return "Create";
+        return "/Faces/atomicinformation/Create";
     }
-
+    
+    /*  @Lee baker
+    *   10/08/2014 Added for navigation from  artefactatomicinformation/Create/xhtml
+    */
+    public String prepareCreateFormArtefactAtomicInformation() {
+        current = new Atomicinformation();
+        selectedItemIndex = -1;
+        return "/Faces/atomicinformation/CreateFromArtefactAtomicInformation";
+    }
+    
+    public String createFormArtefactAtomicInformation() {
+        try {
+            /*  
+            *   02/08/14 @Lee Baker
+            *   If a project has been selected then create new AtomicInfromation with a reference selected Project
+            */
+            if(selectedProject.getProject() !=null){
+                current.setProjectID(selectedProject.getProject());
+            }
+            setEntityActive(current);
+            getFacade().create(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationCreated"));
+            return prepareCreateFormArtefactAtomicInformation();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+    
     public String create() {
         try {
             /*  

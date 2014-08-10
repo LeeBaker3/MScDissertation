@@ -100,7 +100,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
     public String prepareCreate() {
         current = new Artefactatomicinformation();
         selectedItemIndex = -1;
-        return "Create";
+        return "/Faces/artefactatomicinformation/Create";
     }
 
     public String create() {
@@ -201,14 +201,14 @@ public class ArtefactatomicinformationController extends BaseController implemen
         setEntityInActive(current);
         try {
             getFacade().entityInactive(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationDisabled"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
     
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count;
         if(artefactController.getCurrent() != null){
             count = getFacade().countEntityActiveAndArtefactID(true, artefactController.getCurrent());
         }

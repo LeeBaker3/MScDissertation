@@ -25,8 +25,6 @@
                     <h:selectOneMenu id="atomicInformationID" value="#{artefactatomicinformationController.selected.atomicInformationID}" title="#{bundle.CreateArtefactatomicinformationTitle_atomicInformationID}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_atomicInformationID}">
                         <f:selectItems value="#{atomicinformationController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{artefactatomicinformationController.selected.id}" title="#{bundle.CreateArtefactatomicinformationTitle_id}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_versionNumber}" for="versionNumber" />
                     <h:inputText id="versionNumber" value="#{artefactatomicinformationController.selected.versionNumber}" title="#{bundle.CreateArtefactatomicinformationTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_versionNumber}"/>
                     <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_previousVersionReference}" for="previousVersionReference" />
@@ -39,7 +37,9 @@
                 <h:commandLink action="#{artefactatomicinformationController.prepareList}" value="#{bundle.CreateArtefactatomicinformationShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.CreateArtefactatomicinformationIndexLink}"/>
+                <h:link outcome="/Faces/appentry/MainMenu" value="#{bundle.CreateArtefactatomicinformationMainMenuLink}"/>
+                <br />
+                <h:commandLink action="#{atomicinformationController.prepareCreateFormArtefactAtomicInformation()}" value="#{bundle.CreateArtefactatomicinfromationCreateFromArtefactAtomicInfromationLink}" immediate="true"/>
             </h:form>
         </ui:define>
     </ui:composition>

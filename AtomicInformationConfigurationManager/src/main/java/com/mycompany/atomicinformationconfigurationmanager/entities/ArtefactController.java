@@ -32,6 +32,10 @@ public class ArtefactController extends BaseController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
+    /*  @Lee Baker
+    *   02/08/14
+    *   Added to get current selected project
+    */
     @Inject 
     private SelectedProject selectedProject; 
 

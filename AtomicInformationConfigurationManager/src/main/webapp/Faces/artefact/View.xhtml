@@ -36,11 +36,11 @@
                 <br />
                 <h:commandLink action="#{artefactController.prepareList}" value ="#{bundle.ViewArtefactShowAllLink}"/>
                 <br />
+                <h:commandLink action="#{artefactdistributionController.prepareCreateFromArtefact()}" value="#{bundle.ViewArtefactdistributionCreateLink}" />
                 <br />
                 <h:link outcome="/Faces/appentry/MainMenu" value="#{bundle.ViewArtefactMainMenuLink}" />
-
+                <br />
             </h:form>
         </ui:define>
     </ui:composition>
-
 </html>
