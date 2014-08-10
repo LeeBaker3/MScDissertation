@@ -15,6 +15,8 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import sun.misc.VM;
 
 @Named("artefactdistributionController")
 @SessionScoped
@@ -26,6 +28,14 @@ public class ArtefactdistributionController extends BaseController implements Se
     private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactdistributionSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+   
+    /*  @Lee Baker
+    *   10/08/14
+    *   Added to get current selected project
+    */
+    @Inject
+    private ArtefactController artefactController;
 
     public ArtefactdistributionController() {
     }
@@ -45,15 +55,35 @@ public class ArtefactdistributionController extends BaseController implements Se
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
-
+                
+                /* 
+                *   10/08/14 @Lee Baker
+                *   IDE Code modified to use countEntityActive() instead of count()
+                */     
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    int localCount;
+                    if (artefactController.getCurrent() !=null){
+                        localCount = getFacade().countEntityActiveAndArtefactID(artefactController.getCurrent(), true);
+                    }
+                    else {
+                        localCount = getFacade().countEntityActive(true);
+                    }
+                    return localCount;
                 }
 
+                /* 
+                *   10/08/14 @Lee Baker
+                *   IDE Code modified to with if else statement to return artefacts for selected project 
+                */
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true));
+                    if (artefactController.getCurrent() !=null){
+                        return  new ListDataModel(getFacade().findRangeEntityActiveAndArtefactID(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, artefactController.getCurrent()));
+                    }
+                    else {
+                        return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true));
+                    }
                 }
             };
         }
@@ -76,9 +106,24 @@ public class ArtefactdistributionController extends BaseController implements Se
         selectedItemIndex = -1;
         return "Create";
     }
+    
+    public String prepareCreateFromArtefact() {
+        current = new Artefactdistribution();
+        selectedItemIndex = -1;
+        return "/Faces/artefactdistribution/Create";
+    }
 
     public String create() {
         try {
+            /*  
+            *   10/08/14 @Lee Baker
+            *   If a artefact has been selected then create new ArtefactDistribution with a reference to the selected Artefact
+            *   and set entityActive when created
+            */ 
+            if(artefactController.getCurrent()!= null){
+                current.setArtefactID(artefactController.getCurrent());
+            }
+            setEntityActive(current);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactdistributionCreated"));
             return prepareCreate();
@@ -135,9 +180,51 @@ public class ArtefactdistributionController extends BaseController implements Se
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
+    
+    /*  
+    *   10/08/14 @Lee Baker
+    *   Code added to disable entity instead of destroying it
+    */   
+    public String disable() {
+        current = (Artefactdistribution) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDisable();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
+
+    public String disableAndView() {
+        performDisable();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return "View";
+        } else {
+            // all items were removed - go back to list
+            recreateModel();
+            return "List";
+        }
+    }
+
+    private void performDisable() {
+        setEntityInActive(current);
+        try {
+            getFacade().entityInactive(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactdistributionDisabled"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
 
     private void updateCurrentItem() {
         int count = getFacade().count();
+        if (artefactController.getCurrent() !=null){
+            count = getFacade().countEntityActiveAndArtefactID(artefactController.getCurrent(), true);
+        }
+        else{
+            count = getFacade().countEntityActive(true);
+        }
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -147,16 +234,20 @@ public class ArtefactdistributionController extends BaseController implements Se
             }
         }
         if (selectedItemIndex >= 0) {
+            if(artefactController.getCurrent()!=null){
+                current = getFacade().findRangeEntityActiveAndArtefactID(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, artefactController.getCurrent()).get(0);
+            }
             current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
         }
     }
 
     public DataModel getItems() {
-        if (items == null) {
             items = getPagination().createPageDataModel();
-        }
         return items;
     }
+    /* 
+    *   End of modified IDE code
+    */   
 
     private void recreateModel() {
         items = null;
@@ -229,5 +320,4 @@ public class ArtefactdistributionController extends BaseController implements Se
         }
 
     }
-
 }

@@ -6,9 +6,11 @@
 
 package com.mycompany.atomicinformationconfigurationmanager.entities;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,5 +29,32 @@ public class ArtefactdistributionSaveRetrieve extends BaseSaveRetrieveAbstract<A
     public ArtefactdistributionSaveRetrieve() {
         super(Artefactdistribution.class);
     }
+       
+    public List<Artefactdistribution> findByEntityActiveAndArtefactID (Artefact artefact, boolean entityActive){
+        TypedQuery<Artefactdistribution> query = em.createNamedQuery("Artefactdistribution.findByEntityActiveAndArtefactID", Artefactdistribution.class);
+        query.setParameter("artefactID", artefact);
+        query.setParameter("entityActive", entityActive);
+        List<Artefactdistribution> results = query.getResultList();
+        return results;
+    }
+    
+    public List<Artefactdistribution> findRangeEntityActiveAndArtefactID (int[] range, Boolean entityActive, Artefact artefact){
+        TypedQuery<Artefactdistribution> query = em.createNamedQuery("Artefactdistribution.findByEntityActiveAndArtefactID", Artefactdistribution.class);
+        query.setParameter("artefactID", artefact);
+        query.setParameter("entityActive", entityActive);
+        query.setMaxResults(range[1] - range[0] + 1);
+        query.setFirstResult(range[0]);
+        List<Artefactdistribution> results = query.getResultList();
+        return results;
+    }
+    
+        public int countEntityActiveAndArtefactID(Artefact artefact, Boolean entityActive){
+        TypedQuery<Artefactdistribution> query = em.createNamedQuery("Artefactdistribution.findByEntityActiveAndArtefactID", Artefactdistribution.class);
+        query.setParameter("artefactID", artefact);
+        query.setParameter("entityActive", entityActive);
+        List<Artefactdistribution> results = query.getResultList();
+        return results.size();
+    }
+    
     
 }
