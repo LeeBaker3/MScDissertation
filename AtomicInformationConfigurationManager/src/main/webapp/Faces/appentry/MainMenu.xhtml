@@ -17,22 +17,23 @@
                     <h:outputLabel value="#{bundle.MainMenuLabel_projectID}" for="projectID" />
                     <h:selectOneMenu id="project" value="#{selectedProject.project}" title="#{bundle.MainMenuTitle_projectID}" required="true" requiredMessage="#{bundle.MainMenuRequiredMessage_projectID}">
                          <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
+                         <f:ajax render="@form" />
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <h:commandLink action="/Faces/artefact/List" value="#{bundle.MainMenuSelectLink_selectProject}"/>
                 <br />
                 <h:link outcome="/Faces/project/List" value="Show All Project"/>
                 <br />
-                <h:link outcome="/Faces/artefactdistribution/List" value="#{bundle.MainMenuListArtefactdistributionLink}"/>
+                <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.MainMenuListArtefactdistributionLink}"/>
                 <br />
-                <h:link outcome="/Faces/atomicinformation/List" value="#{bundle.MainMenuListAtomicinformationLink}"/>
+                <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.MainMenuListAtomicinformationLink}"/>
                 <br />
-                <h:link outcome="/Faces/distributionrecipient/List" value="#{bundle.MainMenuListDistributionrecipientLink}"/>
+                <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.MainMenuListDistributionrecipientLink}"/>
                 <br />
-                <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.MainMenuListMethodofdistributionLink}"/>
+                <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/methodofdistribution/List" value="#{bundle.MainMenuListMethodofdistributionLink}"/>
                 <br />
-                <h:link outcome="/Faces/typeofatomicinformation/List" value="#{bundle.MainMenuListTypeofatomicinformationLink}"/>
-                <br />
+                <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/typeofatomicinformation/List" value="#{bundle.MainMenuListTypeofatomicinformationLink}"/>
+                <br />            
                 <h:link outcome="/index" value="#{bundle.MainMenuSelectIndexLink}"/>
             </h:form> 
         </ui:define>

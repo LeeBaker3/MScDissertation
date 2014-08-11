@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndVersionNumber", query = "SELECT a FROM Artefactdistribution a WHERE a.versionNumber = :versionNumber AND a.entityActive = :entityActive"),
     @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndIsCurrentVersion", query = "SELECT a FROM Artefactdistribution a WHERE a.isCurrentVersion = :isCurrentVersion AND a.entityActive = :entityActive"),
     @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndPreviousVersionReference", query = "SELECT a FROM Artefactdistribution a WHERE a.previousVersionReference = :previousVersionReference AND a.entityActive = :entityActive"),
-    @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndEntityActive", query = "SELECT a FROM Artefactdistribution a WHERE a.entityActive = :entityActive AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndArtefactID", query = "SELECT a FROM Artefactdistribution a WHERE a.entityActive = :entityActive AND a.artefactID = :artefactID"),
     @NamedQuery(name = "Artefactdistribution.findByEntityActiveAndDateOfArtefactDistribution", query = "SELECT a FROM Artefactdistribution a WHERE a.dateOfArtefactDistribution = :dateOfArtefactDistribution AND a.entityActive = :entityActive"),
     
     @NamedQuery(name = "Artefactdistribution.findAll", query = "SELECT a FROM Artefactdistribution a"),
