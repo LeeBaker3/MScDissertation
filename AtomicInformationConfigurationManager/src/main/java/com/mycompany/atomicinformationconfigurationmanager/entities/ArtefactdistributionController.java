@@ -110,10 +110,10 @@ public class ArtefactdistributionController extends BaseController implements Se
     public String prepareCreateFromArtefact() {
         current = new Artefactdistribution();
         selectedItemIndex = -1;
-        return "/Faces/artefactdistribution/Create";
+        return "/Faces/artefactdistribution/CreateFromArtefact";
     }
 
-    public String create() {
+    public String create(String returnMethod) {
         try {
             /*  
             *   10/08/14 @Lee Baker
@@ -126,7 +126,20 @@ public class ArtefactdistributionController extends BaseController implements Se
             setEntityActive(current);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactdistributionCreated"));
-            return prepareCreate();
+            
+            /*
+            *   13/08/14 @Lee Baker
+            *   Code modified to return from multiple calling xHtml pages
+            */
+            if ("prepareCreate".equals(returnMethod)){
+                return prepareCreate();
+            }
+            if ("prepareCreateFromArtefact".equals(returnMethod)){
+                return prepareCreateFromArtefact();
+            }
+            else {
+                return prepareCreate();
+            }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;

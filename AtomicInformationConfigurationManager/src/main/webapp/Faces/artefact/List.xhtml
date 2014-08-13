@@ -44,28 +44,7 @@
                             </f:facet>
                             <h:outputText value="#{item.projectID.projectName}"/>
                         </h:column>
-                        
-                        <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactTitle_versionNumber}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.versionNumber}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactTitle_previousVersionReference}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.previousVersionReference}"/>
-                        </h:column>
-                        -->
-                        
+
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
@@ -82,7 +61,7 @@
                 <h:commandLink action="#{artefactController.prepareCreate}" value="#{bundle.ListArtefactCreateLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/Faces/appentry/MainMenu" value="#{bundle.ListArtefactMainMenuLink}" />
+                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ListArtefactMainMenuLink}" />
             </h:form>
         </ui:define>
     </ui:composition>

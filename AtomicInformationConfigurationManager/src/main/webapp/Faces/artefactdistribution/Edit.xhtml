@@ -31,14 +31,6 @@
                     <h:selectOneMenu id="artefactID" value="#{artefactdistributionController.selected.artefactID}" title="#{bundle.EditArtefactdistributionTitle_artefactID}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_artefactID}">
                         <f:selectItems value="#{artefactController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    
-                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_versionNumber}" for="versionNumber" />
-                    <h:inputText id="versionNumber" value="#{artefactdistributionController.selected.versionNumber}" title="#{bundle.EditArtefactdistributionTitle_versionNumber}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_versionNumber}"/>
-                    <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_previousVersionReference}" for="previousVersionReference" />
-                    <h:inputText id="previousVersionReference" value="#{artefactdistributionController.selected.previousVersionReference}" title="#{bundle.EditArtefactdistributionTitle_previousVersionReference}" />
-                    -->
-                    
                 </h:panelGrid>
                 <h:commandLink action="#{artefactdistributionController.update}" value="#{bundle.EditArtefactdistributionSaveLink}"/>
                 <br />
@@ -48,7 +40,7 @@
                 <h:commandLink action="#{artefactdistributionController.prepareList}" value="#{bundle.EditArtefactdistributionShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/Faces/appentry/MainMenu" value="#{bundle.EditArtefactdistributionMainMenuLink}" />
+                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.EditArtefactdistributionMainMenuLink}" />
             </h:form>
         </ui:define>
     </ui:composition>

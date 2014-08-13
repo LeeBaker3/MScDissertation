@@ -30,15 +30,7 @@
                     <h:outputLabel value="#{bundle.CreateDistributionrecipientLabel_projectID}" for="projectID" />
                     <h:selectOneMenu id="projectID" value="#{distributionrecipientController.selected.projectID}" title="#{bundle.CreateDistributionrecipientTitle_projectID}" required="true" requiredMessage="#{bundle.CreateDistributionrecipientRequiredMessage_projectID}">
                         <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    
-                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                    <h:outputLabel value="#{bundle.CreateDistributionrecipientLabel_versionNumber}" for="versionNumber" />
-                    <h:inputText id="versionNumber" value="#{distributionrecipientController.selected.versionNumber}" title="#{bundle.CreateDistributionrecipientTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateDistributionrecipientRequiredMessage_versionNumber}"/>
-                    <h:outputLabel value="#{bundle.CreateDistributionrecipientLabel_previousVersionReference}" for="previousVersionReference" />
-                    <h:inputText id="previousVersionReference" value="#{distributionrecipientController.selected.previousVersionReference}" title="#{bundle.CreateDistributionrecipientTitle_previousVersionReference}" />
-                    -->
-                    
+                    </h:selectOneMenu> 
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{distributionrecipientController.create}" value="#{bundle.CreateDistributionrecipientSaveLink}" />
@@ -47,7 +39,7 @@
                 <h:commandLink action="#{distributionrecipientController.prepareList}" value="#{bundle.CreateDistributionrecipientShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/Faces/appentry/MainMenu" value="#{bundle.CreateDistributionrecipientMainMenuLink}" />
+                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.CreateDistributionrecipientMainMenuLink}" />
             </h:form>
         </ui:define>
     </ui:composition>

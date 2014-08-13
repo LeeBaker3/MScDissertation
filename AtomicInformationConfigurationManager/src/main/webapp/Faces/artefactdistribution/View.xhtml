@@ -24,17 +24,7 @@
                     <h:outputText value="#{bundle.ViewArtefactdistributionLabel_distributionRecipientID}"/>
                     <h:outputText value="#{artefactdistributionController.selected.distributionRecipientID.firstName} #{artefactdistributionController.selected.distributionRecipientID.surname}" title="#{bundle.ViewArtefactdistributionTitle_distributionRecipientID}"/>
                     <h:outputText value="#{bundle.ViewArtefactdistributionLabel_artefactID}"/>
-                    <h:outputText value="#{artefactdistributionController.selected.artefactID.artefactName}" title="#{bundle.ViewArtefactdistributionTitle_artefactID}"/>
-                    
-                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_id}"/>
-                    <h:outputText value="#{artefactdistributionController.selected.id}" title="#{bundle.ViewArtefactdistributionTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_versionNumber}"/>
-                    <h:outputText value="#{artefactdistributionController.selected.versionNumber}" title="#{bundle.ViewArtefactdistributionTitle_versionNumber}"/>
-                    <h:outputText value="#{bundle.ViewArtefactdistributionLabel_previousVersionReference}"/>
-                    <h:outputText value="#{artefactdistributionController.selected.previousVersionReference}" title="#{bundle.ViewArtefactdistributionTitle_previousVersionReference}"/>
-                    -->
-                    
+                    <h:outputText value="#{artefactdistributionController.selected.artefactID.artefactName}" title="#{bundle.ViewArtefactdistributionTitle_artefactID}"/> 
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{artefactdistributionController.destroyAndView}" value="#{bundle.ViewArtefactdistributionDestroyLink}"/>
@@ -47,7 +37,7 @@
                 <h:commandLink action="#{artefactdistributionController.prepareList}" value="#{bundle.ViewArtefactdistributionShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/Faces/appentry/MainMenu" value="#{bundle.ViewArtefactdistributionMainMenuLink}" />
+                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ViewArtefactdistributionMainMenuLink}" />
 
             </h:form>
         </ui:define>

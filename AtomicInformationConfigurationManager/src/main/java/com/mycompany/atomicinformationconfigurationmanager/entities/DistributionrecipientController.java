@@ -2,6 +2,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
+import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 @Named("distributionrecipientController")
 @SessionScoped
@@ -26,6 +28,9 @@ public class DistributionrecipientController extends BaseController implements S
     private com.mycompany.atomicinformationconfigurationmanager.entities.DistributionrecipientSaveRetrieve ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+    @Inject
+    private SelectedProject selectedProject;
 
     public DistributionrecipientController() {
     }
@@ -46,6 +51,12 @@ public class DistributionrecipientController extends BaseController implements S
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
 
+                /*
+                *   13/08/14    @Lee Baker
+                *   IDE Code modified to use countEntityActive() instead of count()
+                */
+                
+                
                 @Override
                 public int getItemsCount() {
                     return getFacade().count();

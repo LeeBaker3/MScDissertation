@@ -16,17 +16,7 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewTypeofatomicinformationLabel_type}"/>
-                    <h:outputText value="#{typeofatomicinformationController.selected.type}" title="#{bundle.ViewTypeofatomicinformationTitle_type}"/>
-                    
-                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                    <h:outputText value="#{bundle.ViewTypeofatomicinformationLabel_id}"/>
-                    <h:outputText value="#{typeofatomicinformationController.selected.id}" title="#{bundle.ViewTypeofatomicinformationTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewTypeofatomicinformationLabel_versionNumber}"/>
-                    <h:outputText value="#{typeofatomicinformationController.selected.versionNumber}" title="#{bundle.ViewTypeofatomicinformationTitle_versionNumber}"/>
-                    <h:outputText value="#{bundle.ViewTypeofatomicinformationLabel_previousVersionReference}"/>
-                    <h:outputText value="#{typeofatomicinformationController.selected.previousVersionReference}" title="#{bundle.ViewTypeofatomicinformationTitle_previousVersionReference}"/>
-                    -->
-                    
+                    <h:outputText value="#{typeofatomicinformationController.selected.type}" title="#{bundle.ViewTypeofatomicinformationTitle_type}"/>                  
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{typeofatomicinformationController.destroyAndView}" value="#{bundle.ViewTypeofatomicinformationDestroyLink}"/>
@@ -39,8 +29,7 @@
                 <h:commandLink action="#{typeofatomicinformationController.prepareList}" value="#{bundle.ViewTypeofatomicinformationShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/Faces/appentry/MainMenu" value="#{bundle.ViewTypeofatomicinformationIndexLink}" />
-
+                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ViewTypeofatomicinformationIndexLink}" />
             </h:form>
         </ui:define>
     </ui:composition>

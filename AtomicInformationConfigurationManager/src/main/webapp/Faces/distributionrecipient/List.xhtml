@@ -61,29 +61,7 @@
                                 <h:outputText value="#{bundle.ListDistributionrecipientTitle_projectID}"/>
                             </f:facet>
                             <h:outputText value="#{item.projectID.projectName} #{item.projectID.projectReference}"/>
-                        </h:column>
-                        
-                        <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_versionNumber}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.versionNumber}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDistributionrecipientTitle_previousVersionReference}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.previousVersionReference}"/>
-                        </h:column>
-                        -->
-                        
+                        </h:column>     
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
@@ -100,7 +78,7 @@
                 <h:commandLink action="#{distributionrecipientController.prepareCreate}" value="#{bundle.ListDistributionrecipientCreateLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/Faces/appentry/MainMenu" value="#{bundle.ListDistributionrecipientMainMenuLink}" />
+                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ListDistributionrecipientMainMenuLink}" />
             </h:form>
         </ui:define>
     </ui:composition>

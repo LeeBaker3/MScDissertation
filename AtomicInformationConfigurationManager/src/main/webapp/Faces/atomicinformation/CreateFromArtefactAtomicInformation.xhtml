@@ -23,10 +23,13 @@
                     </h:selectOneMenu>  
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{atomicinformationController.createFormArtefactAtomicInformation()}" value="#{bundle.CreateAtomicinformationSaveLink}" />
+                <h:commandLink action="#{atomicinformationController.create('prepareCreateFormArtefactAtomicInformation')}" value="#{bundle.CreateAtomicinformationSaveLink}" />
                 <br />
                 <br />
-                 <h:commandLink action="#{artefactatomicinformationController.prepareCreate}" value="#{bundle.CreateAtomicinformationArtefactatomicInfromationCreateLink}" immediate="true"/>
+                <h:commandLink action="#{artefactatomicinformationController.prepareCreate}" value="#{bundle.CreateAtomicinformationArtefactatomicInfromationCreateLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.CreateAtomicinformationMainMenuLink}" />
             </h:form>
         </ui:define>
     </ui:composition>

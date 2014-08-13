@@ -28,17 +28,13 @@
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_distributionRecipientID}" for="distributionRecipientID" />
                     <h:selectOneMenu id="distributionRecipientID" value="#{artefactdistributionController.selected.distributionRecipientID}" title="#{bundle.CreateArtefactdistributionTitle_distributionRecipientID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_distributionRecipientID}">
                         <f:selectItems value="#{distributionrecipientController.itemsAvailableSelectOne}" />
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_artefactID}" for="artefactID" />
-                    <h:selectOneMenu id="artefactID" value="#{artefactdistributionController.selected.artefactID}" title="#{bundle.CreateArtefactdistributionTitle_artefactID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_artefactID}">
-                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}" itemLabel="#()"/>
-                    </h:selectOneMenu>               
+                    </h:selectOneMenu>            
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{artefactdistributionController.create('prepareCreate')}" value="#{bundle.CreateArtefactdistributionSaveLink}" />
+                <h:commandLink action="#{artefactdistributionController.create('prepareCreateFromArtefact')}" value="#{bundle.CreateArtefactdistributionSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{artefactdistributionController.prepareList}" value="#{bundle.CreateArtefactdistributionShowAllLink}" immediate="true"/>
+                <h:commandLink action="#{artefactController.prepareView}" value="#{bundle.CreateArtefactdistributionShowArtefactViewLink}" immediate="true"/>
                 <br />
                 <br />
                 <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.CreateArtefactdistributionMainMenuLink}" />

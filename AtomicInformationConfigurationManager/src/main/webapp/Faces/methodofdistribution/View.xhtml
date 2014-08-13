@@ -17,16 +17,6 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewMethodofdistributionLabel_method}"/>
                     <h:outputText value="#{methodofdistributionController.selected.method}" title="#{bundle.ViewMethodofdistributionTitle_method}"/>
-                    
-                    <!-- IDE Generated Code - Noted required - Lee Baker 20/07/14
-                    <h:outputText value="#{bundle.ViewMethodofdistributionLabel_id}"/>
-                    <h:outputText value="#{methodofdistributionController.selected.id}" title="#{bundle.ViewMethodofdistributionTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewMethodofdistributionLabel_versionNumber}"/>
-                    <h:outputText value="#{methodofdistributionController.selected.versionNumber}" title="#{bundle.ViewMethodofdistributionTitle_versionNumber}"/>
-                    <h:outputText value="#{bundle.ViewMethodofdistributionLabel_previousVersionReference}"/>
-                    <h:outputText value="#{methodofdistributionController.selected.previousVersionReference}" title="#{bundle.ViewMethodofdistributionTitle_previousVersionReference}"/>
-                    -->
-                    
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{methodofdistributionController.destroyAndView}" value="#{bundle.ViewMethodofdistributionDestroyLink}"/>
@@ -39,7 +29,7 @@
                 <h:commandLink action="#{methodofdistributionController.prepareList}" value="#{bundle.ViewMethodofdistributionShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/Faces/appentry/MainMenu" value="#{bundle.ViewMethodofdistributionMainMenuLink}"/>
+                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ViewMethodofdistributionMainMenuLink}"/>
 
             </h:form>
         </ui:define>

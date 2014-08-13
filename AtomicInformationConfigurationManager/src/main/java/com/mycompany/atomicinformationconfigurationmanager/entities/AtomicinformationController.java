@@ -114,7 +114,7 @@ public class AtomicinformationController extends BaseController implements Seria
         return "/Faces/atomicinformation/CreateFromArtefactAtomicInformation";
     }
     
-    public String createFormArtefactAtomicInformation() {
+    public String create(String returnMethod) {
         try {
             /*  
             *   02/08/14 @Lee Baker
@@ -126,26 +126,20 @@ public class AtomicinformationController extends BaseController implements Seria
             setEntityActive(current);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationCreated"));
-            return prepareCreateFormArtefactAtomicInformation();
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
-        }
-    }
-    
-    public String create() {
-        try {
-            /*  
-            *   02/08/14 @Lee Baker
-            *   If a project has been selected then create new AtomicInfromation with a reference selected Project
+            
+            /*
+            *   13/08/14 @Lee Baker
+            *   Code modified to return from multiple calling xHtml pages
             */
-            if(selectedProject.getProject() !=null){
-                current.setProjectID(selectedProject.getProject());
+            if ("prepareCreate".equals(returnMethod)){
+                return prepareCreate();
             }
-            setEntityActive(current);
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationCreated"));
-            return prepareCreate();
+            if ("prepareCreateFormArtefactAtomicInformation".equals(returnMethod)){
+                return prepareCreateFormArtefactAtomicInformation();
+            }
+            else{
+               return prepareCreate(); 
+            }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
