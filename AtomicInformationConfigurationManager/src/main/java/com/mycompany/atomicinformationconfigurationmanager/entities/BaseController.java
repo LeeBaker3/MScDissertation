@@ -24,7 +24,7 @@ public class BaseController implements Serializable{
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     
-    private com.mycompany.atomicinformationconfigurationmanager.entities.BaseSaveRetrieve ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.BaseSaveRetrieve ejbSaveRetrieve;
     
     public void setEntityActive(BaseEntity entity){
         entity.entityActive = true;

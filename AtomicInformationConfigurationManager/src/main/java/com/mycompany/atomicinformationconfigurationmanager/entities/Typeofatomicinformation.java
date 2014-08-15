@@ -33,8 +33,9 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Typeofatomicinformation.findByEntityActiveAndTypeOfAtomicInformationID", query = "SELECT t FROM Typeofatomicinformation t WHERE t.id = :typeOfAtomicInformationID AND t.entityActive = :entityActive"),
-    @NamedQuery(name = "Typeofatomicinformation.findByEntityActiveAndType", query = "SELECT t FROM Typeofatomicinformation t WHERE t.type = :type AND t.entityActive = :entityActive"),
+    @NamedQuery(name = "Typeofatomicinformation.findByEntityActiveAndTypeOfAtomicInformationIDAndIsCurrentVersion", query = "SELECT t FROM Typeofatomicinformation t WHERE t.id = :typeOfAtomicInformationID AND t.entityActive = :entityActive  AND t.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Typeofatomicinformation.findByEntityActiveAndTypeAndIsCurrentVersion", query = "SELECT t FROM Typeofatomicinformation t WHERE t.type = :type AND t.entityActive = :entityActive  AND t.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Typeofatomicinformation.findByEntityActiveAndIsCurrentVersion", query = "SELECT t FROM Typeofatomicinformation t WHERE t.entityActive = :entityActive AND t.isCurrentVersion = :isCurrentVersion"),
     
     @NamedQuery(name = "Typeofatomicinformation.findAll", query = "SELECT t FROM Typeofatomicinformation t"),
     @NamedQuery(name = "Typeofatomicinformation.findByEntityActive", query = "SELECT t FROM Typeofatomicinformation t WHERE t.entityActive = :entityActive"),

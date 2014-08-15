@@ -30,28 +30,31 @@ public class ArtefactdistributionSaveRetrieve extends BaseSaveRetrieveAbstract<A
         super(Artefactdistribution.class);
     }
        
-    public List<Artefactdistribution> findByEntityActiveAndArtefactID (Artefact artefact, boolean entityActive){
-        TypedQuery<Artefactdistribution> query = em.createNamedQuery("Artefactdistribution.findByEntityActiveAndArtefactID", Artefactdistribution.class);
+    public List<Artefactdistribution> findByEntityActiveAndArtefactIDAndIsCurrentVersion (Artefact artefact, boolean entityActive, boolean isCurrentVersion){
+        TypedQuery<Artefactdistribution> query = em.createNamedQuery("Artefactdistribution.findByEntityActiveAndArtefactIDAndIsCurrentVersion", Artefactdistribution.class);
         query.setParameter("artefactID", artefact);
         query.setParameter("entityActive", entityActive);
+        query.setParameter("isCurrentVersion", isCurrentVersion);
         List<Artefactdistribution> results = query.getResultList();
         return results;
     }
     
-    public List<Artefactdistribution> findRangeEntityActiveAndArtefactID (int[] range, Boolean entityActive, Artefact artefact){
-        TypedQuery<Artefactdistribution> query = em.createNamedQuery("Artefactdistribution.findByEntityActiveAndArtefactID", Artefactdistribution.class);
+    public List<Artefactdistribution> findRangeEntityActiveAndArtefactIDAndIsCurrentVersion (int[] range, Boolean entityActive, Artefact artefact, boolean isCurrentVersion){
+        TypedQuery<Artefactdistribution> query = em.createNamedQuery("Artefactdistribution.findByEntityActiveAndArtefactIDAndIsCurrentVersion", Artefactdistribution.class);
         query.setParameter("artefactID", artefact);
         query.setParameter("entityActive", entityActive);
+        query.setParameter("isCurrentVersion", isCurrentVersion);
         query.setMaxResults(range[1] - range[0] + 1);
         query.setFirstResult(range[0]);
         List<Artefactdistribution> results = query.getResultList();
         return results;
     }
     
-        public int countEntityActiveAndArtefactID(Artefact artefact, Boolean entityActive){
-        TypedQuery<Artefactdistribution> query = em.createNamedQuery("Artefactdistribution.findByEntityActiveAndArtefactID", Artefactdistribution.class);
+        public int countEntityActiveAndArtefactIDIsCurrentVersion(Artefact artefact, Boolean entityActive, boolean isCurrentVersion){
+        TypedQuery<Artefactdistribution> query = em.createNamedQuery("Artefactdistribution.findByEntityActiveAndArtefactIDAndIsCurrentVersion", Artefactdistribution.class);
         query.setParameter("artefactID", artefact);
         query.setParameter("entityActive", entityActive);
+        query.setParameter("isCurrentVersion", isCurrentVersion);
         List<Artefactdistribution> results = query.getResultList();
         return results.size();
     }

@@ -29,13 +29,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @AttributeOverride (name = "id", column = @Column(name = "AtomicInformationID"))
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndAtomicInformationID", query = "SELECT a FROM Atomicinformation a WHERE a.id = :atomicInformationID AND a.entityActive = :entityActive"),
-    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndVersionNumber", query = "SELECT a FROM Atomicinformation a WHERE a.versionNumber = :versionNumber AND a.entityActive = :entityActive"),
+    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndAtomicInformationIDAndIsCurrentVersion", query = "SELECT a FROM Atomicinformation a WHERE a.id = :atomicInformationID AND a.entityActive = :entityActive AND a.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndVersionNumberAndIsCurrentVersion", query = "SELECT a FROM Atomicinformation a WHERE a.versionNumber = :versionNumber AND a.entityActive = :entityActive AND a.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Atomicinformation.findByEntityActiveAndIsCurrentVersion", query = "SELECT a FROM Atomicinformation a WHERE a.isCurrentVersion = :isCurrentVersion AND a.entityActive = :entityActive"),
-    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndPreviousVersionReference", query = "SELECT a FROM Atomicinformation a WHERE a.previousVersionReference = :previousVersionReference AND a.entityActive = :entityActive"),
-    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndEntityActive", query = "SELECT a FROM Atomicinformation a WHERE a.entityActive = :entityActive AND a.entityActive = :entityActive"),
-    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndContent", query = "SELECT a FROM Atomicinformation a WHERE a.content = :content AND a.entityActive = :entityActive"),
-    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndProjectID", query = "SELECT a FROM Atomicinformation a WHERE a.entityActive = :entityActive AND a.projectID = :projectID"),
+    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndPreviousVersionReferenceAndIsCurrentVersion", query = "SELECT a FROM Atomicinformation a WHERE a.previousVersionReference = :previousVersionReference AND a.entityActive = :entityActive AND a.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndEntityActiveAndIsCurrentVersion", query = "SELECT a FROM Atomicinformation a WHERE a.entityActive = :entityActive "),
+    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndContentAndIsCurrentVersion", query = "SELECT a FROM Atomicinformation a WHERE a.content = :content AND a.entityActive = :entityActive AND a.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Atomicinformation.findByEntityActiveAndProjectIDAndIsCurrentVersion", query = "SELECT a FROM Atomicinformation a WHERE a.entityActive = :entityActive AND a.projectID = :projectID AND a.isCurrentVersion = :isCurrentVersion"),
     
     
     @NamedQuery(name = "Atomicinformation.findAll", query = "SELECT a FROM Atomicinformation a"),

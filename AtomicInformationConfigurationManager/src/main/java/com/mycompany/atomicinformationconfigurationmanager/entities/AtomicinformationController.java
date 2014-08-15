@@ -25,7 +25,7 @@ public class AtomicinformationController extends BaseController implements Seria
     private Atomicinformation current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.AtomicinformationSaveRetrieve ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.AtomicinformationSaveRetrieve ejbSaveRetrieve;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
@@ -45,7 +45,7 @@ public class AtomicinformationController extends BaseController implements Seria
     }
 
     private AtomicinformationSaveRetrieve getFacade() {
-        return ejbFacade;
+        return ejbSaveRetrieve;
     }
 
     public PaginationHelper getPagination() {
@@ -60,10 +60,10 @@ public class AtomicinformationController extends BaseController implements Seria
                 public int getItemsCount() {
                     int localCount;
                     if (selectedProject.getProject()!=null){
-                        localCount = getFacade().countEntityActiveAndProjectID(true, selectedProject.getProject());
+                        localCount = getFacade().countEntityActiveAndProjectIDAndIsCurrentVersion(true, selectedProject.getProject(), true);
                     }
                     else{
-                        localCount = getFacade().countEntityActive(true);
+                        localCount = getFacade().countEntityActive(true, true);
                     }
                     return localCount;
                 }
@@ -76,10 +76,10 @@ public class AtomicinformationController extends BaseController implements Seria
                 public DataModel createPageDataModel() {
                     
                     if (selectedProject.getProject() != null){
-                        return  new  ListDataModel(getFacade().findRangeEntityActiveAndProjectID(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, selectedProject.getProject()));
+                        return  new  ListDataModel(getFacade().findRangeEntityActiveAndProjectIDAndISCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, selectedProject.getProject(), true));
                     }
                     else{
-                      return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true));  
+                      return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, true));  
                     }
                     
                 }
@@ -234,10 +234,10 @@ public class AtomicinformationController extends BaseController implements Seria
     private void updateCurrentItem() {
         int count;
         if (selectedProject.getProject() != null){
-             count = getFacade().countEntityActiveAndProjectID(true, selectedProject.getProject());
+             count = getFacade().countEntityActiveAndProjectIDAndIsCurrentVersion(true, selectedProject.getProject(), true);
          }
          else {
-             count = getFacade().countEntityActive(true);
+             count = getFacade().countEntityActive(true, true);
          }
                  
         if (selectedItemIndex >= count) {
@@ -250,10 +250,10 @@ public class AtomicinformationController extends BaseController implements Seria
         }
         if (selectedItemIndex >= 0) {
             if (selectedProject.getProject() != null){
-                current = getFacade().findRangeEntityActiveAndProjectID(new int[]{selectedItemIndex, selectedItemIndex + 1},true, selectedProject.getProject()).get(0);
+                current = getFacade().findRangeEntityActiveAndProjectIDAndISCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, selectedProject.getProject(), true).get(0);
             }
             else {
-                current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
+                current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
             }
         }
     }
@@ -287,15 +287,15 @@ public class AtomicinformationController extends BaseController implements Seria
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), false);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAllEntityActiveIsCurrentVersion(true, true), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), true);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAllEntityActiveIsCurrentVersion(true, true), true);
     }
 
     public Atomicinformation getAtomicinformation(java.lang.Integer id) {
-        return ejbFacade.find(id);
+        return ejbSaveRetrieve.find(id);
     }
 
     @FacesConverter(forClass = Atomicinformation.class)

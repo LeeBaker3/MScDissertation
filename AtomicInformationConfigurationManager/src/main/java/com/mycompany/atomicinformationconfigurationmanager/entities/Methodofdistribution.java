@@ -28,8 +28,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @AttributeOverride (name = "id", column = @Column(name = "MethodOfDistributionID"))
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Methodofdistribution.findByEntityActiveAndMethodOfDistributionID", query = "SELECT m FROM Methodofdistribution m WHERE m.id = :methodOfDistributionID AND m.entityActive = :entityActive"),
-    @NamedQuery(name = "Methodofdistribution.findByEntityActiveAndMethod", query = "SELECT m FROM Methodofdistribution m WHERE m.method = :method AND m.entityActive = :entityActive"),
+    @NamedQuery(name = "Methodofdistribution.findByEntityActiveAndMethodOfDistributionIDAndIsCurrentVersion", query = "SELECT m FROM Methodofdistribution m WHERE m.id = :methodOfDistributionID AND m.entityActive = :entityActive AND m.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Methodofdistribution.findByEntityActiveAndMethodAndIsCurrentVersion", query = "SELECT m FROM Methodofdistribution m WHERE m.method = :method AND m.entityActive = :entityActive AND m.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Methodofdistribution.findByEntityActiveAndIsCurrentVersion", query = "SELECT m FROM Methodofdistribution m WHERE m.entityActive = :entityActive AND m.isCurrentVersion = :isCurrentVersion"),
     
     @NamedQuery(name = "Methodofdistribution.findAll", query = "SELECT m FROM Methodofdistribution m"),
     @NamedQuery(name = "Methodofdistribution.findByEntityActive", query = "SELECT m FROM Methodofdistribution m WHERE m.entityActive = :entityActive"),

@@ -30,28 +30,31 @@ public class ArtefactSaveRetrieve extends BaseSaveRetrieveAbstract<Artefact> {
         super(Artefact.class);
     }
     
-    public List<Artefact> findByEntityActiveAndProjectID (Project project, boolean entityActive){
-        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByEntityActiveAndProjectID", Artefact.class);
+    public List<Artefact> findByEntityActiveAndProjectIDAndIsCurrentVersion (Project project, boolean entityActive, boolean isCurrentVersion){
+        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByEntityActiveAndProjectIDAndIsCurrentVersion", Artefact.class);
         query.setParameter("projectID", project);
         query.setParameter("entityActive", entityActive);
+        query.setParameter("isCurrentVersion", isCurrentVersion);
         List<Artefact> results = query.getResultList();
         return results;
     }
     
-    public List<Artefact> findRangeEntityActiveAndProjectID (int[] range, Boolean entityActive, Project project){
-        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByEntityActiveAndProjectID", Artefact.class);
+    public List<Artefact> findRangeEntityActiveAndProjectIDAndIsCurrentVersion (int[] range, Boolean entityActive, Project project, boolean isCurrentVersion){
+        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByEntityActiveAndProjectIDAndIsCurrentVersion", Artefact.class);
         query.setParameter("projectID", project);
         query.setParameter("entityActive", entityActive);
+        query.setParameter("isCurrentVersion", isCurrentVersion);
         query.setMaxResults(range[1] - range[0] + 1);
         query.setFirstResult(range[0]);
         List<Artefact> results = query.getResultList();
         return results;
     }
     
-        public int countEntityActiveAndProjectID(Project project, Boolean entityActive){
-        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByEntityActiveAndProjectID", Artefact.class);
+        public int countEntityActiveAndProjectIDAndIsCurrentVersion(Project project, Boolean entityActive, boolean isCurrentVersion){
+        TypedQuery<Artefact> query = em.createNamedQuery("Artefact.findByEntityActiveAndProjectIDAndIsCurrentVersion", Artefact.class);
         query.setParameter("projectID", project);
         query.setParameter("entityActive", entityActive);
+        query.setParameter("isCurrentVersion", isCurrentVersion);
         List<Artefact> results = query.getResultList();
         return results.size();
     }

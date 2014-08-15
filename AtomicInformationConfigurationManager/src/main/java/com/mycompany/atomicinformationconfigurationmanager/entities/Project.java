@@ -35,12 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Project.findByEntityActiveAndProjectID", query = "SELECT p FROM Project p WHERE p.id = :projectID AND p.entityActive = :entityActive"),
-    @NamedQuery(name = "Project.findByEntityActiveAndProjectReference", query = "SELECT p FROM Project p WHERE p.projectReference = :projectReference AND p.entityActive = :entityActive"),
-    @NamedQuery(name = "Project.findByEntityActiveAndProjectName", query = "SELECT p FROM Project p WHERE p.projectName = :projectName AND p.entityActive = :entityActive"),
-    @NamedQuery(name = "Project.findByEntityActiveAndVersionNumber", query = "SELECT p FROM Project p WHERE p.versionNumber = :versionNumber AND p.entityActive = :entityActive"),
+    @NamedQuery(name = "Project.findByEntityActiveAndProjectIDAndIsCurrentVersion", query = "SELECT p FROM Project p WHERE p.id = :projectID AND p.entityActive = :entityActive AND p.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Project.findByEntityActiveAndProjectReferenceAndIsCurrentVersion", query = "SELECT p FROM Project p WHERE p.projectReference = :projectReference AND p.entityActive = :entityActive AND p.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Project.findByEntityActiveAndProjectNameAndIsCurrentVersion", query = "SELECT p FROM Project p WHERE p.projectName = :projectName AND p.entityActive = :entityActive AND p.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Project.findByEntityActiveAndVersionNumberAndIsCurrentVersion", query = "SELECT p FROM Project p WHERE p.versionNumber = :versionNumber AND p.entityActive = :entityActive AND p.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Project.findByEntityActiveAndIsCurrentVersion", query = "SELECT p FROM Project p WHERE p.isCurrentVersion = :isCurrentVersion AND p.entityActive = :entityActive"),
-    @NamedQuery(name = "Project.findByEntityActiveAndPreviousVersionReference", query = "SELECT p FROM Project p WHERE p.previousVersionReference = :previousVersionReference AND p.entityActive = :entityActive"),
+    @NamedQuery(name = "Project.findByEntityActiveAndPreviousVersionReferenceAndIsCurrentVersion", query = "SELECT p FROM Project p WHERE p.previousVersionReference = :previousVersionReference AND p.entityActive = :entityActive AND p.isCurrentVersion = :isCurrentVersion"),
     
     @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p"),
     @NamedQuery(name = "Project.findByEntityActive", query = "SELECT p FROM Project p WHERE p.entityActive = :entityActive"),

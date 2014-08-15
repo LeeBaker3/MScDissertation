@@ -57,9 +57,10 @@ public abstract class BaseSaveRetrieveAbstract<T> {
  
     //   03/08/14 @Lee Baker
     //   Added Method to find only Database Records that have the attribute Entity Active set to TRUE       
-    public List<T> findAllEntityActive(Boolean entityActive) {
-        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findByEntityActive", entityClass);
+    public List<T> findAllEntityActiveIsCurrentVersion(Boolean entityActive, Boolean isCurrentVersion) {
+        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findByEntityActiveAndIsCurrentVersion", entityClass);
         query.setParameter("entityActive", entityActive);
+        query.setParameter("isCurrentVersion", isCurrentVersion);
         List<T> results = query.getResultList();
         return results;
     }
@@ -67,18 +68,20 @@ public abstract class BaseSaveRetrieveAbstract<T> {
     //   03/08/14 @Lee Baker
     //  Added Method to find only Database Records that have the attribute Entity Active set to TRUE 
     //  when disbaled after an edit 
-    public List<T> findRangeEntityActive(int[] range, Boolean entityActive) {
-        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findByEntityActive", entityClass);
+    public List<T> findRangeEntityActiveIsCurrentVersion(int[] range, Boolean entityActive, Boolean isCurrentVersion) {
+        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findByEntityActiveAndIsCurrentVersion", entityClass);
         query.setParameter("entityActive", entityActive);
+        query.setParameter("isCurrentVersion", isCurrentVersion);
         query.setMaxResults(range[1] - range[0] + 1);
         query.setFirstResult(range[0]);
         List<T> results = query.getResultList();
         return results;
     }
     
-    public int countEntityActive(Boolean entityActive){
-        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findByEntityActive", entityClass);
+    public int countEntityActive(Boolean entityActive, Boolean isCurrentVersion){
+        TypedQuery<T> query = getEntityManager().createNamedQuery(entityClass.getSimpleName() + ".findByEntityActiveAndIsCurrentVersion", entityClass);
         query.setParameter("entityActive", entityActive);
+        query.setParameter("isCurrentVersion", isCurrentVersion);
         List<T> results = query.getResultList();
         return results.size();
     }

@@ -36,14 +36,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @AttributeOverride (name = "id", column = @Column(name = "ArtefactID"))
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Artefact.findByEntityActiveAndProjectID", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.projectID = :projectID"),
-    @NamedQuery(name = "Artefact.findByEntityActiveAndArtefactIDAndProjectID", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.id = :artefactID AND a.projectID = :projectID"),
-    @NamedQuery(name = "Artefact.findByEntityActiveAndVersionNumberAndProjectID", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.versionNumber = :versionNumber AND a.projectID = :projectID"),
+    @NamedQuery(name = "Artefact.findByEntityActiveAndProjectIDAndIsCurrentVersion", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.projectID = :projectID AND a.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Artefact.findByEntityActiveAndArtefactIDAndProjectIDAndIsCurrentVersion", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.id = :artefactID AND a.projectID = :projectID AND a.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Artefact.findByEntityActiveAndVersionNumberAndProjectIDAndIsCurrentVersion", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.versionNumber = :versionNumber AND a.projectID = :projectID AND a.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Artefact.findByEntityActiveAndIsCurrentVersionAndProjectID", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.isCurrentVersion = :isCurrentVersion AND a.projectID = :projectID"),
-    @NamedQuery(name = "Artefact.findByEntityActiveAndPreviousAndVersionReferenceAndProjectID", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.previousVersionReference = :previousVersionReference AND a.projectID = :projectID"),
-    @NamedQuery(name = "Artefact.findByEntityActiveAndArtefactNameAndProjectID", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.artefactName = :artefactName AND a.projectID = :projectID"),
-    @NamedQuery(name = "Artefact.findByEntityActiveAndArtefactAndMajorVersionNumberAndProjectID", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.artefactMajorVersionNumber = :artefactMajorVersionNumber AND a.projectID = :projectID"),
-    @NamedQuery(name = "Artefact.findByEntityActiveAndArtefactMinorVersionNumberAndProjectID", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.artefactMinorVersionNumber = :artefactMinorVersionNumber AND a.projectID = :projectID"),
+    @NamedQuery(name = "Artefact.findByEntityActiveAndPreviousAndVersionReferenceAndProjectIDAndIsCurrentVersion", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.previousVersionReference = :previousVersionReference AND a.projectID = :projectID AND a.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Artefact.findByEntityActiveAndArtefactNameAndProjectIDAndIsCurrenVersiont", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.artefactName = :artefactName AND a.projectID = :projectID AND a.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Artefact.findByEntityActiveAndArtefactAndMajorVersionNumberAndProjectIDAndIsCurrentVersion", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.artefactMajorVersionNumber = :artefactMajorVersionNumber AND a.projectID = :projectID AND a.isCurrentVersion = :isCurrentVersion"),
+    @NamedQuery(name = "Artefact.findByEntityActiveAndArtefactMinorVersionNumberAndProjectIDAndIsCurrentVersion", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.artefactMinorVersionNumber = :artefactMinorVersionNumber AND a.projectID = :projectID AND a.isCurrentVersion = :isCurrentVersion"),
+    
+    @NamedQuery(name = "Artefact.findByEntityActiveAndIsCurrentVersion", query = "SELECT a FROM Artefact a WHERE a.entityActive = :entityActive AND a.isCurrentVersion = :isCurrentVersion"),
     
     @NamedQuery(name = "Artefact.findAll", query = "SELECT a FROM Artefact a"),
     @NamedQuery(name = "Artefact.findByProjectID", query = "SELECT a FROM Artefact a WHERE a.projectID = :projectID"),

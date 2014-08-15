@@ -25,7 +25,7 @@ public class ArtefactdistributionController extends BaseController implements Se
     private Artefactdistribution current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactdistributionSaveRetrieve ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactdistributionSaveRetrieve ejbSaveRetrieve;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
@@ -49,7 +49,7 @@ public class ArtefactdistributionController extends BaseController implements Se
     }
 
     private ArtefactdistributionSaveRetrieve getFacade() {
-        return ejbFacade;
+        return ejbSaveRetrieve;
     }
 
     public PaginationHelper getPagination() {
@@ -64,10 +64,10 @@ public class ArtefactdistributionController extends BaseController implements Se
                 public int getItemsCount() {
                     int localCount;
                     if (artefactController.getCurrent() !=null){
-                        localCount = getFacade().countEntityActiveAndArtefactID(artefactController.getCurrent(), true);
+                        localCount = getFacade().countEntityActiveAndArtefactIDIsCurrentVersion(artefactController.getCurrent(), true, true);
                     }
                     else {
-                        localCount = getFacade().countEntityActive(true);
+                        localCount = getFacade().countEntityActive(true, true);
                     }
                     return localCount;
                 }
@@ -79,10 +79,10 @@ public class ArtefactdistributionController extends BaseController implements Se
                 @Override
                 public DataModel createPageDataModel() {
                     if (artefactController.getCurrent() !=null){
-                        return  new ListDataModel(getFacade().findRangeEntityActiveAndArtefactID(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, artefactController.getCurrent()));
+                        return  new ListDataModel(getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, artefactController.getCurrent(), true));
                     }
                     else {
-                        return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true));
+                        return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
                     }
                 }
             };
@@ -233,10 +233,10 @@ public class ArtefactdistributionController extends BaseController implements Se
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (artefactController.getCurrent() !=null){
-            count = getFacade().countEntityActiveAndArtefactID(artefactController.getCurrent(), true);
+            count = getFacade().countEntityActiveAndArtefactIDIsCurrentVersion(artefactController.getCurrent(), true, true);
         }
         else{
-            count = getFacade().countEntityActive(true);
+            count = getFacade().countEntityActive(true, true);
         }
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
@@ -248,9 +248,9 @@ public class ArtefactdistributionController extends BaseController implements Se
         }
         if (selectedItemIndex >= 0) {
             if(artefactController.getCurrent()!=null){
-                current = getFacade().findRangeEntityActiveAndArtefactID(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, artefactController.getCurrent()).get(0);
+                current = getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, artefactController.getCurrent(), true).get(0);
             }
-            current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
+            current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }
     }
 
@@ -283,15 +283,15 @@ public class ArtefactdistributionController extends BaseController implements Se
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), false);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAllEntityActiveIsCurrentVersion(true, true), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), true);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAllEntityActiveIsCurrentVersion(true, true), true);
     }
 
     public Artefactdistribution getArtefactdistribution(java.lang.Integer id) {
-        return ejbFacade.find(id);
+        return ejbSaveRetrieve.find(id);
     }
 
     @FacesConverter(forClass = Artefactdistribution.class)

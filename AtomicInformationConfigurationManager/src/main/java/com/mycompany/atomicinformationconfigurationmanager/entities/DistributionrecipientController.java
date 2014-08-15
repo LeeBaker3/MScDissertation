@@ -25,7 +25,7 @@ public class DistributionrecipientController extends BaseController implements S
     private Distributionrecipient current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.DistributionrecipientSaveRetrieve ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.DistributionrecipientSaveRetrieve ejbSaveRetrieve;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
@@ -44,7 +44,7 @@ public class DistributionrecipientController extends BaseController implements S
     }
 
     private DistributionrecipientSaveRetrieve getFacade() {
-        return ejbFacade;
+        return ejbSaveRetrieve;
     }
 
     public PaginationHelper getPagination() {
@@ -64,7 +64,7 @@ public class DistributionrecipientController extends BaseController implements S
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true));
+                    return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
                 }
             };
         }
@@ -158,7 +158,7 @@ public class DistributionrecipientController extends BaseController implements S
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
+            current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }
     }
 
@@ -190,15 +190,15 @@ public class DistributionrecipientController extends BaseController implements S
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), false);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAllEntityActiveIsCurrentVersion(true, true), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), true);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAllEntityActiveIsCurrentVersion(true, true), true);
     }
 
     public Distributionrecipient getDistributionrecipient(java.lang.Integer id) {
-        return ejbFacade.find(id);
+        return ejbSaveRetrieve.find(id);
     }
 
     @FacesConverter(forClass = Distributionrecipient.class)

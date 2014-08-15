@@ -23,7 +23,7 @@ public class ProjectController extends BaseController implements Serializable {
     private Project current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.ProjectSaveRetrieve ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.ProjectSaveRetrieve ejbSaveRetrieve;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -39,7 +39,7 @@ public class ProjectController extends BaseController implements Serializable {
     }
 
     private ProjectSaveRetrieve getFacade() {
-        return ejbFacade;
+        return ejbSaveRetrieve;
     }
 
     public PaginationHelper getPagination() {
@@ -53,7 +53,7 @@ public class ProjectController extends BaseController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRangeEntityActive(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true));
+                    return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
                 }
             };
         }
@@ -178,7 +178,7 @@ public class ProjectController extends BaseController implements Serializable {
     }
     
     private void updateCurrentItem() {
-        int count = getFacade().countEntityActive(true);
+        int count = getFacade().countEntityActive(true, true);
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -188,7 +188,7 @@ public class ProjectController extends BaseController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
+            current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }
     }
 
@@ -222,15 +222,15 @@ public class ProjectController extends BaseController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), false);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAllEntityActiveIsCurrentVersion(true, true), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActive(true), true);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAllEntityActiveIsCurrentVersion(true, true), true);
     }
     
     public Project getProject(java.lang.Integer id) {
-        return ejbFacade.find(id);
+        return ejbSaveRetrieve.find(id);
     }
 
     @FacesConverter(forClass = Project.class)

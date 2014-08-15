@@ -26,7 +26,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
     private Artefactatomicinformation current;
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactatomicinformationSaveRetrieve ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactatomicinformationSaveRetrieve ejbSaveRetrieve;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
@@ -45,7 +45,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
     }
 
     private ArtefactatomicinformationSaveRetrieve getFacade() {
-        return ejbFacade;
+        return ejbSaveRetrieve;
     }
 
     public PaginationHelper getPagination() {
@@ -60,10 +60,10 @@ public class ArtefactatomicinformationController extends BaseController implemen
                 public int getItemsCount() {
                     int localCount;
                     if (artefactController.getCurrent()!=null){
-                        localCount = getFacade().countEntityActiveAndArtefactID(true, artefactController.getCurrent());
+                        localCount = getFacade().countEntityActiveAndArtefactIDAndIsCurrentVersion(true, artefactController.getCurrent(), true);
                     }
                     else{
-                        localCount = getFacade().countEntityActive(true);
+                        localCount = getFacade().countEntityActive(true, true);
                     }
                     return localCount;
                 }
@@ -75,7 +75,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
                 @Override
                 public DataModel createPageDataModel() {
                     if(artefactController.getCurrent() !=null){
-                        return new ListDataModel(getFacade().findRangeEntityActiveAndArtefactID(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, artefactController.getCurrent()));
+                        return new ListDataModel(getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, artefactController.getCurrent(), true));
                     }
                     else{
                         return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
@@ -210,10 +210,10 @@ public class ArtefactatomicinformationController extends BaseController implemen
     private void updateCurrentItem() {
         int count;
         if(artefactController.getCurrent() != null){
-            count = getFacade().countEntityActiveAndArtefactID(true, artefactController.getCurrent());
+            count = getFacade().countEntityActiveAndArtefactIDAndIsCurrentVersion(true, artefactController.getCurrent(), true);
         }
         else {
-            count = getFacade().countEntityActive(true);
+            count = getFacade().countEntityActive(true, true);
         }
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
@@ -225,9 +225,9 @@ public class ArtefactatomicinformationController extends BaseController implemen
         }
         if (selectedItemIndex >= 0) {
             if(artefactController.getCurrent() !=null){
-                current = getFacade().findRangeEntityActiveAndArtefactID(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, artefactController.getCurrent()).get(0);
+                current = getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, artefactController.getCurrent(), true).get(0);
             }
-            current = getFacade().findRangeEntityActive(new int[]{selectedItemIndex, selectedItemIndex + 1},true).get(0);
+            current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }
     }
 
@@ -260,15 +260,15 @@ public class ArtefactatomicinformationController extends BaseController implemen
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAll(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAll(), true);
     }
 
     public Artefactatomicinformation getArtefactatomicinformation(java.lang.Integer id) {
-        return ejbFacade.find(id);
+        return ejbSaveRetrieve.find(id);
     }
 
     @FacesConverter(forClass = Artefactatomicinformation.class)
