@@ -21,7 +21,7 @@ import javax.inject.Named;
  */
 @Named("baseController")
 @SessionScoped
-public class BaseController implements Serializable{
+abstract public class BaseController implements Serializable{
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
@@ -33,24 +33,21 @@ public class BaseController implements Serializable{
     public void setEntityInActive(BaseEntity entity){
         entity.entityActive = false;
     }
-    
-    
+      
     public void updateVersionNumber(BaseEntity oldEntity, BaseEntity newEntity){
         newEntity.setVersionNumber(oldEntity.getVersionNumber() + 1);
     }
     
-    /*  16/08/2014 @Lee Baker
-    *   Copies properties of the one object to another
-    *   and sets the id to null so it can be set when pushed to the database
-    *   and increaments the version number.
-    */
-    public void cloneEntity(BaseEntity oldEntity, BaseEntity newEntity){
-        try {
+    public void cloneEntity(BaseEntity oldEntity, BaseEntity newEntity) {
+       try {
             newEntity = (BaseEntity) oldEntity.clone();
             updateVersionNumber(oldEntity, newEntity);
             newEntity.setId(null);
+            updateDetails(oldEntity, newEntity);
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(BaseController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    abstract public <T, K> void  updateDetails(T oldEntity, K newEntity);
 }

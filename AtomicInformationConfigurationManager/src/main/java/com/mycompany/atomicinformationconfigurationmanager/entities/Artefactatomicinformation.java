@@ -133,9 +133,4 @@ public class Artefactatomicinformation extends BaseEntity implements Serializabl
         return artefactID.getArtefactName() + ":" + atomicInformationID.getContent();
     }
     
-    @Override
-    protected Object clone() throws CloneNotSupportedException{
-        return super.clone();
-    }
-    
 }

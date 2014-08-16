@@ -4,11 +4,11 @@ import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
 import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
 import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
-
 import java.io.Serializable;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -18,6 +18,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.inject.Named;
 import sun.misc.VM;
 
 @Named("artefactController")
@@ -25,6 +26,7 @@ import sun.misc.VM;
 public class ArtefactController extends BaseController implements Serializable {
 
     private Artefact current;
+    private Artefact oldArtefact;
 
     private DataModel items = null;
     @EJB
@@ -145,23 +147,22 @@ public class ArtefactController extends BaseController implements Serializable {
 
     public String update() {
         try {
-            current.setIsCurrentVersion(false);
-            getFacade().edit(current);
-            
-            Artefact oldArtefact = current;
-            current = new Artefact();
+            oldArtefact = new Artefact();
             cloneEntity(oldArtefact, current);
-            
+            current = new Artefact();
+            oldArtefact.setIsCurrentVersion(false);
+            getFacade().edit(oldArtefact);
             if(selectedProject.getProject() != null){
                 current.setProjectID(selectedProject.getProject());
             }
             setEntityActive(current);
             getFacade().create(current);
-            
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            oldArtefact.setIsCurrentVersion(true);
+            getFacade().edit(oldArtefact);
             return null;
         }
     }
@@ -299,6 +300,13 @@ public class ArtefactController extends BaseController implements Serializable {
     public Artefact getArtefact(java.lang.Integer id) {
         return ejbSaveRetrieve.find(id);
     }
+
+    @Override
+    public <T , K> void updateDetails(T oldEntity, K newEntity) {
+        Artefact oldArtefact = (Artefact)oldEntity;
+        Artefact newArtefact = (Artefact)newEntity;
+    }
+    
 
     @FacesConverter(forClass = Artefact.class)
     public static class ArtefactControllerConverter implements Converter {

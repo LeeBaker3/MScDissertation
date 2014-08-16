@@ -190,6 +190,11 @@ public class TypeofatomicinformationController extends BaseController implements
         return ejbSaveRetrieve.find(id);
     }
 
+    @Override
+    public <T, K> void updateDetails(T oldEntity, K newEntity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @FacesConverter(forClass = Typeofatomicinformation.class)
     public static class TypeofatomicinformationControllerConverter implements Converter {
 

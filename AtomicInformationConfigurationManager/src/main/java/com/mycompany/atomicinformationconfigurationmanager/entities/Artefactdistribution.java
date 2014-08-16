@@ -148,9 +148,4 @@ public class Artefactdistribution extends BaseEntity implements Serializable {
     public String toString() {
         return this.artefactID.getArtefactName() + "distributed to " + this.distributionRecipientID.toString();
     }
-    
-    @Override
-    protected Object clone() throws CloneNotSupportedException{
-        return super.clone();
-    }
 }

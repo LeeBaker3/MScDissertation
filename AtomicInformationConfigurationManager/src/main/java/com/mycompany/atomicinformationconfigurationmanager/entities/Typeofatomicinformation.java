@@ -105,9 +105,4 @@ public class Typeofatomicinformation extends BaseEntity implements Serializable 
     public String toString() {
         return getType();
     }
-    
-    @Override
-    protected Object clone() throws CloneNotSupportedException{
-        return super.clone();
-    }
 }

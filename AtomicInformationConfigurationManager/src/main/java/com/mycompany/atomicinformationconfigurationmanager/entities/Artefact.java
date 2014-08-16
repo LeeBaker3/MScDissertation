@@ -191,8 +191,4 @@ public class Artefact extends BaseEntity implements Serializable{
         this.artefactatomicinformationCollection = artefactatomicinformationCollection;
     }
     
-    @Override
-    protected Object clone() throws CloneNotSupportedException{
-        return super.clone();
-    }
 }

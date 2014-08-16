@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class BaseEntity implements Serializable, Cloneable {
+public class BaseEntity implements Serializable, Cloneable{
 
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)

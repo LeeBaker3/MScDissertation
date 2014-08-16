@@ -195,9 +195,4 @@ public class Distributionrecipient extends BaseEntity implements Serializable {
     public String toString() {
         return getFirstName() + " " + getSurname();
     }
-    
-    @Override
-    protected Object clone() throws CloneNotSupportedException{
-        return super.clone();
-    }
 }

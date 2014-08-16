@@ -190,6 +190,11 @@ public class BaseEntityController extends BaseController implements Serializable
         return ejbSaveRetrieve.find(id);
     }
 
+    @Override
+    public <T, K> void updateDetails(T oldEntity, K newEntity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @FacesConverter(forClass = BaseEntity.class)
     public static class BaseEntityControllerConverter implements Converter {
 

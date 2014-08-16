@@ -298,6 +298,11 @@ public class AtomicinformationController extends BaseController implements Seria
         return ejbSaveRetrieve.find(id);
     }
 
+    @Override
+    public <T, K> void updateDetails(T oldEntity, K newEntity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @FacesConverter(forClass = Atomicinformation.class)
     public static class AtomicinformationControllerConverter implements Converter {
 
