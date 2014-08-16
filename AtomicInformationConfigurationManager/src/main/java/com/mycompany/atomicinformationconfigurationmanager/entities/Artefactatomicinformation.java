@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Artefactatomicinformation.findByIsCurrentVersion", query = "SELECT a FROM Artefactatomicinformation a WHERE a.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Artefactatomicinformation.findByPreviousVersionReference", query = "SELECT a FROM Artefactatomicinformation a WHERE a.previousVersionReference = :previousVersionReference"),
     @NamedQuery(name = "Artefactatomicinformation.findByEntityActive", query = "SELECT a FROM Artefactatomicinformation a WHERE a.entityActive = :entityActive")})
-public class Artefactatomicinformation extends BaseEntity implements Serializable {
+public class Artefactatomicinformation extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @JoinColumn(name = "ArtefactID", referencedColumnName = "ArtefactID")
@@ -131,6 +131,11 @@ public class Artefactatomicinformation extends BaseEntity implements Serializabl
     @Override
     public String toString() {
         return artefactID.getArtefactName() + ":" + atomicInformationID.getContent();
+    }
+    
+    @Override
+    protected Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
     
 }

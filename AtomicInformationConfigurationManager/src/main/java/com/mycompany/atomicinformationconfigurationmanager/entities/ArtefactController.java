@@ -28,7 +28,7 @@ public class ArtefactController extends BaseController implements Serializable {
 
     private DataModel items = null;
     @EJB
-    private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactSaveRetrieve ejbFacade;
+    private com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactSaveRetrieve ejbSaveRetrieve;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
@@ -59,7 +59,7 @@ public class ArtefactController extends BaseController implements Serializable {
     }
 
     private ArtefactSaveRetrieve getFacade() {
-        return ejbFacade;
+        return ejbSaveRetrieve;
     }
          
     public PaginationHelper getPagination() {
@@ -145,7 +145,19 @@ public class ArtefactController extends BaseController implements Serializable {
 
     public String update() {
         try {
+            current.setIsCurrentVersion(false);
             getFacade().edit(current);
+            
+            Artefact oldArtefact = current;
+            current = new Artefact();
+            cloneEntity(oldArtefact, current);
+            
+            if(selectedProject.getProject() != null){
+                current.setProjectID(selectedProject.getProject());
+            }
+            setEntityActive(current);
+            getFacade().create(current);
+            
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactUpdated"));
             return "View";
         } catch (Exception e) {
@@ -277,15 +289,15 @@ public class ArtefactController extends BaseController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActiveIsCurrentVersion(true, true), false);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAllEntityActiveIsCurrentVersion(true, true), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAllEntityActiveIsCurrentVersion(true, true), true);
+        return JsfUtil.getSelectItems(ejbSaveRetrieve.findAllEntityActiveIsCurrentVersion(true, true), true);
     }
 
     public Artefact getArtefact(java.lang.Integer id) {
-        return ejbFacade.find(id);
+        return ejbSaveRetrieve.find(id);
     }
 
     @FacesConverter(forClass = Artefact.class)

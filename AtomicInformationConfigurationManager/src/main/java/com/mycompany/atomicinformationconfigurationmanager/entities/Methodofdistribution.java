@@ -89,4 +89,9 @@ public class Methodofdistribution extends BaseEntity implements Serializable {
     public String toString() {
         return getMethod();
     }
+    
+    @Override
+    protected Object clone() throws CloneNotSupportedException{
+        return super.clone();
+    }
 }

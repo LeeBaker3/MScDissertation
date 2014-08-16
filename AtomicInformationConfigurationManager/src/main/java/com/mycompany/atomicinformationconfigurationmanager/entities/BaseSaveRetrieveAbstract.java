@@ -86,9 +86,7 @@ public abstract class BaseSaveRetrieveAbstract<T> {
         return results.size();
     }
     
-    
-    
-    
+
     /*  
     *   04/08/14 @Lee Baker
     *   Follow 3 methods are IDE generated an return all records of an entity type

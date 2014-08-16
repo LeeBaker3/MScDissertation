@@ -2,6 +2,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
+import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -35,7 +36,7 @@ public class ArtefactdistributionController extends BaseController implements Se
     *   Added to get current selected project
     */
     @Inject
-    private ArtefactController artefactController;
+    private SelectedArtefact selectedArtefact;
 
     public ArtefactdistributionController() {
     }
@@ -63,8 +64,8 @@ public class ArtefactdistributionController extends BaseController implements Se
                 @Override
                 public int getItemsCount() {
                     int localCount;
-                    if (artefactController.getCurrent() !=null){
-                        localCount = getFacade().countEntityActiveAndArtefactIDIsCurrentVersion(artefactController.getCurrent(), true, true);
+                    if (selectedArtefact.getArtefact() !=null){
+                        localCount = getFacade().countEntityActiveAndArtefactIDIsCurrentVersion(selectedArtefact.getArtefact(), true, true);
                     }
                     else {
                         localCount = getFacade().countEntityActive(true, true);
@@ -78,8 +79,8 @@ public class ArtefactdistributionController extends BaseController implements Se
                 */
                 @Override
                 public DataModel createPageDataModel() {
-                    if (artefactController.getCurrent() !=null){
-                        return  new ListDataModel(getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, artefactController.getCurrent(), true));
+                    if (selectedArtefact.getArtefact() !=null){
+                        return  new ListDataModel(getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, selectedArtefact.getArtefact(), true));
                     }
                     else {
                         return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
@@ -120,8 +121,8 @@ public class ArtefactdistributionController extends BaseController implements Se
             *   If a artefact has been selected then create new ArtefactDistribution with a reference to the selected Artefact
             *   and set entityActive when created
             */ 
-            if(artefactController.getCurrent()!= null){
-                current.setArtefactID(artefactController.getCurrent());
+            if(selectedArtefact.getArtefact()!= null){
+                current.setArtefactID(selectedArtefact.getArtefact());
             }
             setEntityActive(current);
             getFacade().create(current);
@@ -232,8 +233,8 @@ public class ArtefactdistributionController extends BaseController implements Se
 
     private void updateCurrentItem() {
         int count = getFacade().count();
-        if (artefactController.getCurrent() !=null){
-            count = getFacade().countEntityActiveAndArtefactIDIsCurrentVersion(artefactController.getCurrent(), true, true);
+        if (selectedArtefact.getArtefact() !=null){
+            count = getFacade().countEntityActiveAndArtefactIDIsCurrentVersion(selectedArtefact.getArtefact(), true, true);
         }
         else{
             count = getFacade().countEntityActive(true, true);
@@ -247,8 +248,8 @@ public class ArtefactdistributionController extends BaseController implements Se
             }
         }
         if (selectedItemIndex >= 0) {
-            if(artefactController.getCurrent()!=null){
-                current = getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, artefactController.getCurrent(), true).get(0);
+            if(selectedArtefact.getArtefact()!=null){
+                current = getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, selectedArtefact.getArtefact(), true).get(0);
             }
             current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }

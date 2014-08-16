@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class BaseEntity implements Serializable {
+public class BaseEntity implements Serializable, Cloneable {
 
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,5 +89,10 @@ protected boolean entityActive;
 
     public void setEntityActive(boolean EntityActive) {
         this.entityActive = EntityActive;
+    }
+    
+    @Override
+    protected Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
 }

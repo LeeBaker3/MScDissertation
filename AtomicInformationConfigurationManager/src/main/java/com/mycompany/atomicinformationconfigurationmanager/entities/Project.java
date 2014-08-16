@@ -148,4 +148,9 @@ public class Project extends BaseEntity implements Serializable {
     public String toString() {
         return getProjectName() + " " + getProjectReference();
     }
+    
+    @Override
+    protected Object clone() throws CloneNotSupportedException{
+        return super.clone();
+    }
 }

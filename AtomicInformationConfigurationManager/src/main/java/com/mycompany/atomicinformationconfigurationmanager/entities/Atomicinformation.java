@@ -124,4 +124,9 @@ public class Atomicinformation extends BaseEntity implements Serializable {
     public String toString() {
         return this.typeOfAtomicInformationID.toString() + ":" + getContent();
     }
+    
+    @Override
+    protected Object clone() throws CloneNotSupportedException{
+        return super.clone();
+    }
 }
