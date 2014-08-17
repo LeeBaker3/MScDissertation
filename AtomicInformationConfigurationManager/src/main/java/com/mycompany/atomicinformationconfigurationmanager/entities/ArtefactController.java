@@ -142,6 +142,10 @@ public class ArtefactController extends BaseController implements Serializable {
     public String prepareEdit() {
         current = (Artefact) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return prepareUpdate();
+    }
+    
+    public String prepareUpdate(){
         oldArtefact = current;
         prepareVersion(oldArtefact, ejbSaveRetrieve);
         return "Edit";

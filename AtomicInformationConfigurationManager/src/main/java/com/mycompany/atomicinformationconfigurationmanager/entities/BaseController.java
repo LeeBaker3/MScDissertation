@@ -44,8 +44,8 @@ abstract public class BaseController implements Serializable{
     
     public void manageVersion(BaseEntity oldEntity, BaseEntity newEntity) {
         updateVersionNumber(oldEntity, newEntity);
-        newEntity.setId(null);
         setPreviousReference(oldEntity, newEntity);
+        newEntity.setId(null);
         newEntity.setEntityActive(true);
         newEntity.setIsCurrentVersion(true);
     }
