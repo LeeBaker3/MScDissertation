@@ -142,27 +142,24 @@ public class ArtefactController extends BaseController implements Serializable {
     public String prepareEdit() {
         current = (Artefact) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        oldArtefact = current;
+        prepareVersion(oldArtefact, ejbSaveRetrieve);
         return "Edit";
     }
 
     public String update() {
         try {
-            oldArtefact = new Artefact();
-            cloneEntity(oldArtefact, current);
-            current = new Artefact();
-            oldArtefact.setIsCurrentVersion(false);
-            getFacade().edit(oldArtefact);
+            manageVersion(oldArtefact, current);
+
             if(selectedProject.getProject() != null){
                 current.setProjectID(selectedProject.getProject());
             }
-            setEntityActive(current);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            oldArtefact.setIsCurrentVersion(true);
-            getFacade().edit(oldArtefact);
+            rollBackVersion(oldArtefact, ejbSaveRetrieve);
             return null;
         }
     }
@@ -300,13 +297,6 @@ public class ArtefactController extends BaseController implements Serializable {
     public Artefact getArtefact(java.lang.Integer id) {
         return ejbSaveRetrieve.find(id);
     }
-
-    @Override
-    public <T , K> void updateDetails(T oldEntity, K newEntity) {
-        Artefact oldArtefact = (Artefact)oldEntity;
-        Artefact newArtefact = (Artefact)newEntity;
-    }
-    
 
     @FacesConverter(forClass = Artefact.class)
     public static class ArtefactControllerConverter implements Converter {

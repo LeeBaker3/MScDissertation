@@ -42,9 +42,8 @@ protected int versionNumber;
 @Column(name = "IsCurrentVersion")
 protected boolean isCurrentVersion;
 
-@Size(max = 45)
 @Column(name = "PreviousVersionReference")
-protected String previousVersionReference;
+protected Integer previousVersionReference;
 
 @Basic(optional = false)
 @NotNull
@@ -75,11 +74,11 @@ protected boolean entityActive;
         this.isCurrentVersion = IsCurrentVersion;
     }
 
-    public String getPreviousVersionReference() {
+    public Integer getPreviousVersionReference() {
         return previousVersionReference;
     }
 
-    public void setPreviousVersionReference(String PreviousVersionReference) {
+    public void setPreviousVersionReference(Integer PreviousVersionReference) {
         this.previousVersionReference = PreviousVersionReference;
     }
 

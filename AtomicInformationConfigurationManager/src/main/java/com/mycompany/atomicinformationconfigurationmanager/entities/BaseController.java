@@ -38,16 +38,25 @@ abstract public class BaseController implements Serializable{
         newEntity.setVersionNumber(oldEntity.getVersionNumber() + 1);
     }
     
-    public void cloneEntity(BaseEntity oldEntity, BaseEntity newEntity) {
-       try {
-            newEntity = (BaseEntity) oldEntity.clone();
-            updateVersionNumber(oldEntity, newEntity);
-            newEntity.setId(null);
-            updateDetails(oldEntity, newEntity);
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(BaseController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void setPreviousReference (BaseEntity oldEntity, BaseEntity newEntity) {
+        newEntity.setPreviousVersionReference(oldEntity.getId());
     }
     
-    abstract public <T, K> void  updateDetails(T oldEntity, K newEntity);
+    public void manageVersion(BaseEntity oldEntity, BaseEntity newEntity) {
+        updateVersionNumber(oldEntity, newEntity);
+        newEntity.setId(null);
+        setPreviousReference(oldEntity, newEntity);
+        newEntity.setEntityActive(true);
+        newEntity.setIsCurrentVersion(true);
+    }
+    
+    public void rollBackVersion (BaseEntity oldEntity, BaseSaveRetrieveAbstract saveRetrieve){
+        oldEntity.setIsCurrentVersion(true);
+        saveRetrieve.edit(oldEntity);
+    }
+    
+    public void prepareVersion (BaseEntity oldEntity, BaseSaveRetrieveAbstract saveRetrieve) {
+        oldEntity.setIsCurrentVersion(false);
+        saveRetrieve.edit(oldEntity);   
+    }
 }

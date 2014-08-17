@@ -271,11 +271,6 @@ public class ArtefactatomicinformationController extends BaseController implemen
         return ejbSaveRetrieve.find(id);
     }
 
-    @Override
-    public <T, K> void updateDetails(T oldEntity, K newEntity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @FacesConverter(forClass = Artefactatomicinformation.class)
     public static class ArtefactatomicinformationControllerConverter implements Converter {
 
