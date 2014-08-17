@@ -10,6 +10,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- 
 -- 06/08/14 Updated from Version 1 to include changes for the addition of the Link Table
 -- ArtefactAtomicInfromation
+--
+-- 17/08/14 Updated PreviousVersionReference for all tables from a String to an Int
 
 CREATE SCHEMA IF NOT EXISTS `AtomicInformationConfigurationManagerDB` ;
 
@@ -24,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`Project` (
   `ProjectName` VARCHAR(45) NULL,
   `VersionNumber` INT NOT NULL,
   `IsCurrentVersion` TINYINT(1) NOT NULL,
-  `PreviousVersionReference` VARCHAR(45) NULL,
+  `PreviousVersionReference` INT NULL,
   `EntityActive` TINYINT(1) NOT NULL,
   PRIMARY KEY (`ProjectID`))
 ENGINE = InnoDB;
@@ -37,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`Artefact` 
   `ArtefactID` INT NOT NULL AUTO_INCREMENT,
   `VersionNumber` INT NOT NULL,
   `IsCurrentVersion` TINYINT(1) NOT NULL,
-  `PreviousVersionReference` VARCHAR(45) NULL,
+  `PreviousVersionReference` INT NULL,
   `EntityActive` TINYINT(1) NOT NULL,
   `ArtefactName` VARCHAR(45) NOT NULL,
   `ArtefactMajorVersionNumber` VARCHAR(45) NOT NULL DEFAULT 0,
@@ -61,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`TypeOfAtom
   `Type` VARCHAR(45) NOT NULL,
   `VersionNumber` INT NOT NULL,
   `IsCurrentVersion` TINYINT(1) NOT NULL,
-  `PreviousVersionReference` VARCHAR(45) NULL,
+  `PreviousVersionReference` INT NULL,
   `EntityActive` TINYINT(1) NOT NULL,
   PRIMARY KEY (`TypeOfAtomicInformationID`))
 ENGINE = InnoDB;
@@ -75,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`AtomicInfo
   `TypeOfAtomicInformationID` INT NOT NULL,
   `VersionNumber` INT NOT NULL,
   `IsCurrentVersion` TINYINT(1) NOT NULL,
-  `PreviousVersionReference` VARCHAR(45) NULL,
+  `PreviousVersionReference` INT NULL,
   `EntityActive` TINYINT(1) NOT NULL,
   `Content` VARCHAR(100) NOT NULL,
   `ProjectID` INT NOT NULL,
@@ -103,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`MethodOfDi
   `Method` VARCHAR(45) NOT NULL,
   `VersionNumber` INT NOT NULL,
   `IsCurrentVersion` TINYINT(1) NOT NULL,
-  `PreviousVersionReference` VARCHAR(45) NULL,
+  `PreviousVersionReference` INT NULL,
   `EntityActive` TINYINT(1) NOT NULL,
   PRIMARY KEY (`MethodOfDistributionID`))
 ENGINE = InnoDB;
@@ -117,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`Distributi
   `ProjectID` INT NOT NULL,
   `VersionNumber` INT NOT NULL,
   `IsCurrentVersion` TINYINT(1) NOT NULL,
-  `PreviousVersionReference` VARCHAR(45) NULL,
+  `PreviousVersionReference` INT NULL,
   `EntityActive` TINYINT(1) NOT NULL,
   `FirstName` VARCHAR(45) NOT NULL,
   `Surname` VARCHAR(45) NOT NULL,
@@ -144,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`ArtefactDi
   `MethodOfDistributionID` INT NOT NULL,
   `VersionNumber` INT NOT NULL,
   `IsCurrentVersion` TINYINT(1) NOT NULL,
-  `PreviousVersionReference` VARCHAR(45) NULL,
+  `PreviousVersionReference` INT NULL,
   `EntityActive` TINYINT(1) NOT NULL,
   `DateOfArtefactDistribution` DATE NOT NULL,
   `DistributionRecipientID` INT NOT NULL,
@@ -178,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `AtomicInformationConfigurationManagerDB`.`ArtefactAt
   `ArtefactID` INT NOT NULL,
   `VersionNumber` INT NOT NULL,
   `IsCurrentVersion` TINYINT(1) NOT NULL,
-  `PreviousVersionReference` VARCHAR(45) NULL,
+  `PreviousVersionReference` INT NULL,
   `EntityActive` TINYINT(1) NOT NULL,
   PRIMARY KEY (`ArtefactAtomicInformationID`),
   INDEX `AtomicInformationID_idx` (`AtomicInformationID` ASC),
@@ -224,16 +226,16 @@ INSERT INTO methodofdistribution (`Method`, `VersionNumber`, `IsCurrentVersion`,
 -- -----------------------------------------------------
 
 INSERT INTO typeofatomicinformation (`Type`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
-	VALUES ('Requirement', 1, true, '', true);
+	VALUES ('Requirement', 1, true, NULL, true);
 
 INSERT INTO typeofatomicinformation (`Type`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
-	VALUES ('Function', 1, true, '', true);
+	VALUES ('Function', 1, true, NULL, true);
 
 INSERT INTO typeofatomicinformation (`Type`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
-	VALUES ('Stakeholder', 1, true, '', true);
+	VALUES ('Stakeholder', 1, true, NULL, true);
 
 INSERT INTO typeofatomicinformation (`Type`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
-	VALUES ('Project Manager', 1, true, '', true);
+	VALUES ('Project Manager', 1, true, NULL, true);
 
 INSERT INTO typeofatomicinformation (`Type`, `VersionNumber`, `IsCurrentVersion`, `PreviousVersionReference`, `EntityActive`) 
-	VALUES ('Project Sponsor', 1, true, '', true);
+	VALUES ('Project Sponsor', 1, true, NULL, true);
