@@ -57,7 +57,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Artefact.findByArtefactName", query = "SELECT a FROM Artefact a WHERE a.artefactName = :artefactName"),
     @NamedQuery(name = "Artefact.findByArtefactMajorVersionNumber", query = "SELECT a FROM Artefact a WHERE a.artefactMajorVersionNumber = :artefactMajorVersionNumber"),
     @NamedQuery(name = "Artefact.findByArtefactMinorVersionNumber", query = "SELECT a FROM Artefact a WHERE a.artefactMinorVersionNumber = :artefactMinorVersionNumber")})
-public class Artefact extends BaseEntity implements Serializable{
+public class Artefact extends BaseEntity implements Serializable, Cloneable{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artefactID")
     private Collection<Artefactatomicinformation> artefactatomicinformationCollection;
@@ -190,5 +190,7 @@ public class Artefact extends BaseEntity implements Serializable{
     public void setArtefactatomicinformationCollection(Collection<Artefactatomicinformation> artefactatomicinformationCollection) {
         this.artefactatomicinformationCollection = artefactatomicinformationCollection;
     }
+    
+    
     
 }

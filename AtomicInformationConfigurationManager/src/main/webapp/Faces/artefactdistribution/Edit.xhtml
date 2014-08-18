@@ -21,7 +21,7 @@
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_dateOfArtefactDistribution}" for="dateOfArtefactDistribution" />
                     <h:inputText id="dateOfArtefactDistribution" value="#{artefactdistributionController.selected.dateOfArtefactDistribution}" title="#{bundle.EditArtefactdistributionTitle_dateOfArtefactDistribution}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_dateOfArtefactDistribution}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.EditArtefactdistributionLabel_distributionRecipientID}" for="distributionRecipientID" />
                     <h:selectOneMenu id="distributionRecipientID" value="#{artefactdistributionController.selected.distributionRecipientID}" title="#{bundle.EditArtefactdistributionTitle_distributionRecipientID}" required="true" requiredMessage="#{bundle.EditArtefactdistributionRequiredMessage_distributionRecipientID}">
