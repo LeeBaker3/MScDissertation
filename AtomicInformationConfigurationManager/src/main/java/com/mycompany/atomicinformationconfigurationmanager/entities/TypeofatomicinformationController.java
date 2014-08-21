@@ -38,7 +38,7 @@ public class TypeofatomicinformationController extends BaseController implements
         return current;
     }
 
-    private TypeofatomicinformationSaveRetrieve getFacade() {
+    private TypeofatomicinformationSaveRetrieve getSaveRetrieve() {
         return ejbSaveRetrieve;
     }
 
@@ -48,12 +48,12 @@ public class TypeofatomicinformationController extends BaseController implements
 
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getSaveRetrieve().count();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
+                    return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
                 }
             };
         }
@@ -79,7 +79,7 @@ public class TypeofatomicinformationController extends BaseController implements
 
     public String create() {
         try {
-            getFacade().create(current);
+            getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TypeofatomicinformationCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -96,7 +96,7 @@ public class TypeofatomicinformationController extends BaseController implements
 
     public String update() {
         try {
-            getFacade().edit(current);
+            getSaveRetrieve().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TypeofatomicinformationUpdated"));
             return "View";
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class TypeofatomicinformationController extends BaseController implements
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getSaveRetrieve().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TypeofatomicinformationDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -137,7 +137,7 @@ public class TypeofatomicinformationController extends BaseController implements
     }
 
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count = getSaveRetrieve().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -147,7 +147,7 @@ public class TypeofatomicinformationController extends BaseController implements
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
+            current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }
     }
 

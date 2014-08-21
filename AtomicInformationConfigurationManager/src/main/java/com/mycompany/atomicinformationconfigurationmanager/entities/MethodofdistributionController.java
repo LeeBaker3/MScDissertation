@@ -38,7 +38,7 @@ public class MethodofdistributionController extends BaseController implements Se
         return current;
     }
 
-    private MethodofdistributionSaveRetrieve getFacade() {
+    private MethodofdistributionSaveRetrieve getSaveRetrieve() {
         return ejbSaveRetrieve;
     }
 
@@ -48,12 +48,12 @@ public class MethodofdistributionController extends BaseController implements Se
 
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getSaveRetrieve().count();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
+                    return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
                 }
             };
         }
@@ -79,7 +79,7 @@ public class MethodofdistributionController extends BaseController implements Se
 
     public String create() {
         try {
-            getFacade().create(current);
+            getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MethodofdistributionCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -96,7 +96,7 @@ public class MethodofdistributionController extends BaseController implements Se
 
     public String update() {
         try {
-            getFacade().edit(current);
+            getSaveRetrieve().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MethodofdistributionUpdated"));
             return "View";
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class MethodofdistributionController extends BaseController implements Se
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getSaveRetrieve().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MethodofdistributionDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -137,7 +137,7 @@ public class MethodofdistributionController extends BaseController implements Se
     }
 
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count = getSaveRetrieve().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -147,7 +147,7 @@ public class MethodofdistributionController extends BaseController implements Se
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
+            current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }
     }
 

@@ -38,7 +38,7 @@ public class ProjectController extends BaseController implements Serializable {
         return current;
     }
 
-    private ProjectSaveRetrieve getFacade() {
+    private ProjectSaveRetrieve getSaveRetrieve() {
         return ejbSaveRetrieve;
     }
 
@@ -48,12 +48,12 @@ public class ProjectController extends BaseController implements Serializable {
 
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getSaveRetrieve().count();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
+                    return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
                 }
             };
         }
@@ -84,7 +84,7 @@ public class ProjectController extends BaseController implements Serializable {
             *   Set entityActive = true when created
             */
             setEntityActive(current);
-            getFacade().create(current);
+            getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProjectCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -101,7 +101,7 @@ public class ProjectController extends BaseController implements Serializable {
 
     public String update() {
         try {
-            getFacade().edit(current);
+            getSaveRetrieve().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProjectUpdated"));
             return "View";
         } catch (Exception e) {
@@ -134,7 +134,7 @@ public class ProjectController extends BaseController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getSaveRetrieve().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProjectDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -170,7 +170,7 @@ public class ProjectController extends BaseController implements Serializable {
     private void performDisable() {
         setEntityInActive(current);
         try {
-            getFacade().entityInactive(current);
+            getSaveRetrieve().entityInactive(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProjectDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -178,7 +178,7 @@ public class ProjectController extends BaseController implements Serializable {
     }
     
     private void updateCurrentItem() {
-        int count = getFacade().countEntityActive(true, true);
+        int count = getSaveRetrieve().countEntityActive(true, true);
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -188,7 +188,7 @@ public class ProjectController extends BaseController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
+            current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }
     }
 

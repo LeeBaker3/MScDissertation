@@ -60,7 +60,7 @@ public class ArtefactController extends BaseController implements Serializable {
         return current;
     }
 
-    private ArtefactSaveRetrieve getFacade() {
+    private ArtefactSaveRetrieve getSaveRetrieve() {
         return ejbSaveRetrieve;
     }
          
@@ -76,10 +76,10 @@ public class ArtefactController extends BaseController implements Serializable {
                 public int getItemsCount() {
                     int localCount;
                         if (selectedProject.getProject() != null){
-                            localCount = getFacade().countEntityActiveAndProjectIDAndIsCurrentVersion(selectedProject.getProject(), true, true);
+                            localCount = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(selectedProject.getProject(), true, true);
                             }
                         else {
-                            localCount = getFacade().countEntityActive(true, true);
+                            localCount = getSaveRetrieve().countEntityActive(true, true);
                         }
                     return localCount;
                 }
@@ -91,10 +91,10 @@ public class ArtefactController extends BaseController implements Serializable {
                 @Override
                 public DataModel createPageDataModel(){
                 if (selectedProject.getProject() !=null){
-                        return new ListDataModel(getFacade().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true,selectedProject.getProject(), true));
+                        return new ListDataModel(getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true,selectedProject.getProject(), true));
                     }
                 else {
-                        return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
+                        return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
                     }
                 }
             };
@@ -130,7 +130,7 @@ public class ArtefactController extends BaseController implements Serializable {
                 current.setProjectID(selectedProject.getProject());
             }
             setEntityActive(current);
-            getFacade().create(current);
+            getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -158,7 +158,7 @@ public class ArtefactController extends BaseController implements Serializable {
             if(selectedProject.getProject() != null){
                 current.setProjectID(selectedProject.getProject());
             }
-            getFacade().create(current);
+            getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactUpdated"));
             return "View";
         } catch (Exception e) {
@@ -179,7 +179,7 @@ public class ArtefactController extends BaseController implements Serializable {
     
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getSaveRetrieve().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -228,7 +228,7 @@ public class ArtefactController extends BaseController implements Serializable {
     private void performDisable() {
         setEntityInActive(current);
         try {
-            getFacade().entityInactive(current);
+            getSaveRetrieve().entityInactive(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactDisabled"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -238,10 +238,10 @@ public class ArtefactController extends BaseController implements Serializable {
     private void updateCurrentItem() {
         int count;
          if (selectedProject.getProject() != null){
-             count = getFacade().countEntityActiveAndProjectIDAndIsCurrentVersion(selectedProject.getProject(), true, true);
+             count = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(selectedProject.getProject(), true, true);
          }
          else {
-             count = getFacade().countEntityActive(true, true);
+             count = getSaveRetrieve().countEntityActive(true, true);
          }
         
         if (selectedItemIndex >= count) {
@@ -254,10 +254,10 @@ public class ArtefactController extends BaseController implements Serializable {
         }
         if (selectedItemIndex >= 0) {
             if (selectedProject.getProject() != null){
-                current = getFacade().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true,selectedProject.getProject(),true).get(0);
+                current = getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true,selectedProject.getProject(),true).get(0);
             }
             else {
-                current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
+                current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
             }
         }
     }

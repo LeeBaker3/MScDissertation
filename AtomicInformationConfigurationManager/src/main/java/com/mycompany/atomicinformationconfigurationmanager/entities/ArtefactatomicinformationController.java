@@ -44,7 +44,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
         return current;
     }
 
-    private ArtefactatomicinformationSaveRetrieve getFacade() {
+    private ArtefactatomicinformationSaveRetrieve getSaveRetrieve() {
         return ejbSaveRetrieve;
     }
 
@@ -60,10 +60,10 @@ public class ArtefactatomicinformationController extends BaseController implemen
                 public int getItemsCount() {
                     int localCount;
                     if (artefactController.getCurrent()!=null){
-                        localCount = getFacade().countEntityActiveAndArtefactIDAndIsCurrentVersion(true, artefactController.getCurrent(), true);
+                        localCount = getSaveRetrieve().countEntityActiveAndArtefactIDAndIsCurrentVersion(true, artefactController.getCurrent(), true);
                     }
                     else{
-                        localCount = getFacade().countEntityActive(true, true);
+                        localCount = getSaveRetrieve().countEntityActive(true, true);
                     }
                     return localCount;
                 }
@@ -75,10 +75,10 @@ public class ArtefactatomicinformationController extends BaseController implemen
                 @Override
                 public DataModel createPageDataModel() {
                     if(artefactController.getCurrent() !=null){
-                        return new ListDataModel(getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, artefactController.getCurrent(), true));
+                        return new ListDataModel(getSaveRetrieve().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, artefactController.getCurrent(), true));
                     }
                     else{
-                        return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                        return new ListDataModel(getSaveRetrieve().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                     }
                 }
             };
@@ -114,7 +114,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
                 current.setArtefactID(artefactController.getCurrent());
             }
             setEntityActive(current);
-            getFacade().create(current);
+            getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -131,7 +131,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
 
     public String update() {
         try {
-            getFacade().edit(current);
+            getSaveRetrieve().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationUpdated"));
             return "View";
         } catch (Exception e) {
@@ -164,7 +164,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getSaveRetrieve().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -200,7 +200,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
     private void performDisable() {
         setEntityInActive(current);
         try {
-            getFacade().entityInactive(current);
+            getSaveRetrieve().entityInactive(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationDisabled"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -210,10 +210,10 @@ public class ArtefactatomicinformationController extends BaseController implemen
     private void updateCurrentItem() {
         int count;
         if(artefactController.getCurrent() != null){
-            count = getFacade().countEntityActiveAndArtefactIDAndIsCurrentVersion(true, artefactController.getCurrent(), true);
+            count = getSaveRetrieve().countEntityActiveAndArtefactIDAndIsCurrentVersion(true, artefactController.getCurrent(), true);
         }
         else {
-            count = getFacade().countEntityActive(true, true);
+            count = getSaveRetrieve().countEntityActive(true, true);
         }
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
@@ -225,9 +225,9 @@ public class ArtefactatomicinformationController extends BaseController implemen
         }
         if (selectedItemIndex >= 0) {
             if(artefactController.getCurrent() !=null){
-                current = getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, artefactController.getCurrent(), true).get(0);
+                current = getSaveRetrieve().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, artefactController.getCurrent(), true).get(0);
             }
-            current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
+            current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }
     }
 

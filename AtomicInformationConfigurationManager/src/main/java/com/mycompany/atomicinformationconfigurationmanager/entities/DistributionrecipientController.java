@@ -43,7 +43,7 @@ public class DistributionrecipientController extends BaseController implements S
         return current;
     }
 
-    private DistributionrecipientSaveRetrieve getFacade() {
+    private DistributionrecipientSaveRetrieve getSaveRetrieve() {
         return ejbSaveRetrieve;
     }
 
@@ -59,12 +59,12 @@ public class DistributionrecipientController extends BaseController implements S
                 
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    return getSaveRetrieve().count();
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
+                    return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
                 }
             };
         }
@@ -90,7 +90,7 @@ public class DistributionrecipientController extends BaseController implements S
 
     public String create() {
         try {
-            getFacade().create(current);
+            getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DistributionrecipientCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class DistributionrecipientController extends BaseController implements S
 
     public String update() {
         try {
-            getFacade().edit(current);
+            getSaveRetrieve().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DistributionrecipientUpdated"));
             return "View";
         } catch (Exception e) {
@@ -140,7 +140,7 @@ public class DistributionrecipientController extends BaseController implements S
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getSaveRetrieve().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DistributionrecipientDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -148,7 +148,7 @@ public class DistributionrecipientController extends BaseController implements S
     }
 
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count = getSaveRetrieve().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -158,7 +158,7 @@ public class DistributionrecipientController extends BaseController implements S
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
+            current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }
     }
 

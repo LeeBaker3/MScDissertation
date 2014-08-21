@@ -49,7 +49,7 @@ public class ArtefactdistributionController extends BaseController implements Se
         return current;
     }
 
-    private ArtefactdistributionSaveRetrieve getFacade() {
+    private ArtefactdistributionSaveRetrieve getSaveRetrieve() {
         return ejbSaveRetrieve;
     }
 
@@ -65,10 +65,10 @@ public class ArtefactdistributionController extends BaseController implements Se
                 public int getItemsCount() {
                     int localCount;
                     if (selectedArtefact.getArtefact() !=null){
-                        localCount = getFacade().countEntityActiveAndArtefactIDIsCurrentVersion(selectedArtefact.getArtefact(), true, true);
+                        localCount = getSaveRetrieve().countEntityActiveAndArtefactIDIsCurrentVersion(selectedArtefact.getArtefact(), true, true);
                     }
                     else {
-                        localCount = getFacade().countEntityActive(true, true);
+                        localCount = getSaveRetrieve().countEntityActive(true, true);
                     }
                     return localCount;
                 }
@@ -80,10 +80,10 @@ public class ArtefactdistributionController extends BaseController implements Se
                 @Override
                 public DataModel createPageDataModel() {
                     if (selectedArtefact.getArtefact() !=null){
-                        return  new ListDataModel(getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, selectedArtefact.getArtefact(), true));
+                        return  new ListDataModel(getSaveRetrieve().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, selectedArtefact.getArtefact(), true));
                     }
                     else {
-                        return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
+                        return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
                     }
                 }
             };
@@ -125,7 +125,7 @@ public class ArtefactdistributionController extends BaseController implements Se
                 current.setArtefactID(selectedArtefact.getArtefact());
             }
             setEntityActive(current);
-            getFacade().create(current);
+            getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactdistributionCreated"));
             
             /*
@@ -155,7 +155,7 @@ public class ArtefactdistributionController extends BaseController implements Se
 
     public String update() {
         try {
-            getFacade().edit(current);
+            getSaveRetrieve().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactdistributionUpdated"));
             return "View";
         } catch (Exception e) {
@@ -188,7 +188,7 @@ public class ArtefactdistributionController extends BaseController implements Se
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getSaveRetrieve().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactdistributionDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -224,7 +224,7 @@ public class ArtefactdistributionController extends BaseController implements Se
     private void performDisable() {
         setEntityInActive(current);
         try {
-            getFacade().entityInactive(current);
+            getSaveRetrieve().entityInactive(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactdistributionDisabled"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -232,12 +232,12 @@ public class ArtefactdistributionController extends BaseController implements Se
     }
 
     private void updateCurrentItem() {
-        int count = getFacade().count();
+        int count = getSaveRetrieve().count();
         if (selectedArtefact.getArtefact() !=null){
-            count = getFacade().countEntityActiveAndArtefactIDIsCurrentVersion(selectedArtefact.getArtefact(), true, true);
+            count = getSaveRetrieve().countEntityActiveAndArtefactIDIsCurrentVersion(selectedArtefact.getArtefact(), true, true);
         }
         else{
-            count = getFacade().countEntityActive(true, true);
+            count = getSaveRetrieve().countEntityActive(true, true);
         }
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
@@ -249,9 +249,9 @@ public class ArtefactdistributionController extends BaseController implements Se
         }
         if (selectedItemIndex >= 0) {
             if(selectedArtefact.getArtefact()!=null){
-                current = getFacade().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, selectedArtefact.getArtefact(), true).get(0);
+                current = getSaveRetrieve().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, selectedArtefact.getArtefact(), true).get(0);
             }
-            current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
+            current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }
     }
 

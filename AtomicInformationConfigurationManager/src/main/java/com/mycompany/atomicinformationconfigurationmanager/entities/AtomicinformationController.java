@@ -44,7 +44,7 @@ public class AtomicinformationController extends BaseController implements Seria
         return current;
     }
 
-    private AtomicinformationSaveRetrieve getFacade() {
+    private AtomicinformationSaveRetrieve getSaveRetrieve() {
         return ejbSaveRetrieve;
     }
 
@@ -60,10 +60,10 @@ public class AtomicinformationController extends BaseController implements Seria
                 public int getItemsCount() {
                     int localCount;
                     if (selectedProject.getProject()!=null){
-                        localCount = getFacade().countEntityActiveAndProjectIDAndIsCurrentVersion(true, selectedProject.getProject(), true);
+                        localCount = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(true, selectedProject.getProject(), true);
                     }
                     else{
-                        localCount = getFacade().countEntityActive(true, true);
+                        localCount = getSaveRetrieve().countEntityActive(true, true);
                     }
                     return localCount;
                 }
@@ -76,10 +76,10 @@ public class AtomicinformationController extends BaseController implements Seria
                 public DataModel createPageDataModel() {
                     
                     if (selectedProject.getProject() != null){
-                        return  new  ListDataModel(getFacade().findRangeEntityActiveAndProjectIDAndISCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, selectedProject.getProject(), true));
+                        return  new  ListDataModel(getSaveRetrieve().findRangeEntityActiveAndProjectIDAndISCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, selectedProject.getProject(), true));
                     }
                     else{
-                      return new ListDataModel(getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, true));  
+                      return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, true));  
                     }
                     
                 }
@@ -124,7 +124,7 @@ public class AtomicinformationController extends BaseController implements Seria
                 current.setProjectID(selectedProject.getProject());
             }
             setEntityActive(current);
-            getFacade().create(current);
+            getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationCreated"));
             
             /*
@@ -154,7 +154,7 @@ public class AtomicinformationController extends BaseController implements Seria
 
     public String update() {
         try {
-            getFacade().edit(current);
+            getSaveRetrieve().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationUpdated"));
             return "View";
         } catch (Exception e) {
@@ -187,7 +187,7 @@ public class AtomicinformationController extends BaseController implements Seria
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getSaveRetrieve().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -223,7 +223,7 @@ public class AtomicinformationController extends BaseController implements Seria
     private void perfromDisable() {
         setEntityInActive(current);
         try {
-            getFacade().entityInactive(current);
+            getSaveRetrieve().entityInactive(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationDisabled"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -234,10 +234,10 @@ public class AtomicinformationController extends BaseController implements Seria
     private void updateCurrentItem() {
         int count;
         if (selectedProject.getProject() != null){
-             count = getFacade().countEntityActiveAndProjectIDAndIsCurrentVersion(true, selectedProject.getProject(), true);
+             count = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(true, selectedProject.getProject(), true);
          }
          else {
-             count = getFacade().countEntityActive(true, true);
+             count = getSaveRetrieve().countEntityActive(true, true);
          }
                  
         if (selectedItemIndex >= count) {
@@ -250,10 +250,10 @@ public class AtomicinformationController extends BaseController implements Seria
         }
         if (selectedItemIndex >= 0) {
             if (selectedProject.getProject() != null){
-                current = getFacade().findRangeEntityActiveAndProjectIDAndISCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, selectedProject.getProject(), true).get(0);
+                current = getSaveRetrieve().findRangeEntityActiveAndProjectIDAndISCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, selectedProject.getProject(), true).get(0);
             }
             else {
-                current = getFacade().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
+                current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
             }
         }
     }
