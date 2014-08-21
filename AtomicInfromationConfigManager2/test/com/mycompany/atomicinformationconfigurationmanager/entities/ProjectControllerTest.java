@@ -6,6 +6,8 @@
 
 package com.mycompany.atomicinformationconfigurationmanager.entities;
 
+import com.mycompany.atomicinformationconfigurationmanager.entities.project.Project;
+import com.mycompany.atomicinformationconfigurationmanager.entities.project.ProjectController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
 import javax.faces.model.DataModel;
 import javax.faces.model.SelectItem;

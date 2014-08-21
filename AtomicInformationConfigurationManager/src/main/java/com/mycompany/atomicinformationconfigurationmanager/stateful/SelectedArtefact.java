@@ -6,7 +6,7 @@
 
 package com.mycompany.atomicinformationconfigurationmanager.stateful;
 
-import com.mycompany.atomicinformationconfigurationmanager.entities.Artefact;
+import com.mycompany.atomicinformationconfigurationmanager.entities.Artefact.Artefact;
 import java.util.Objects;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;

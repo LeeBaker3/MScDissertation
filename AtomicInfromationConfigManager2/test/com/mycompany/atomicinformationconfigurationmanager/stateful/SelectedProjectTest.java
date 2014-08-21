@@ -6,7 +6,7 @@
 
 package com.mycompany.atomicinformationconfigurationmanager.stateful;
 
-import com.mycompany.atomicinformationconfigurationmanager.entities.Project;
+import com.mycompany.atomicinformationconfigurationmanager.entities.project.Project;
 import javax.ejb.embeddable.EJBContainer;
 import org.junit.After;
 import org.junit.AfterClass;

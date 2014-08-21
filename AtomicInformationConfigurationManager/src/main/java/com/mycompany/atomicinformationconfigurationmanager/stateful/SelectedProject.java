@@ -6,8 +6,8 @@
 
 package com.mycompany.atomicinformationconfigurationmanager.stateful;
 
-import com.mycompany.atomicinformationconfigurationmanager.entities.ArtefactController;
-import com.mycompany.atomicinformationconfigurationmanager.entities.Project;
+import com.mycompany.atomicinformationconfigurationmanager.entities.Artefact.ArtefactController;
+import com.mycompany.atomicinformationconfigurationmanager.entities.project.Project;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.ejb.Stateful;
