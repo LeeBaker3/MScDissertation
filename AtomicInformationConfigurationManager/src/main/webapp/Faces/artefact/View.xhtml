@@ -28,19 +28,23 @@
                 <h:commandLink action="#{artefactController.disableAndView}" value="#{bundle.ViewArtefactDisableLink}"/>
                 <br />
                 <br />
-                <h:commandLink  action="#{artefactController.prepareUpdate}" value="#{bundle.ViewArtefactEditLink}"/>
+                <h:link outcome="Edit" value="#{bundle.ViewArtefactEditLink}"/>
+                <br />
+                <h:commandLink  action="#{artefactController.prepareUpdateVersion()}" value="#{bundle.ViewArtefactUpdateVersionLink}"/>
                 <br />
                 <h:link outcome="/Faces/artefactatomicinformation/List" value ="#{bundle.ViewArtefactatomicinformationListLink}"/>
+                <br />
+                <h:commandLink action="#{artefactdistributionController.prepareCreateFromArtefact()}" value="#{bundle.ViewArtefactdistributionCreateLink}" />
                 <br />
                 <h:commandLink action="#{artefactController.prepareCreate}" value="#{bundle.ViewArtefactCreateLink}" />
                 <br />
                 <h:commandLink action="#{artefactController.prepareList}" value ="#{bundle.ViewArtefactShowAllLink}"/>
                 <br />
-                <h:commandLink action="#{artefactdistributionController.prepareCreateFromArtefact()}" value="#{bundle.ViewArtefactdistributionCreateLink}" />
+                <h:link outcome="/Faces/artefactdistribution/List" value ="#{bundle.ViewArtefactdistributionListLink}"/>
                 <br />
                 <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ViewArtefactMainMenuLink}" />
                 <br />
-                <h:link outcome="/Faces/artefactdistribution/List" value ="#{bundle.ViewArtefactdistributionListLink}"/>
+                <br />                             
             </h:form>
         </ui:define>
     </ui:composition>

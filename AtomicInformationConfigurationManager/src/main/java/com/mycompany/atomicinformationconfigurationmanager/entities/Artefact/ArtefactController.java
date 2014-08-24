@@ -28,6 +28,7 @@ public class ArtefactController extends BaseController implements Serializable {
 
     private Artefact current;
     private Artefact oldArtefact;
+    private boolean  updating = false;
 
     private DataModel items = null;
     @EJB
@@ -143,31 +144,48 @@ public class ArtefactController extends BaseController implements Serializable {
     public String prepareEdit() {
         current = (Artefact) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return prepareUpdate();
+        return "Edit";
     }
     
-    public String prepareUpdate(){
+    public String prepareUpdateVersion(){
+        updating = true;
         oldArtefact = current;
         prepareVersion(oldArtefact, ejbSaveRetrieve);
+        current = new Artefact();
+        current.setArtefactMajorVersionNumber(oldArtefact.getArtefactMajorVersionNumber());
+        current.setArtefactMinorVersionNumber(oldArtefact.getArtefactMinorVersionNumber());
+        current.setArtefactName(oldArtefact.getArtefactName());
         return "Edit";
     }
 
     public String update() {
         try {
-            manageVersion(oldArtefact, current);
-
             if(selectedProject.getProject() != null){
                 current.setProjectID(selectedProject.getProject());
             }
-            getSaveRetrieve().create(current);
+            
+            if (updating == true){
+                manageVersion(oldArtefact, current);
+                getSaveRetrieve().create(current);
+                updating = false;
+            }
+            else{
+                getSaveRetrieve().edit(current);
+            }
+            
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            rollBackVersion(oldArtefact, ejbSaveRetrieve);
+            if (updating == true){
+                rollBackVersion(oldArtefact, ejbSaveRetrieve);
+                updating = false;
+                current = oldArtefact;
+            }
             return null;
         }
     }
+    
 
     public String destroy() {
         current = (Artefact) getItems().getRowData();
