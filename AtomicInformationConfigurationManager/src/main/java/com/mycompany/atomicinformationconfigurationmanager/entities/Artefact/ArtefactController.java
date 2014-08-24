@@ -30,6 +30,14 @@ public class ArtefactController extends BaseController implements Serializable {
     private Artefact oldArtefact;
     private boolean  updating = false;
 
+    public boolean isUpdating() {
+        return updating;
+    }
+
+    public void setUpdating(boolean updating) {
+        this.updating = updating;
+    }
+
     private DataModel items = null;
     @EJB
     private com.mycompany.atomicinformationconfigurationmanager.entities.Artefact.ArtefactSaveRetrieve ejbSaveRetrieve;
@@ -147,6 +155,11 @@ public class ArtefactController extends BaseController implements Serializable {
         return "Edit";
     }
     
+    /*
+    *   24/08/14 @Lee Baker
+    *   When recreationg a new artefact copies details of current artefact to a new
+    *   new artefact and set the old one to not current.
+    */
     public String prepareUpdateVersion(){
         updating = true;
         oldArtefact = current;

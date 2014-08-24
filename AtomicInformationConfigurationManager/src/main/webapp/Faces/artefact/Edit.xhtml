@@ -21,6 +21,8 @@
                     <h:inputText id="artefactMajorVersionNumber" value="#{artefactController.selected.artefactMajorVersionNumber}" title="#{bundle.EditArtefactTitle_artefactMajorVersionNumber}" required="true" requiredMessage="#{bundle.EditArtefactRequiredMessage_artefactMajorVersionNumber}"/>
                     <h:outputLabel value="#{bundle.EditArtefactLabel_artefactMinorVersionNumber}" for="artefactMinorVersionNumber" />
                     <h:inputText id="artefactMinorVersionNumber" value="#{artefactController.selected.artefactMinorVersionNumber}" title="#{bundle.EditArtefactTitle_artefactMinorVersionNumber}" required="true" requiredMessage="#{bundle.EditArtefactRequiredMessage_artefactMinorVersionNumber}"/>
+                    <h:outputLabel rendered="#{artefactController.updating == true}" value="#{bundle.UpdateAtomicInformationLinksCheckbox}"/>
+                    <h:selectBooleanCheckbox rendered="#{artefactController.updating == true}" value="#{updateArtefactAtomicInformationLinks.update}"/>
                 </h:panelGrid>
                 <h:commandLink action="#{artefactController.update}" value="#{bundle.EditArtefactSaveLink}"/>
                 <br />
