@@ -24,6 +24,32 @@
                     <h:outputText value="#{bundle.ViewArtefactLabel_projectID}"/>
                     <h:outputText value="#{artefactController.selected.projectID.projectName} #{artefactController.selected.projectID.projectReference}" title="#{bundle.ViewArtefactTitle_projectID}"/>
                 </h:panelGrid>
+                
+                <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListArtefactatomicinformationEmpty}" rendered="#{artefactatomicinformationController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{artefactatomicinformationController.items.rowCount > 0}">
+                    <h:outputText value="#{artefactatomicinformationController.pagination.pageFirstItem + 1}..#{artefactatomicinformationController.pagination.pageLastItem + 1}/#{artefactatomicinformationController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{artefactatomicinformationController.previous}" value="#{bundle.Previous} #{artefactatomicinformationController.pagination.pageSize}" rendered="#{artefactatomicinformationController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{artefactatomicinformationController.next}" value="#{bundle.Next} #{artefactatomicinformationController.pagination.pageSize}" rendered="#{artefactatomicinformationController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{artefactatomicinformationController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListArtefactatomicinformationTitle_atomicInformationID_content}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.atomicInformationID.content}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListArtefactatomicinformationTitle_versionNumber}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.versionNumber}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+            </h:form>
                 <br />
                 <h:commandLink action="#{artefactController.disableAndView}" value="#{bundle.ViewArtefactDisableLink}"/>
                 <br />
