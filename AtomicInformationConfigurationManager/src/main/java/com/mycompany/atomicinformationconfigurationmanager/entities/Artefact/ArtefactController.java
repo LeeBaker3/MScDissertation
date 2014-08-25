@@ -27,16 +27,8 @@ import sun.misc.VM;
 public class ArtefactController extends BaseController implements Serializable {
 
     private Artefact current;
-    private Artefact oldArtefact;
+    private Artefact old;
     private boolean  updating = false;
-
-    public boolean isUpdating() {
-        return updating;
-    }
-
-    public void setUpdating(boolean updating) {
-        this.updating = updating;
-    }
 
     private DataModel items = null;
     @EJB
@@ -54,12 +46,28 @@ public class ArtefactController extends BaseController implements Serializable {
     public ArtefactController() {
     }
     
+    public boolean isUpdating() {
+        return updating;
+    }
+
+    public void setUpdating(boolean updating) {
+        this.updating = updating;
+    }
+    
     public Artefact getCurrent() {
         return current;
     }
 
     public void setCurrent(Artefact current) {
         this.current = current;
+    }
+    
+    public Artefact getOld() {
+        return old;
+    }
+
+    public void setOld(Artefact old) {
+        this.old = old;
     }
 
     public Artefact getSelected() {
@@ -162,13 +170,18 @@ public class ArtefactController extends BaseController implements Serializable {
     */
     public String prepareUpdateVersion(){
         updating = true;
-        oldArtefact = current;
-        prepareVersion(oldArtefact, ejbSaveRetrieve);
+        old = current;
+        prepareVersion(old, ejbSaveRetrieve);
         current = new Artefact();
-        current.setArtefactMajorVersionNumber(oldArtefact.getArtefactMajorVersionNumber());
-        current.setArtefactMinorVersionNumber(oldArtefact.getArtefactMinorVersionNumber());
-        current.setArtefactName(oldArtefact.getArtefactName());
+        copy(old, current);
         return "Edit";
+    }
+    
+    public Artefact copy(Artefact oldArtefact, Artefact newArtefact){
+        newArtefact.setArtefactMajorVersionNumber(oldArtefact.getArtefactMajorVersionNumber());
+        newArtefact.setArtefactMinorVersionNumber(oldArtefact.getArtefactMinorVersionNumber());
+        newArtefact.setArtefactName(oldArtefact.getArtefactName());
+        return newArtefact;
     }
 
     public String update() {
@@ -178,7 +191,7 @@ public class ArtefactController extends BaseController implements Serializable {
             }
             
             if (updating == true){
-                manageVersion(oldArtefact, current);
+                manageVersion(old, current);
                 getSaveRetrieve().create(current);
                 updating = false;
             }
@@ -191,9 +204,9 @@ public class ArtefactController extends BaseController implements Serializable {
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             if (updating == true){
-                rollBackVersion(oldArtefact, ejbSaveRetrieve);
+                rollBackVersion(old, ejbSaveRetrieve);
                 updating = false;
-                current = oldArtefact;
+                current = old;
             }
             return null;
         }

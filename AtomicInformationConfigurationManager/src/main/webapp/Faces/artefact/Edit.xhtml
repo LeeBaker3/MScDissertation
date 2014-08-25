@@ -24,7 +24,7 @@
                     <h:outputLabel rendered="#{artefactController.updating == true}" value="#{bundle.UpdateAtomicInformationLinksCheckbox}"/>
                     <h:selectBooleanCheckbox rendered="#{artefactController.updating == true}" value="#{updateArtefactAtomicInformationLinks.update}"/>
                 </h:panelGrid>
-                <h:commandLink action="#{artefactController.update}" value="#{bundle.EditArtefactSaveLink}"/>
+                <h:commandLink action="#{updateArtefactAtomicInformationLinks.update}" value="#{bundle.EditArtefactSaveLink}"/>
                 <br />
                 <br />
                 <h:link outcome="View" value="#{bundle.EditArtefactViewLink}"/>

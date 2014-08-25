@@ -7,7 +7,9 @@ import com.mycompany.atomicinformationconfigurationmanager.entities.util.Paginat
 import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -26,6 +28,9 @@ import org.apache.jasper.xmlparser.ParserUtils;
 public class ArtefactatomicinformationController extends BaseController implements Serializable {
 
     private Artefactatomicinformation current;
+    private Artefactatomicinformation old;
+    private boolean updating = false;
+
     private DataModel items = null;
     @EJB
     private com.mycompany.atomicinformationconfigurationmanager.entities.Artefactatomicinformation.ArtefactatomicinformationSaveRetrieve ejbSaveRetrieve;
@@ -34,8 +39,24 @@ public class ArtefactatomicinformationController extends BaseController implemen
     
     @Inject
     private ArtefactController artefactController; 
-
+    
     public ArtefactatomicinformationController() {
+    }  
+    
+    public Artefactatomicinformation getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Artefactatomicinformation current) {
+        this.current = current;
+    }    
+    
+    public boolean isUpdating() {
+        return updating;
+    }
+
+    public void setUpdating(boolean updating) {
+        this.updating = updating;
     }
 
     public Artefactatomicinformation getSelected() {
@@ -46,7 +67,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
         return current;
     }
 
-    private ArtefactatomicinformationSaveRetrieve getSaveRetrieve() {
+    public ArtefactatomicinformationSaveRetrieve getSaveRetrieve() {
         return ejbSaveRetrieve;
     }
 
@@ -131,13 +152,46 @@ public class ArtefactatomicinformationController extends BaseController implemen
         return "Edit";
     }
 
+    /*
+    *   24/08/14 @Lee Baker
+    *   When recreationg a new artefact copies details of current artefact to a new
+    *   new artefact and set the old one to not current.
+    */
+    public String prepareUpdateVersion(){
+        updating = true;
+        old = current;
+        prepareVersion(old, ejbSaveRetrieve);
+        current = new Artefactatomicinformation();
+        copy(old, current);
+        return "Edit";
+    }  
+    
+    public Artefactatomicinformation copy(Artefactatomicinformation oldArtefactatomicinformation, Artefactatomicinformation newArtefactatomicinformation){
+        newArtefactatomicinformation.setAtomicInformationID(oldArtefactatomicinformation.getAtomicInformationID());
+        newArtefactatomicinformation.setArtefactID(oldArtefactatomicinformation.getArtefactID());
+        return newArtefactatomicinformation;
+    }
+    
+    
     public String update() {
         try {
-            getSaveRetrieve().edit(current);
+            if (updating == true){
+                manageVersion(old, current);
+                getSaveRetrieve().create(current);
+                updating = false;
+            }
+            else{
+                getSaveRetrieve().edit(current);
+            }
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            if (updating == true){
+                rollBackVersion(old, ejbSaveRetrieve);
+                updating = false;
+                current = old;
+            }
             return null;
         }
     }

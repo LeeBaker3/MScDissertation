@@ -42,6 +42,11 @@ abstract public class BaseController implements Serializable{
         newEntity.setPreviousVersionReference(oldEntity.getId());
     }
     
+    public void prepareVersion (BaseEntity oldEntity, BaseSaveRetrieveAbstract saveRetrieve) {
+        oldEntity.setIsCurrentVersion(false);
+        saveRetrieve.edit(oldEntity);   
+    }    
+
     public void manageVersion(BaseEntity oldEntity, BaseEntity newEntity) {
         updateVersionNumber(oldEntity, newEntity);
         setPreviousReference(oldEntity, newEntity);
@@ -55,8 +60,4 @@ abstract public class BaseController implements Serializable{
         saveRetrieve.edit(oldEntity);
     }
     
-    public void prepareVersion (BaseEntity oldEntity, BaseSaveRetrieveAbstract saveRetrieve) {
-        oldEntity.setIsCurrentVersion(false);
-        saveRetrieve.edit(oldEntity);   
-    }
 }
