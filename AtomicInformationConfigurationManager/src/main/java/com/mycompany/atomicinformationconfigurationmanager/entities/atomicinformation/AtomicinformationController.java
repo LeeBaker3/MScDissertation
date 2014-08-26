@@ -1,5 +1,6 @@
 package com.mycompany.atomicinformationconfigurationmanager.entities.atomicinformation;
 
+import com.mycompany.atomicinformationconfigurationmanager.entities.Artefactatomicinformation.Artefactatomicinformation;
 import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
@@ -24,6 +25,9 @@ import javax.inject.Inject;
 public class AtomicinformationController extends BaseController implements Serializable {
 
     private Atomicinformation current;
+    private Atomicinformation old;
+    private boolean updating = false;
+    
     private DataModel items = null;
     @EJB
     private com.mycompany.atomicinformationconfigurationmanager.entities.atomicinformation.AtomicinformationSaveRetrieve ejbSaveRetrieve;
@@ -35,6 +39,30 @@ public class AtomicinformationController extends BaseController implements Seria
     
 
     public AtomicinformationController() {
+    }
+
+    public Atomicinformation getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Atomicinformation current) {
+        this.current = current;
+    }
+
+    public Atomicinformation getOld() {
+        return old;
+    }
+
+    public void setOld(Atomicinformation old) {
+        this.old = old;
+    }
+
+    public boolean isUpdating() {
+        return updating;
+    }
+
+    public void setUpdating(boolean updating) {
+        this.updating = updating;
     }
 
     public Atomicinformation getSelected() {
@@ -153,13 +181,51 @@ public class AtomicinformationController extends BaseController implements Seria
         return "Edit";
     }
 
+    /*
+    *   24/08/14 @Lee Baker
+    *   When recreationg a new atomicinformation copies details of current atomicinformation to a new
+    *   new atomicinformation and set the old one to not current.
+    */
+     public String prepareUpdateVersion(){
+        updating = true;
+        old = current;
+        prepareVersion(old, ejbSaveRetrieve);
+        current = new Atomicinformation();
+        copy(old, current);
+        return "Edit";
+    }
+     
+    public Atomicinformation copy(Atomicinformation oldAtomicinformation, Atomicinformation newAtomicinformation){
+        newAtomicinformation.setContent(oldAtomicinformation.getContent());
+        newAtomicinformation.setTypeOfAtomicInformationID(oldAtomicinformation.getTypeOfAtomicInformationID());
+        newAtomicinformation.setProjectID(oldAtomicinformation.getProjectID());
+        return newAtomicinformation;
+    }     
+
     public String update() {
         try {
-            getSaveRetrieve().edit(current);
+            if(selectedProject.getProject() != null){
+                current.setProjectID(selectedProject.getProject());
+            }
+            
+            if (updating == true){
+                manageVersion(old, current);
+                getSaveRetrieve().create(current);
+                updating = false;
+            }
+            else{
+                getSaveRetrieve().edit(current);
+            }
+            
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+             if (updating == true){
+                rollBackVersion(old, ejbSaveRetrieve);
+                updating = false;
+                current = old;
+            }           
             return null;
         }
     }
