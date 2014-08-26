@@ -67,7 +67,7 @@ public class UpdateArtefactAtomicInformationLinks {
             result = artefactController.update();
             
             if (isUpdate()== true){
-                if(result == "View"){
+                if(result.equals("View")){
                     copyEntities();
                 }
             }
@@ -79,7 +79,7 @@ public class UpdateArtefactAtomicInformationLinks {
     }
     
     public void createDataModel() {
-        oldItems = new ListDataModel(artefactatomicinformationController.getSaveRetrieve().findByEntityActiveAndArtefactIDAndIsCurrentVersion(true, oldArtefact, false));
+        oldItems = new ListDataModel(artefactatomicinformationController.getSaveRetrieve().findByEntityActiveAndArtefactIDAndIsCurrentVersion(true, oldArtefact, true));
         count = oldItems.getRowCount();
     }    
     
@@ -89,6 +89,7 @@ public class UpdateArtefactAtomicInformationLinks {
             Artefactatomicinformation oldArtefactatomicinformation = (Artefactatomicinformation)getOldItems().getRowData();       
             artefactatomicinformationController.setCurrent(oldArtefactatomicinformation);
             artefactatomicinformationController.prepareUpdateVersion();
+            artefactatomicinformationController.getCurrent().setArtefactID(newArtefact);
             artefactatomicinformationController.update();
         }
     }
