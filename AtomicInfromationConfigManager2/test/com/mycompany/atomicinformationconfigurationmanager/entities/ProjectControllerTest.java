@@ -144,21 +144,21 @@ public class ProjectControllerTest {
     }
 
     @Test
-    public void testDisable() {
-        System.out.println("disable");
+    public void testDelete() {
+        System.out.println("delete");
         ProjectController instance = new ProjectController();
         String expResult = "";
-        String result = instance.disable();
+        String result = instance.delete();
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
 
     @Test
-    public void testDisableAndView() {
-        System.out.println("disableAndView");
+    public void testDeleteAndView() {
+        System.out.println("deleteAndView");
         ProjectController instance = new ProjectController();
         String expResult = "";
-        String result = instance.disableAndView();
+        String result = instance.deleteAndView();
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }

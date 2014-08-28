@@ -229,19 +229,19 @@ public class ArtefactatomicinformationController extends BaseController implemen
     
     /*  
     *   09/08/14 @Lee Baker
-    *   Code added to disable entity instead of destroying it
+    *   Code added to delete entity instead of destroying it
     */  
-    public String disable() {
+    public String delete() {
         current = (Artefactatomicinformation) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDisable();
+        performDelete();
         recreatePagination();
         recreateModel();
         return "List";
     }
 
-    public String disableAndView() {
-        performDisable();
+    public String deleteAndView() {
+        performDelete();
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
@@ -253,11 +253,11 @@ public class ArtefactatomicinformationController extends BaseController implemen
         }
     }
 
-    private void performDisable() {
+    private void performDelete() {
         setEntityInActive(current);
         try {
             getSaveRetrieve().entityInactive(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationDisabled"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }

@@ -23,7 +23,7 @@
                     <h:outputText value="#{atomicinformationController.selected.projectID.projectName} #{atomicinformationController.selected.projectID.projectReference}" title="#{bundle.ViewAtomicinformationTitle_projectID}"/>  
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{atomicinformationController.disableAndView}" value="#{bundle.ViewAtomicinformationDisableLink}"/>
+                <h:commandLink action="#{atomicinformationController.deleteAndView()}" value="#{bundle.ViewAtomicinformationDeleteLink}"/>
                 <br />
                 <br />
                 <h:link outcome="Edit" value="#{bundle.ViewAtomicinformationEditLink}"/>

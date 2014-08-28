@@ -198,19 +198,19 @@ public class ArtefactdistributionController extends BaseController implements Se
     
     /*  
     *   10/08/14 @Lee Baker
-    *   Code added to disable entity instead of destroying it
+    *   Code added to delete entity instead of destroying it
     */   
-    public String disable() {
+    public String delete() {
         current = (Artefactdistribution) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDisable();
+        performDelete();
         recreatePagination();
         recreateModel();
         return "List";
     }
 
-    public String disableAndView() {
-        performDisable();
+    public String deleteAndView() {
+        performDelete();
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
@@ -222,11 +222,11 @@ public class ArtefactdistributionController extends BaseController implements Se
         }
     }
 
-    private void performDisable() {
+    private void performDelete() {
         setEntityInActive(current);
         try {
             getSaveRetrieve().entityInactive(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactdistributionDisabled"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactdistributionDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }

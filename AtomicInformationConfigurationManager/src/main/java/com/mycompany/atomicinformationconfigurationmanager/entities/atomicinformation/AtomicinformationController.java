@@ -265,17 +265,17 @@ public class AtomicinformationController extends BaseController implements Seria
     *   08/08/14 @Lee Baker
     *   Code added to disable entity instead of destroying it
     */   
-    public String disbale() {
+    public String delete() {
         current = (Atomicinformation) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        perfromDisable();
+        perfromDelete();
         recreatePagination();
         recreateModel();
         return "List";
     }
 
-    public String disableAndView() {
-        perfromDisable();
+    public String deleteAndView() {
+        perfromDelete();
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
@@ -287,11 +287,11 @@ public class AtomicinformationController extends BaseController implements Seria
         }
     }
 
-    private void perfromDisable() {
+    private void perfromDelete() {
         setEntityInActive(current);
         try {
             getSaveRetrieve().entityInactive(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationDisabled"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AtomicinformationDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
