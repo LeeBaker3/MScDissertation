@@ -52,7 +52,7 @@ public class ArtefactdistributionSaveRetrieve extends BaseSaveRetrieveAbstract<A
         return results;
     }
     
-        public int countEntityActiveAndArtefactIDIsCurrentVersion(Artefact artefact, Boolean entityActive, boolean isCurrentVersion){
+        public int countEntityActiveAndArtefactIDIAndsCurrentVersion(Artefact artefact, Boolean entityActive, boolean isCurrentVersion){
         TypedQuery<Artefactdistribution> query = em.createNamedQuery("Artefactdistribution.findByEntityActiveAndArtefactIDAndIsCurrentVersion", Artefactdistribution.class);
         query.setParameter("artefactID", artefact);
         query.setParameter("entityActive", entityActive);

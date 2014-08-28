@@ -66,7 +66,7 @@ public class ArtefactdistributionController extends BaseController implements Se
                 public int getItemsCount() {
                     int localCount;
                     if (selectedArtefact.getArtefact() !=null){
-                        localCount = getSaveRetrieve().countEntityActiveAndArtefactIDIsCurrentVersion(selectedArtefact.getArtefact(), true, true);
+                        localCount = getSaveRetrieve().countEntityActiveAndArtefactIDIAndsCurrentVersion(selectedArtefact.getArtefact(), true, true);
                     }
                     else {
                         localCount = getSaveRetrieve().countEntityActive(true, true);
@@ -235,7 +235,7 @@ public class ArtefactdistributionController extends BaseController implements Se
     private void updateCurrentItem() {
         int count = getSaveRetrieve().count();
         if (selectedArtefact.getArtefact() !=null){
-            count = getSaveRetrieve().countEntityActiveAndArtefactIDIsCurrentVersion(selectedArtefact.getArtefact(), true, true);
+            count = getSaveRetrieve().countEntityActiveAndArtefactIDIAndsCurrentVersion(selectedArtefact.getArtefact(), true, true);
         }
         else{
             count = getSaveRetrieve().countEntityActive(true, true);
