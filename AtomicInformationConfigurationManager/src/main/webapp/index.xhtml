@@ -4,32 +4,32 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-        <ui:composition template="/template.xhtml">
+
+    <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="Index"></h:outputText>
         </ui:define>
-         <ui:define name="body">           
+        <ui:define name="body">           
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-                <br />
-                <h:link outcome="/Faces/appentry/MainMenu" value="Show Main Menu" />
-                <br />
-                <h:link outcome="/Faces/artefact/List" value="Show All Artefact Items"/>
-                <br />
-                <h:link outcome="/Faces/artefactdistribution/List" value="Show All Artefact Distribution Items"/>
-                <br />
-                <h:link outcome="/Faces/atomicinformation/List" value="Show All Atomic Information Items"/>
-                <br />
-                <h:link outcome="/Faces/distributionrecipient/List" value="Show All Distribution Recipient Items"/>
-                <br />
-                <h:link outcome="/Faces/methodofdistribution/List" value="Show All Method of Distribution Items"/>
-                <br />
-                <h:link outcome="/Faces/project/List" value="Show All Project Items"/>
-                <br />
-                <h:link outcome="/Faces/typeofatomicinformation/List" value="Show All Type of Atomic Information Items"/>
-            </ui:define>
+            <br />
+            <h:link outcome="/Faces/appentry/MainMenu" value="Show Main Menu" />
+            <br />
+            <h:link outcome="/Faces/artefact/List" value="Show All Artefact Items"/>
+            <br />
+            <h:link outcome="/Faces/artefactdistribution/List" value="Show All Artefact Distribution Items"/>
+            <br />
+            <h:link outcome="/Faces/atomicinformation/List" value="Show All Atomic Information Items"/>
+            <br />
+            <h:link outcome="/Faces/distributionrecipient/List" value="Show All Distribution Recipient Items"/>
+            <br />
+            <h:link outcome="/Faces/methodofdistribution/List" value="Show All Method of Distribution Items"/>
+            <br />
+            <h:link outcome="/Faces/project/List" value="Show All Project Items"/>
+            <br />
+            <h:link outcome="/Faces/typeofatomicinformation/List" value="Show All Type of Atomic Information Items"/>
+        </ui:define>
     </ui:composition>
 </html>
 
