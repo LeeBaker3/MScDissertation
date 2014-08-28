@@ -28,9 +28,6 @@
                     <h:outputLabel value="#{bundle.CreateDistributionrecipientLabel_companyName}" for="companyName" />
                     <h:inputText id="companyName" value="#{distributionrecipientController.selected.companyName}" title="#{bundle.CreateDistributionrecipientTitle_companyName}" />
                     <h:outputLabel value="#{bundle.CreateDistributionrecipientLabel_projectID}" for="projectID" />
-                    <h:selectOneMenu id="projectID" value="#{distributionrecipientController.selected.projectID}" title="#{bundle.CreateDistributionrecipientTitle_projectID}" required="true" requiredMessage="#{bundle.CreateDistributionrecipientRequiredMessage_projectID}">
-                        <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu> 
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{distributionrecipientController.create}" value="#{bundle.CreateDistributionrecipientSaveLink}" />

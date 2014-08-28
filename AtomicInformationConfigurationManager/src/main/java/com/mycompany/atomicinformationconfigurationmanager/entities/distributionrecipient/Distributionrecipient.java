@@ -39,15 +39,15 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndDistributionRecipientIDAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.id = :distributionRecipientID AND d.entityActive = :entityActive AND d.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndVersionNumberAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.versionNumber = :versionNumber AND d.entityActive = :entityActive AND d.isCurrentVersion = :isCurrentVersion"),
-    @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.isCurrentVersion = :isCurrentVersion AND d.entityActive = :entityActive"),
-    @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndPreviousVersionReferenceAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.previousVersionReference = :previousVersionReference AND d.entityActive = :entityActive AND d.isCurrentVersion = :isCurrentVersion"),
-    @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndEntityActiveAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.entityActive = :entityActive"),
+    @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.entityActive = :entityActive AND d.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndFirstNameAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.firstName = :firstName AND d.entityActive = :entityActive  AND d.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndSurnameAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.surname = :surname AND d.entityActive = :entityActive  AND d.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndEMailAddressAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.eMailAddress = :eMailAddress AND d.entityActive = :entityActive  AND d.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndMobileNumberAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.mobileNumber = :mobileNumber AND d.entityActive = :entityActive  AND d.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndOfficeNumberAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.officeNumber = :officeNumber AND d.entityActive = :entityActive  AND d.isCurrentVersion = :isCurrentVersion"),
     @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndCompanyNameAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.companyName = :companyName AND d.entityActive = :entityActive AND d.isCurrentVersion = :isCurrentVersion"),
+    
+    @NamedQuery(name = "Distributionrecipient.findByEntityActiveAndProjectIDAndIsCurrentVersion", query = "SELECT d FROM Distributionrecipient d WHERE d.entityActive = :entityActive AND d.isCurrentVersion = :isCurrentVersion AND d.projectID = :projectID"),
     
     @NamedQuery(name = "Distributionrecipient.findAll", query = "SELECT d FROM Distributionrecipient d"),
     @NamedQuery(name = "Distributionrecipient.findByEntityActive", query = "SELECT d FROM Distributionrecipient d WHERE d.entityActive = :entityActive"),

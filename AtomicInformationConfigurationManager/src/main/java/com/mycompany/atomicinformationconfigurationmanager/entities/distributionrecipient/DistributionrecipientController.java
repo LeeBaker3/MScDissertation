@@ -60,12 +60,24 @@ public class DistributionrecipientController extends BaseController implements S
                 
                 @Override
                 public int getItemsCount() {
-                    return getSaveRetrieve().count();
+                    int localCount;
+                        if (selectedProject.getProject() != null){
+                            localCount = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(selectedProject.getProject(), true, true);
+                            }
+                        else {
+                            localCount = getSaveRetrieve().countEntityActive(true, true);
+                        }
+                    return localCount;
                 }
 
                 @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
+                public DataModel createPageDataModel(){
+                if (selectedProject.getProject() !=null){
+                        return new ListDataModel(getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true,selectedProject.getProject(), true));
+                    }
+                else {
+                        return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
+                    }
                 }
             };
         }
@@ -91,6 +103,15 @@ public class DistributionrecipientController extends BaseController implements S
 
     public String create() {
         try {
+            /*  
+            *   28/08/14 @Lee Baker
+            *   If a project has been selected then create new Distrution Recipent with a reference selected Project
+            *   and set entityActive when created
+            */ 
+            if(selectedProject.getProject() != null){
+                current.setProjectID(selectedProject.getProject());
+            }
+            setEntityActive(current);
             getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DistributionrecipientCreated"));
             return prepareCreate();
@@ -148,8 +169,51 @@ public class DistributionrecipientController extends BaseController implements S
         }
     }
 
+    /*  
+    *   02/08/14 @Lee Baker
+    *   Code added to delete entity instead of destroying it
+    */   
+    public String delete(){
+        current = (Distributionrecipient) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDelete();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
+
+    public String deleteAndView() {
+        performDelete();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return "View";
+        } else {
+            // all items were removed - go back to list
+            recreateModel();
+            return "List";
+        }
+    }
+
+    private void performDelete() {
+        setEntityInActive(current);
+        try {
+            getSaveRetrieve().entityInactive(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DistributionRecipientDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+    
     private void updateCurrentItem() {
-        int count = getSaveRetrieve().count();
+        int count;
+        if (selectedProject.getProject() != null){
+            count = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(selectedProject.getProject(), true, true);
+        }
+        else {
+            count = getSaveRetrieve().countEntityActive(true, true);
+        }
+        
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -159,16 +223,22 @@ public class DistributionrecipientController extends BaseController implements S
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
+            if (selectedProject.getProject() != null){
+                current = getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true,selectedProject.getProject(),true).get(0);
+            }
+            else {
+                current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
+            }
         }
     }
 
     public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
+        items = getPagination().createPageDataModel();
         return items;
     }
+    /* 
+    *   End of modified IDE code
+    */  
 
     private void recreateModel() {
         items = null;
