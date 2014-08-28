@@ -80,6 +80,11 @@ public class TypeofatomicinformationController extends BaseController implements
 
     public String create() {
         try {
+            /*  
+            *   09/08/14 @Lee Baker
+            *   Set entityActive = true when created
+            */
+            setEntityActive(current);
             getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TypeofatomicinformationCreated"));
             return prepareCreate();
@@ -137,8 +142,46 @@ public class TypeofatomicinformationController extends BaseController implements
         }
     }
 
+
+    /*  
+    *   09/08/14 @Lee Baker
+    *   Code added to delete entity instead of destroying it
+    */       
+     public String delete() {
+        current = (Typeofatomicinformation) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDelete();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
+
+    public String deleteAndView() {
+        performDelete();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return "View";
+        } else {
+            // all items were removed - go back to list
+            recreateModel();
+            return "List";
+        }
+    }
+
+    private void performDelete() {
+        setEntityInActive(current);
+        try {
+            getSaveRetrieve().entityInactive(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TypeofatomicinformationDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+    
+    
     private void updateCurrentItem() {
-        int count = getSaveRetrieve().count();
+        int count = getSaveRetrieve().countEntityActive(true, true);
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
             selectedItemIndex = count - 1;
@@ -153,11 +196,12 @@ public class TypeofatomicinformationController extends BaseController implements
     }
 
     public DataModel getItems() {
-        if (items == null) {
             items = getPagination().createPageDataModel();
-        }
         return items;
     }
+    /* 
+    *   End of modified IDE code
+    */  
 
     private void recreateModel() {
         items = null;
