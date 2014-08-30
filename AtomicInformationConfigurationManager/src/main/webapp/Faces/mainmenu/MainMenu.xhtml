@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      >
+      xmlns:rich="http://richfaces.org/rich">
+    
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.MainMenuTitle}"></h:outputText>
@@ -14,28 +15,44 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.MainMenuLabel_projectID}" for="projectID" />
-                    <h:selectOneMenu id="project" value="#{selectedProject.project}" title="#{bundle.MainMenuTitle_projectID}" required="true" requiredMessage="#{bundle.MainMenuRequiredMessage_projectID}">
-                         <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
-                         <f:ajax render="@form" />
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="/Faces/artefact/List" value="#{bundle.MainMenuSelectLink_selectProject}"/>
-                <br />
-                <h:link outcome="/Faces/project/List" value="Show All Project"/>
-                <br />
-                <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.MainMenuListArtefactdistributionLink}"/>
-                <br />
-                <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.MainMenuListAtomicinformationLink}"/>
-                <br />
-                <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.MainMenuListDistributionrecipientLink}"/>
-                <br />
-                <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/methodofdistribution/List" value="#{bundle.MainMenuListMethodofdistributionLink}"/>
-                <br />
-                <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/typeofatomicinformation/List" value="#{bundle.MainMenuListTypeofatomicinformationLink}"/>
-                <br />            
+                <rich:panel header="Main Menu">
+                    <rich:toolbar>
+                        <h:commandButton value="#{bundle.MainMenuSelectLink_selectProject}" action="/Faces/artefact/List"/>
+                            <h:selectOneMenu id="project" value="#{selectedProject.project}" title="#{bundle.MainMenuTitle_projectID}" required="true" requiredMessage="#{bundle.MainMenuRequiredMessage_projectID}">
+                                 <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
+                                 <f:ajax render="@form" />
+                            </h:selectOneMenu>
+                        <!--
+                            <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.MainMenuListArtefactdistributionLink}"/>
+                            <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.MainMenuListAtomicinformationLink}"/>
+                            <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.MainMenuListDistributionrecipientLink}"/>
+                            <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/methodofdistribution/List" value="#{bundle.MainMenuListMethodofdistributionLink}"/>
+                            <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/typeofatomicinformation/List" value="#{bundle.MainMenuListTypeofatomicinformationLink}"/>
+                            -->
+                        </rich:toolbar>
+                    <rich:toolbar>
+                        <rich:dropDownMenu label="#{bundle.DropDownMenuProject}">
+                            <rich:menuItem label="#{bundle.MenuItemCreateProjectLink}" action="#{projectController.prepareCreate}"/>
+                            <rich:menuItem label="#{bundle.MenuItemListProjectLink}" action="/Faces/project/List"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuAtomicinformation}">
+                            <rich:menuItem label="#{bundle.MenuItemListAtomicinformationLink}" action="/Faces/atomicinformation/List"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuArtefactdistribution}">
+                            <rich:menuItem label="#{bundle.MenuItemListAtomicinformationLink}" action="/Faces/artefactdistribution/List"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuDistributionrecipient}">
+                            <rich:menuItem label="#{bundle.MenuItemListDistributionrecipientLink}" action="/Faces/distributionrecipient/List"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu label="#{bundle.DropDownMenuMethodofdistribution}">
+                            <rich:menuItem label="#{bundle.MenuItemListMethodofdistributionLink}" action="/Faces/methodofdistribution/List"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu label="#{bundle.DropDownMenuTypeofatomicinformation}">
+                            <rich:menuItem label="#{bundle.MenuItemListTypeofatomicinformationLink}" action="/Faces/typeofatomicinformation/List"/>
+                        </rich:dropDownMenu>
                 <h:link outcome="/index" value="#{bundle.MainMenuSelectIndexLink}"/>
+                    </rich:toolbar>
+                </rich:panel>
             </h:form> 
         </ui:define>
      </ui:composition>   

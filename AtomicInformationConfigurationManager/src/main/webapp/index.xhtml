@@ -12,31 +12,28 @@
             <h:outputText value="Index"></h:outputText>
         </ui:define>
         <ui:define name="body">    
-            <rich:panel header="Atomic Information Configuration Controller">
-                <rich:dropDownMenu label="Project" direction="bottom-right" jointPoint="bl">
-                    <rich:menuItem label="Create" />
-                    <rich:menuItem label="Edit" />
-                </rich:dropDownMenu>
-            </rich:panel>
+            <rich:panel header="Index">
+                <rich:toolbar>
+                    <h:link outcome="/Faces/mainmenu/MainMenu" value="Main Menu" />
+                    <h:link outcome="/Faces/artefact/List" value="Artefact"/>
+                    <h:link outcome="/Faces/artefactdistribution/List" value="Artefact Distribution"/>
+                    <h:link outcome="/Faces/atomicinformation/List" value="Atomic Information"/>
+                    <h:link outcome="/Faces/distributionrecipient/List" value="Distribution Recipient"/>
+                    <h:link outcome="/Faces/methodofdistribution/List" value="Method of Distribution"/>
+                    <h:link outcome="/Faces/project/List" value="Project"/>
+                    <h:link outcome="/Faces/typeofatomicinformation/List" value="Type of Atomic Information"/> 
+                </rich:toolbar>
+                <rich:toolbar>
+                    <rich:dropDownMenu label="Project" >
+                        <rich:menuItem label="Create"/>
+                        <rich:menuItem label="Edit" />
+                    </rich:dropDownMenu>
+                </rich:toolbar>
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <br />
-            <h:link outcome="/Faces/appentry/MainMenu" value="Show Main Menu" />
-            <br />
-            <h:link outcome="/Faces/artefact/List" value="Show All Artefact Items"/>
-            <br />
-            <h:link outcome="/Faces/artefactdistribution/List" value="Show All Artefact Distribution Items"/>
-            <br />
-            <h:link outcome="/Faces/atomicinformation/List" value="Show All Atomic Information Items"/>
-            <br />
-            <h:link outcome="/Faces/distributionrecipient/List" value="Show All Distribution Recipient Items"/>
-            <br />
-            <h:link outcome="/Faces/methodofdistribution/List" value="Show All Method of Distribution Items"/>
-            <br />
-            <h:link outcome="/Faces/project/List" value="Show All Project Items"/>
-            <br />
-            <h:link outcome="/Faces/typeofatomicinformation/List" value="Show All Type of Atomic Information Items"/>
+            </h:panelGroup>    
+            </rich:panel>
+            <br />  
         </ui:define>
     </ui:composition>
 </html>

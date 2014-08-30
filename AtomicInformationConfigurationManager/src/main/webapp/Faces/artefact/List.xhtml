@@ -3,65 +3,93 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.ListArtefactTitle}"></h:outputText>
         </ui:define>
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListArtefactEmpty}" rendered="#{artefactController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{artefactController.items.rowCount > 0}">
-                    <h:outputText value="#{artefactController.pagination.pageFirstItem + 1}..#{artefactController.pagination.pageLastItem + 1}/#{artefactController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{artefactController.previous}" value="#{bundle.Previous} #{artefactController.pagination.pageSize}" rendered="#{artefactController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{artefactController.next}" value="#{bundle.Next} #{artefactController.pagination.pageSize}" rendered="#{artefactController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{artefactController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactTitle_artefactName}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.artefactName}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactTitle_artefactMajorVersionNumber}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.artefactMajorVersionNumber}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactTitle_artefactMinorVersionNumber}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.artefactMinorVersionNumber}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListArtefactTitle_projectID}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.projectID.projectName} #{item.projectID.projectReference}"/>
-                        </h:column>
+                <rich:panel header="Artefact List">
+                    <rich:toolbar>
+                        <rich:dropDownMenu label="#{bundle.DropDownMenuProject}">
+                            <rich:menuItem label="#{bundle.MenuItemCreateProjectLink}" action="#{projectController.prepareCreate}"/>
+                            <rich:menuItem label="#{bundle.MenuItemListProjectLink}" action="/Faces/project/List"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuArtefact}">
+                            <rich:menuItem label="#{bundle.MenuItemCreateArtefactLink}" action="#{artefactController.prepareCreate}"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuAtomicinformation}">
+                            <rich:menuItem label="#{bundle.MenuItemListAtomicinformationLink}" action="/Faces/atomicinformation/List"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuArtefactdistribution}">
+                            <rich:menuItem label="#{bundle.MenuItemListAtomicinformationLink}" action="/Faces/artefactdistribution/List"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuDistributionrecipient}">
+                            <rich:menuItem label="#{bundle.MenuItemListDistributionrecipientLink}" action="/Faces/distributionrecipient/List"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu label="#{bundle.DropDownMenuMethodofdistribution}">
+                            <rich:menuItem label="#{bundle.MenuItemListMethodofdistributionLink}" action="/Faces/methodofdistribution/List"/>
+                        </rich:dropDownMenu>
+                        <rich:dropDownMenu label="#{bundle.DropDownMenuTypeofatomicinformation}">
+                            <rich:menuItem label="#{bundle.MenuItemListTypeofatomicinformationLink}" action="/Faces/typeofatomicinformation/List"/>
+                        </rich:dropDownMenu>
+                        <rich:menuItem label="#{bundle.MenuItemListMainMenu}" action="/Faces/mainmenu/MainMenu"/>
+                    </rich:toolbar>
+                    <h:outputText escape="false" value="#{bundle.ListArtefactEmpty}" rendered="#{artefactController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{artefactController.items.rowCount > 0}">
+                        <h:outputText value="#{artefactController.pagination.pageFirstItem + 1}..#{artefactController.pagination.pageLastItem + 1}/#{artefactController.pagination.itemsCount}"/>&nbsp;
+                        <h:commandLink action="#{artefactController.previous}" value="#{bundle.Previous} #{artefactController.pagination.pageSize}" rendered="#{artefactController.pagination.hasPreviousPage}"/>&nbsp;
+                        <h:commandLink action="#{artefactController.next}" value="#{bundle.Next} #{artefactController.pagination.pageSize}" rendered="#{artefactController.pagination.hasNextPage}"/>&nbsp;
+                        <h:dataTable value="#{artefactController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArtefactTitle_artefactName}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.artefactName}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArtefactTitle_artefactMajorVersionNumber}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.artefactMajorVersionNumber}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArtefactTitle_artefactMinorVersionNumber}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.artefactMinorVersionNumber}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListArtefactTitle_projectID}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.projectID.projectName} #{item.projectID.projectReference}"/>
+                            </h:column>
 
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{artefactController.prepareView}" value="#{bundle.ListArtefactViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{artefactController.prepareEdit}" value="#{bundle.ListArtefactEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{artefactController.delete()}" value="#{bundle.ListArtefactDeleteLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{artefactController.prepareCreate}" value="#{bundle.ListArtefactCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ListArtefactMainMenuLink}" />
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;"/>
+                                </f:facet>
+                                <h:commandLink action="#{artefactController.prepareView}" value="#{bundle.ListArtefactViewLink}"/>
+                                <h:outputText value=" "/>
+                                <h:commandLink action="#{artefactController.prepareEdit}" value="#{bundle.ListArtefactEditLink}"/>
+                                <h:outputText value=" "/>
+                                <h:commandLink action="#{artefactController.delete()}" value="#{bundle.ListArtefactDeleteLink}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGroup>
+                    <br />
+                    <h:commandLink action="#{artefactController.prepareCreate}" value="#{bundle.ListArtefactCreateLink}"/>
+                    <br />
+                    <br />
+                    <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ListArtefactMainMenuLink}" />
+                </rich:panel>
             </h:form>
         </ui:define>
     </ui:composition>
