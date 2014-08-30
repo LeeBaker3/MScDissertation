@@ -5,6 +5,21 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:rich="http://richfaces.org/rich">
+    
+    <script  type="text/javascript">
+        //<![CDATA[ 
+	function radioButton(radio) { 
+	var id = radio.name.substring(radio.name.lastIndexOf(':')); 
+	var el = radio.form.elements; 
+	for (var i = 0; i < el.length; i++) { 
+            if (el[i].name.substring(el[i].name.lastIndexOf(':')) == id) { 
+                el[i].checked = false; 
+            } 
+	} 
+	radio.checked = true; 
+        //]]> 
+    } 
+    </script>
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -23,6 +38,9 @@
                         </rich:dropDownMenu>
                         <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuArtefact}">
                             <rich:menuItem label="#{bundle.MenuItemCreateArtefactLink}" action="#{artefactController.prepareCreate}"/>
+                            <rich:menuItem label="#{bundle.MenuItemViewArtefactLink}" action="#{artefactController.prepareView}"/>
+                            <rich:menuItem label="#{bundle.MenuItemEditArtefactLink}" action="#{artefactController.prepareEdit}"/>
+                            <rich:menuItem label="#{bundle.MenuItemDeleteArtefactLink}" action="#{artefactController.prepareDelete}"/>
                         </rich:dropDownMenu>
                         <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuAtomicinformation}">
                             <rich:menuItem label="#{bundle.MenuItemListAtomicinformationLink}" action="/Faces/atomicinformation/List"/>
@@ -80,15 +98,27 @@
                                 <h:outputText value=" "/>
                                 <h:commandLink action="#{artefactController.prepareEdit}" value="#{bundle.ListArtefactEditLink}"/>
                                 <h:outputText value=" "/>
-                                <h:commandLink action="#{artefactController.delete()}" value="#{bundle.ListArtefactDeleteLink}"/>
+                                <h:commandLink action="#{artefactController.delete}" value="#{bundle.ListArtefactDeleteLink}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Select"/>
+                                </f:facet>
+                                <h:selectOneRadio onclick="radioButton(this);"
+                                                  value="#{artefactController.selected}">
+                                    <f:selectItem itemValue="null"/>
+                                </h:selectOneRadio>
                             </h:column>
                         </h:dataTable>
                     </h:panelGroup>
+                    <!--
                     <br />
                     <h:commandLink action="#{artefactController.prepareCreate}" value="#{bundle.ListArtefactCreateLink}"/>
                     <br />
                     <br />
                     <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ListArtefactMainMenuLink}" />
+                    -->
                 </rich:panel>
             </h:form>
         </ui:define>

@@ -156,6 +156,10 @@ public class ArtefactController extends BaseController implements Serializable {
             return null;
         }
     }
+    
+    public void setSelected(){
+        current = (Artefact) getItems().getRowData();
+    }
 
     public String prepareEdit() {
         current = (Artefact) getItems().getRowData();
