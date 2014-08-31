@@ -3,25 +3,26 @@ package com.mycompany.atomicinformationconfigurationmanager.entities.typeofatomi
 import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
-
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
 
 @Named("typeofatomicinformationController")
 @SessionScoped
 public class TypeofatomicinformationController extends BaseController implements Serializable {
 
     private Typeofatomicinformation current;
+    private boolean  itemSelected = false; //Set to true when an item is selected in the List DataTable
     private DataModel items = null;
     @EJB
     private com.mycompany.atomicinformationconfigurationmanager.entities.typeofatomicinformation.TypeofatomicinformationSaveRetrieve ejbSaveRetrieve;
@@ -37,6 +38,26 @@ public class TypeofatomicinformationController extends BaseController implements
             selectedItemIndex = -1;
         }
         return current;
+    }
+    
+    public void setSelected(ValueChangeEvent event){
+        current = (Typeofatomicinformation) getItems().getRowData();
+        itemSelected = true;
+    }
+    
+    private String prepareSelected(String jsfPage){
+        try {
+            if (itemSelected == false)
+                {
+                    current = (Typeofatomicinformation) getItems().getRowData();
+                }
+                itemSelected = false;
+                selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+                return jsfPage;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("NoRecordSelectedError"));
+            return null;
+        }
     }
 
     private TypeofatomicinformationSaveRetrieve getSaveRetrieve() {
@@ -63,13 +84,12 @@ public class TypeofatomicinformationController extends BaseController implements
 
     public String prepareList() {
         recreateModel();
+        itemSelected = false;
         return "List";
     }
 
     public String prepareView() {
-        current = (Typeofatomicinformation) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return prepareSelected("View");
     }
 
     public String prepareCreate() {
@@ -95,9 +115,7 @@ public class TypeofatomicinformationController extends BaseController implements
     }
 
     public String prepareEdit() {
-        current = (Typeofatomicinformation) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return prepareSelected("Edit");
     }
 
     public String update() {
@@ -110,7 +128,8 @@ public class TypeofatomicinformationController extends BaseController implements
             return null;
         }
     }
-
+    
+    /*  31/08/14 Remarked out never used IDE Code
     public String destroy() {
         current = (Typeofatomicinformation) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -141,6 +160,7 @@ public class TypeofatomicinformationController extends BaseController implements
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
+    */
 
 
     /*  
@@ -148,12 +168,14 @@ public class TypeofatomicinformationController extends BaseController implements
     *   Code added to delete entity instead of destroying it
     */       
      public String delete() {
-        current = (Typeofatomicinformation) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDelete();
-        recreatePagination();
-        recreateModel();
-        return "List";
+        String result;
+        result = prepareSelected("List");
+        if (result == "List"){
+            performDelete();
+            recreatePagination();
+            recreateModel();
+        }
+        return result;
     }
 
     public String deleteAndView() {

@@ -122,7 +122,8 @@ public class ProjectControllerTest {
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
-
+    
+    /*  Destroy Methods No Longer Used 31/08/14
     @Test
     public void testDestroy() {
         System.out.println("destroy");
@@ -142,7 +143,8 @@ public class ProjectControllerTest {
         assertEquals(expResult, result);
         fail("The test case is a prototype.");
     }
-
+    */
+    
     @Test
     public void testDelete() {
         System.out.println("delete");

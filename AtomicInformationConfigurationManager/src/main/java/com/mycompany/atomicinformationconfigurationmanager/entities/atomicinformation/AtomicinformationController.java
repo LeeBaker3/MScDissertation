@@ -5,20 +5,20 @@ import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseCon
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
 import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
-
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 @Named("atomicinformationController")
 @SessionScoped
@@ -27,6 +27,7 @@ public class AtomicinformationController extends BaseController implements Seria
     private Atomicinformation current;
     private Atomicinformation old;
     private boolean updating = false;
+    private boolean  itemSelected = false; //Set to true when an item is selected in the List DataTable
     
     private DataModel items = null;
     @EJB
@@ -71,6 +72,26 @@ public class AtomicinformationController extends BaseController implements Seria
             selectedItemIndex = -1;
         }
         return current;
+    }
+    
+    public void setSelected(ValueChangeEvent event){
+        current = (Atomicinformation) getItems().getRowData();
+        itemSelected = true;
+    }
+    
+    private String prepareSelected(String jsfPage){
+        try {
+            if (itemSelected == false)
+                {
+                    current = (Atomicinformation) getItems().getRowData();
+                }
+                itemSelected = false;
+                selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+                return jsfPage;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("NoRecordSelectedError"));
+            return null;
+        }
     }
 
     private AtomicinformationSaveRetrieve getSaveRetrieve() {
@@ -119,11 +140,16 @@ public class AtomicinformationController extends BaseController implements Seria
 
     public String prepareList() {
         recreateModel();
+        itemSelected = false;
         return "List";
     }
 
     public String prepareView() {
-        current = (Atomicinformation) getItems().getRowData();
+        if (itemSelected == false)
+        {
+            current = (Atomicinformation) getItems().getRowData();
+        }
+        itemSelected = false;
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -176,9 +202,7 @@ public class AtomicinformationController extends BaseController implements Seria
     }
 
     public String prepareEdit() {
-        current = (Atomicinformation) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return prepareSelected("View");
     }
 
     /*
@@ -229,7 +253,8 @@ public class AtomicinformationController extends BaseController implements Seria
             return null;
         }
     }
-
+    
+    /*   31/08/14 Remarked out never used IDE Code
     public String destroy() {
         current = (Atomicinformation) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -260,22 +285,25 @@ public class AtomicinformationController extends BaseController implements Seria
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
+    */
 
     /*  
     *   08/08/14 @Lee Baker
     *   Code added to disable entity instead of destroying it
     */   
     public String delete() {
-        current = (Atomicinformation) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        perfromDelete();
-        recreatePagination();
-        recreateModel();
-        return "List";
+        String result;
+        result = prepareSelected("List");
+        if (result == "List"){
+            performDelete();
+            recreatePagination();
+            recreateModel();
+        }
+        return result;
     }
 
     public String deleteAndView() {
-        perfromDelete();
+        performDelete();
         recreateModel();
         updateCurrentItem();
         if (selectedItemIndex >= 0) {
@@ -287,7 +315,7 @@ public class AtomicinformationController extends BaseController implements Seria
         }
     }
 
-    private void perfromDelete() {
+    private void performDelete() {
         setEntityInActive(current);
         try {
             getSaveRetrieve().entityInactive(current);

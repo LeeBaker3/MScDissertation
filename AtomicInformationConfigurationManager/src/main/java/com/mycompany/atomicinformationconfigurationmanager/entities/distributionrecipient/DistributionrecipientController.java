@@ -4,26 +4,27 @@ import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseCon
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
 import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
-
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 @Named("distributionrecipientController")
 @SessionScoped
 public class DistributionrecipientController extends BaseController implements Serializable {
 
     private Distributionrecipient current;
+    private boolean  itemSelected = false; //Set to true when an item is selected in the List DataTable
     private DataModel items = null;
     @EJB
     private com.mycompany.atomicinformationconfigurationmanager.entities.distributionrecipient.DistributionrecipientSaveRetrieve ejbSaveRetrieve;
@@ -42,6 +43,26 @@ public class DistributionrecipientController extends BaseController implements S
             selectedItemIndex = -1;
         }
         return current;
+    }
+    
+    public void setSelected(ValueChangeEvent event){
+        current = (Distributionrecipient) getItems().getRowData();
+        itemSelected = true;
+    }
+    
+    private String prepareSelected(String jsfPage){
+        try {
+            if (itemSelected == false)
+                {
+                    current = (Distributionrecipient) getItems().getRowData();
+                }
+                itemSelected = false;
+                selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+                return jsfPage;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("NoRecordSelectedError"));
+            return null;
+        }
     }
 
     private DistributionrecipientSaveRetrieve getSaveRetrieve() {
@@ -86,13 +107,12 @@ public class DistributionrecipientController extends BaseController implements S
 
     public String prepareList() {
         recreateModel();
+        itemSelected = false;
         return "List";
     }
 
     public String prepareView() {
-        current = (Distributionrecipient) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return prepareSelected("View");
     }
 
     public String prepareCreate() {
@@ -122,9 +142,7 @@ public class DistributionrecipientController extends BaseController implements S
     }
 
     public String prepareEdit() {
-        current = (Distributionrecipient) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return  prepareSelected("Edit");
     }
 
     public String update() {
@@ -137,7 +155,8 @@ public class DistributionrecipientController extends BaseController implements S
             return null;
         }
     }
-
+    
+    /* 31/08/14 Remarked out never used IDE Code
     public String destroy() {
         current = (Distributionrecipient) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -168,18 +187,21 @@ public class DistributionrecipientController extends BaseController implements S
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
+    */
 
     /*  
     *   02/08/14 @Lee Baker
     *   Code added to delete entity instead of destroying it
     */   
     public String delete(){
-        current = (Distributionrecipient) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDelete();
-        recreatePagination();
-        recreateModel();
-        return "List";
+        String result;
+        result = prepareSelected("List");
+        if (result == "List"){
+            performDelete();
+            recreatePagination();
+            recreateModel();
+        }
+        return result;
     }
 
     public String deleteAndView() {
@@ -233,7 +255,9 @@ public class DistributionrecipientController extends BaseController implements S
     }
 
     public DataModel getItems() {
-        items = getPagination().createPageDataModel();
+        if (items == null){
+           items = getPagination().createPageDataModel(); 
+        }
         return items;
     }
     /* 

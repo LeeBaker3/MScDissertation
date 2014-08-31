@@ -15,6 +15,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
@@ -28,7 +29,8 @@ public class ArtefactController extends BaseController implements Serializable {
 
     private Artefact current;
     private Artefact old;
-    private boolean  updating = false;
+    private boolean  updating = false; //Set to true when making changes that update the version
+    private boolean  itemSelected = false; //Set to true when an item is selected in the List DataTable
 
     private DataModel items = null;
     @EJB
@@ -77,6 +79,26 @@ public class ArtefactController extends BaseController implements Serializable {
         }
         return current;
     }
+    
+    public void setSelected(ValueChangeEvent event){
+        current = (Artefact) getItems().getRowData();
+        itemSelected = true;
+    }
+    
+    private String prepareSelected(String jsfPage){
+        try {
+            if (itemSelected == false)
+                {
+                    current = (Artefact) getItems().getRowData();
+                }
+                itemSelected = false;
+                selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+                return jsfPage;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("NoRecordSelectedError"));
+            return null;
+        }
+    }
 
     private ArtefactSaveRetrieve getSaveRetrieve() {
         return ejbSaveRetrieve;
@@ -122,13 +144,12 @@ public class ArtefactController extends BaseController implements Serializable {
          
     public String prepareList() {
         recreateModel();
+        itemSelected = false;
         return "List";
     }
 
     public String prepareView() {
-        current = (Artefact) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return prepareSelected("View");
     }
 
     public String prepareCreate() {
@@ -157,14 +178,8 @@ public class ArtefactController extends BaseController implements Serializable {
         }
     }
     
-    public void setSelected(){
-        current = (Artefact) getItems().getRowData();
-    }
-
     public String prepareEdit() {
-        current = (Artefact) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return prepareSelected("Edit");
     }
     
     /*
@@ -216,7 +231,7 @@ public class ArtefactController extends BaseController implements Serializable {
         }
     }
     
-
+    /* 31/08/14 Remarked out never used IDE Code
     public String destroy() {
         current = (Artefact) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -247,18 +262,21 @@ public class ArtefactController extends BaseController implements Serializable {
             return "List";
         }
     }
+    */
     
     /*  
     *   02/08/14 @Lee Baker
     *   Code added to delete entity instead of destroying it
     */   
     public String delete(){
-        current = (Artefact) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDelete();
-        recreatePagination();
-        recreateModel();
-        return "List";
+        String result;
+        result = prepareSelected("List");
+        if (result == "List"){
+            performDelete();
+            recreatePagination();
+            recreateModel();
+        }
+        return result;
     }
 
     public String deleteAndView() {
@@ -312,7 +330,9 @@ public class ArtefactController extends BaseController implements Serializable {
     }
 
     public DataModel getItems() {
+        if (items == null){
             items = getPagination().createPageDataModel();
+        }
         return items;
     }
     /* 

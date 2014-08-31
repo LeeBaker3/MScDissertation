@@ -11,16 +11,17 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.inject.Named;
 import org.apache.jasper.xmlparser.ParserUtils;
 
 @Named("artefactatomicinformationController")
@@ -30,6 +31,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
     private Artefactatomicinformation current;
     private Artefactatomicinformation old;
     private boolean updating = false;
+    private boolean  itemSelected = false; //Set to true when an item is selected in the List DataTable
 
     private DataModel items = null;
     @EJB
@@ -65,6 +67,26 @@ public class ArtefactatomicinformationController extends BaseController implemen
             selectedItemIndex = -1;
         }
         return current;
+    }
+    
+    public void setSelected(ValueChangeEvent event){
+        current = (Artefactatomicinformation) getItems().getRowData();
+        itemSelected = true;
+    }
+    
+    private String prepareSelected(String jsfPage){
+        try {
+            if (itemSelected == false)
+                {
+                    current = (Artefactatomicinformation) getItems().getRowData();
+                }
+                itemSelected = false;
+                selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+                return jsfPage;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("NoRecordSelectedError"));
+            return null;
+        }
     }
 
     public ArtefactatomicinformationSaveRetrieve getSaveRetrieve() {
@@ -111,13 +133,12 @@ public class ArtefactatomicinformationController extends BaseController implemen
 
     public String prepareList() {
         recreateModel();
+        itemSelected = false;
         return "List";
     }
 
     public String prepareView() {
-        current = (Artefactatomicinformation) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return prepareSelected("View");
     }
 
     public String prepareCreate() {
@@ -147,9 +168,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
     }
 
     public String prepareEdit() {
-        current = (Artefactatomicinformation) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return prepareSelected("View");
     }
 
     /*
@@ -195,7 +214,8 @@ public class ArtefactatomicinformationController extends BaseController implemen
             return null;
         }
     }
-
+    
+    /*  31/08/14 Remarked out never used IDE Code
     public String destroy() {
         current = (Artefactatomicinformation) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -226,18 +246,21 @@ public class ArtefactatomicinformationController extends BaseController implemen
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
+    */
     
     /*  
     *   09/08/14 @Lee Baker
     *   Code added to delete entity instead of destroying it
     */  
     public String delete() {
-        current = (Artefactatomicinformation) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDelete();
-        recreatePagination();
-        recreateModel();
-        return "List";
+        String result;
+        result = prepareSelected("List");
+        if (result == "List"){
+            performDelete();
+            recreatePagination();
+            recreateModel();
+        }
+        return result;
     }
 
     public String deleteAndView() {

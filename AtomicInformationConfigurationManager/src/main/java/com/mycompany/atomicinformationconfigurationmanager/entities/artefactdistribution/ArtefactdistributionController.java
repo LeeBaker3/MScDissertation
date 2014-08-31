@@ -4,20 +4,20 @@ import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseCon
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
 import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
-
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.inject.Named;
 import sun.misc.VM;
 
 @Named("artefactdistributionController")
@@ -25,6 +25,7 @@ import sun.misc.VM;
 public class ArtefactdistributionController extends BaseController implements Serializable {
 
     private Artefactdistribution current;
+    private boolean  itemSelected = false; //Set to true when an item is selected in the List DataTable
     private DataModel items = null;
     @EJB
     private com.mycompany.atomicinformationconfigurationmanager.entities.artefactdistribution.ArtefactdistributionSaveRetrieve ejbSaveRetrieve;
@@ -48,6 +49,26 @@ public class ArtefactdistributionController extends BaseController implements Se
             selectedItemIndex = -1;
         }
         return current;
+    }
+    
+    public void setSelected(ValueChangeEvent event){
+        current = (Artefactdistribution) getItems().getRowData();
+        itemSelected = true;
+    }
+    
+    private String prepareSelected(String jsfPage){
+        try {
+            if (itemSelected == false)
+                {
+                    current = (Artefactdistribution) getItems().getRowData();
+                }
+                itemSelected = false;
+                selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+                return jsfPage;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("NoRecordSelectedError"));
+            return null;
+        }
     }
 
     private ArtefactdistributionSaveRetrieve getSaveRetrieve() {
@@ -94,13 +115,12 @@ public class ArtefactdistributionController extends BaseController implements Se
 
     public String prepareList() {
         recreateModel();
+        itemSelected = false;
         return "List";
     }
 
     public String prepareView() {
-        current = (Artefactdistribution) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return prepareSelected("View");
     }
 
     public String prepareCreate() {
@@ -149,9 +169,7 @@ public class ArtefactdistributionController extends BaseController implements Se
     }
 
     public String prepareEdit() {
-        current = (Artefactdistribution) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return prepareSelected("Edit");
     }
 
     public String update() {
@@ -164,7 +182,8 @@ public class ArtefactdistributionController extends BaseController implements Se
             return null;
         }
     }
-
+    
+    /* 31/08/14 Remarked out never used IDE Code
     public String destroy() {
         current = (Artefactdistribution) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -195,18 +214,21 @@ public class ArtefactdistributionController extends BaseController implements Se
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
+    */
     
     /*  
     *   10/08/14 @Lee Baker
     *   Code added to delete entity instead of destroying it
     */   
     public String delete() {
-        current = (Artefactdistribution) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDelete();
-        recreatePagination();
-        recreateModel();
-        return "List";
+        String result;
+        result = prepareSelected("List");
+        if (result == "List"){
+            performDelete();
+            recreatePagination();
+            recreateModel();
+        }
+        return result;
     }
 
     public String deleteAndView() {
