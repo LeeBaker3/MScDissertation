@@ -154,6 +154,7 @@ public class ArtefactController extends BaseController implements Serializable {
 
     public String prepareCreate() {
         current = new Artefact();
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
         return "Create";
     }

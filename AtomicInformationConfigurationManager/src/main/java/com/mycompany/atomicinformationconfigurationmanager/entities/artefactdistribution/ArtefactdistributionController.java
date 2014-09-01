@@ -125,6 +125,7 @@ public class ArtefactdistributionController extends BaseController implements Se
 
     public String prepareCreate() {
         current = new Artefactdistribution();
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
         return "Create";
     }

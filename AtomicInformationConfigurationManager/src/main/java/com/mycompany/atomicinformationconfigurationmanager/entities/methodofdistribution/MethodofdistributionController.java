@@ -94,6 +94,7 @@ public class MethodofdistributionController extends BaseController implements Se
 
     public String prepareCreate() {
         current = new Methodofdistribution();
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
         return "Create";
     }

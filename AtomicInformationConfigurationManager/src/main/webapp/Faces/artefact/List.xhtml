@@ -10,7 +10,7 @@
     http://www.javabeat.net/how-to-use-hselectoneradio-inside-hdatatable-in-jsf/
     Date 29/08/14
     -->
-    <script  type="text/javascript">
+    <script type="text/javascript">
         //<![CDATA[ 
 	function radioButton(radio) { 
 	var id = radio.name.substring(radio.name.lastIndexOf(':')); 
@@ -36,34 +36,31 @@
             <h:form styleClass="jsfcrud_list_form">
                 <rich:panel header="#{bundle.ListArtefactTitle}">
                     <rich:toolbar>
-                        <rich:dropDownMenu label="#{bundle.DropDownMenuProject}">
-                            <rich:menuItem label="#{bundle.MenuItemCreateProjectLink}" action="#{projectController.prepareCreate}"/>
-                            <rich:menuItem label="#{bundle.MenuItemListProjectLink}" action="/Faces/project/List"/>
-                        </rich:dropDownMenu>
+                        <h:commandButton value="#{bundle.MainMenuSelectLink_selectProject}" action="/Faces/artefact/List"/>
+                        <h:selectOneMenu id="project" value="#{selectedProject.project}" title="#{bundle.MainMenuTitle_projectID}" required="true" requiredMessage="#{bundle.MainMenuRequiredMessage_projectID}">
+                             <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
+                             <f:ajax render="@form" />
+                        </h:selectOneMenu>
+                        <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
+                        <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
+                        <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
+                        <h:link outcome="/Faces/typeofatomicinformation/List" value="#{bundle.NavigationMenuListTypeofatomicinformationLink}"/>
+                        <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
+                        <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
+                        <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
+                        <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
+                    </rich:toolbar>
+                    <rich:toolbar>
                         <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuArtefact}">
                             <rich:menuItem label="#{bundle.MenuItemUploadArtefactLink}"/>
                             <rich:menuItem label="#{bundle.MenuItemCreateArtefactLink}" action="#{artefactController.prepareCreate}"/>
                             <rich:menuItem label="#{bundle.MenuItemViewArtefactLink}" action="#{artefactController.prepareView}"/>
                             <rich:menuItem label="#{bundle.MenuItemEditArtefactLink}" action="#{artefactController.prepareEdit}"/>
                             <rich:menuItem label="#{bundle.MenuItemDeleteArtefactLink}" action="#{artefactController.delete}"/>
-                            <rich:menuItem label="#{bundle.MenuItemCompareTwoArtefactLink}"/>
                         </rich:dropDownMenu>
-                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuAtomicinformation}">
-                            <rich:menuItem label="#{bundle.MenuItemListAtomicinformationLink}" action="/Faces/atomicinformation/List"/>
+                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuComapre}">
+                           <rich:menuItem label="#{bundle.MenuItemCompareTwoArtefactLink}"/> 
                         </rich:dropDownMenu>
-                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuArtefactdistribution}">
-                            <rich:menuItem label="#{bundle.MenuItemListAtomicinformationLink}" action="/Faces/artefactdistribution/List"/>
-                        </rich:dropDownMenu>
-                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuDistributionrecipient}">
-                            <rich:menuItem label="#{bundle.MenuItemListDistributionrecipientLink}" action="/Faces/distributionrecipient/List"/>
-                        </rich:dropDownMenu>
-                        <rich:dropDownMenu label="#{bundle.DropDownMenuMethodofdistribution}">
-                            <rich:menuItem label="#{bundle.MenuItemListMethodofdistributionLink}" action="/Faces/methodofdistribution/List"/>
-                        </rich:dropDownMenu>
-                        <rich:dropDownMenu label="#{bundle.DropDownMenuTypeofatomicinformation}">
-                            <rich:menuItem label="#{bundle.MenuItemListTypeofatomicinformationLink}" action="/Faces/typeofatomicinformation/List"/>
-                        </rich:dropDownMenu>
-                        <rich:menuItem label="#{bundle.MenuItemListMainMenu}" action="/Faces/mainmenu/MainMenu"/>
                     </rich:toolbar>
                     <h:outputText escape="false" value="#{bundle.ListArtefactEmpty}" rendered="#{artefactController.items.rowCount == 0}"/>
                     <h:panelGroup rendered="#{artefactController.items.rowCount > 0}">

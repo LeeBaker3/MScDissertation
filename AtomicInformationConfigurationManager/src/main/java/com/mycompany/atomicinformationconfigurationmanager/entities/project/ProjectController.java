@@ -94,6 +94,7 @@ public class ProjectController extends BaseController implements Serializable {
 
     public String prepareCreate() {
         current = new Project();
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
         return "Create";
     }

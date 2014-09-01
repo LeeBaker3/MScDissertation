@@ -94,6 +94,7 @@ public class TypeofatomicinformationController extends BaseController implements
 
     public String prepareCreate() {
         current = new Typeofatomicinformation();
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
         return "Create";
     }

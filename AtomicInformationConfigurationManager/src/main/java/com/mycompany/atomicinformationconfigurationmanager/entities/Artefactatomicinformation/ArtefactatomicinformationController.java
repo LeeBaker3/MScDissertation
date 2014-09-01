@@ -143,6 +143,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
 
     public String prepareCreate() {
         current = new Artefactatomicinformation();
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
         return "/Faces/artefactatomicinformation/Create";
     }

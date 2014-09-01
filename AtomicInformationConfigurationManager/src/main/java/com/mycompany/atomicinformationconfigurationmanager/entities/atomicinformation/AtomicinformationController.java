@@ -156,6 +156,7 @@ public class AtomicinformationController extends BaseController implements Seria
 
     public String prepareCreate() {
         current = new Atomicinformation();
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
         return "/Faces/atomicinformation/Create";
     }
