@@ -3,7 +3,6 @@ package com.mycompany.atomicinformationconfigurationmanager.entities.Artefact;
 import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
-import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
 import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -149,7 +148,7 @@ public class ArtefactController extends BaseController implements Serializable {
     }
 
     public String prepareView() {
-        return prepareSelected("View");
+        return prepareSelected("/Faces/artefact/View");
     }
 
     public String prepareCreate() {
@@ -331,9 +330,9 @@ public class ArtefactController extends BaseController implements Serializable {
     }
 
     public DataModel getItems() {
-        if (items == null){
+        //if (items == null){
             items = getPagination().createPageDataModel();
-        }
+        //}
         return items;
     }
     /* 

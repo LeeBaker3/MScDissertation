@@ -52,11 +52,11 @@
                     </rich:toolbar>
                     <rich:toolbar>
                         <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuArtefact}">
-                            <rich:menuItem label="#{bundle.MenuItemUploadArtefactLink}"/>
                             <rich:menuItem label="#{bundle.MenuItemCreateArtefactLink}" action="#{artefactController.prepareCreate}"/>
                             <rich:menuItem label="#{bundle.MenuItemViewArtefactLink}" action="#{artefactController.prepareView}"/>
                             <rich:menuItem label="#{bundle.MenuItemEditArtefactLink}" action="#{artefactController.prepareEdit}"/>
                             <rich:menuItem label="#{bundle.MenuItemDeleteArtefactLink}" action="#{artefactController.delete}"/>
+                            <rich:menuItem label="#{bundle.MenuItemUploadArtefactLink}"/>
                         </rich:dropDownMenu>
                         <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuComapre}">
                            <rich:menuItem label="#{bundle.MenuItemCompareTwoArtefactLink}"/> 
@@ -117,5 +117,4 @@
             </h:form>
         </ui:define>
     </ui:composition>
-
 </html>

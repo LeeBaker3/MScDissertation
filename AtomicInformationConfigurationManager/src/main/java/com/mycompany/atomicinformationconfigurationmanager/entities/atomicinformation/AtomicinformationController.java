@@ -166,6 +166,7 @@ public class AtomicinformationController extends BaseController implements Seria
     */
     public String prepareCreateFormArtefactAtomicInformation() {
         current = new Atomicinformation();
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
         return "/Faces/atomicinformation/CreateFromArtefactAtomicInformation";
     }

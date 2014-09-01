@@ -1,9 +1,9 @@
 package com.mycompany.atomicinformationconfigurationmanager.entities.artefactdistribution;
 
+import com.mycompany.atomicinformationconfigurationmanager.entities.Artefact.ArtefactController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
-import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -38,7 +38,9 @@ public class ArtefactdistributionController extends BaseController implements Se
     *   Added to get current selected project
     */
     @Inject
-    private SelectedArtefact selectedArtefact;
+    private ArtefactController artefactController;
+    
+    private Boolean selectedFromArtefact = false;
 
     public ArtefactdistributionController() {
     }
@@ -86,8 +88,8 @@ public class ArtefactdistributionController extends BaseController implements Se
                 @Override
                 public int getItemsCount() {
                     int localCount;
-                    if (selectedArtefact.getArtefact() !=null){
-                        localCount = getSaveRetrieve().countEntityActiveAndArtefactIDIAndsCurrentVersion(selectedArtefact.getArtefact(), true, true);
+                    if (artefactController.getCurrent() !=null){
+                        localCount = getSaveRetrieve().countEntityActiveAndArtefactIDIAndsCurrentVersion(artefactController.getCurrent(), true, true);
                     }
                     else {
                         localCount = getSaveRetrieve().countEntityActive(true, true);
@@ -101,8 +103,8 @@ public class ArtefactdistributionController extends BaseController implements Se
                 */
                 @Override
                 public DataModel createPageDataModel() {
-                    if (selectedArtefact.getArtefact() !=null){
-                        return  new ListDataModel(getSaveRetrieve().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, selectedArtefact.getArtefact(), true));
+                    if (artefactController.getCurrent() !=null){
+                        return  new ListDataModel(getSaveRetrieve().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, artefactController.getCurrent(), true));
                     }
                     else {
                         return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
@@ -126,13 +128,16 @@ public class ArtefactdistributionController extends BaseController implements Se
     public String prepareCreate() {
         current = new Artefactdistribution();
         current.setIsCurrentVersion(true);
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
         return "Create";
     }
     
     public String prepareCreateFromArtefact() {
         current = new Artefactdistribution();
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
+        selectedFromArtefact = true;
         return "/Faces/artefactdistribution/CreateFromArtefact";
     }
 
@@ -143,8 +148,9 @@ public class ArtefactdistributionController extends BaseController implements Se
             *   If a artefact has been selected then create new ArtefactDistribution with a reference to the selected Artefact
             *   and set entityActive when created
             */ 
-            if(selectedArtefact.getArtefact()!= null){
-                current.setArtefactID(selectedArtefact.getArtefact());
+            if(selectedFromArtefact==true){
+                current.setArtefactID(artefactController.getCurrent());
+                selectedFromArtefact=false;
             }
             setEntityActive(current);
             getSaveRetrieve().create(current);
@@ -165,6 +171,7 @@ public class ArtefactdistributionController extends BaseController implements Se
             }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            selectedFromArtefact=false;
             return null;
         }
     }
@@ -257,8 +264,8 @@ public class ArtefactdistributionController extends BaseController implements Se
 
     private void updateCurrentItem() {
         int count = getSaveRetrieve().count();
-        if (selectedArtefact.getArtefact() !=null){
-            count = getSaveRetrieve().countEntityActiveAndArtefactIDIAndsCurrentVersion(selectedArtefact.getArtefact(), true, true);
+        if (artefactController.getCurrent() !=null){
+            count = getSaveRetrieve().countEntityActiveAndArtefactIDIAndsCurrentVersion(artefactController.getCurrent(), true, true);
         }
         else{
             count = getSaveRetrieve().countEntityActive(true, true);
@@ -272,8 +279,8 @@ public class ArtefactdistributionController extends BaseController implements Se
             }
         }
         if (selectedItemIndex >= 0) {
-            if(selectedArtefact.getArtefact()!=null){
-                current = getSaveRetrieve().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, selectedArtefact.getArtefact(), true).get(0);
+            if(artefactController.getCurrent()!=null){
+                current = getSaveRetrieve().findRangeEntityActiveAndArtefactIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1}, true, artefactController.getCurrent(), true).get(0);
             }
             current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
         }

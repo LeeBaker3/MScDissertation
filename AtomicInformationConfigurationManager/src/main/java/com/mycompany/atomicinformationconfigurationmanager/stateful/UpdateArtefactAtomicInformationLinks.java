@@ -67,7 +67,7 @@ public class UpdateArtefactAtomicInformationLinks {
             result = artefactController.update();
             
             if (isUpdate()== true){
-                if(result.equals("View")){
+                if(result.equals("/Faces/artefact/View")){
                     copyEntities();
                 }
             }

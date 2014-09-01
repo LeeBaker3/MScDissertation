@@ -117,6 +117,7 @@ public class DistributionrecipientController extends BaseController implements S
 
     public String prepareCreate() {
         current = new Distributionrecipient();
+        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
         return "Create";
     }

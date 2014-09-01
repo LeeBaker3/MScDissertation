@@ -4,7 +4,6 @@ import com.mycompany.atomicinformationconfigurationmanager.entities.Artefact.Art
 import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
-import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedArtefact;
 
 import java.io.Serializable;
 import java.util.HashSet;
