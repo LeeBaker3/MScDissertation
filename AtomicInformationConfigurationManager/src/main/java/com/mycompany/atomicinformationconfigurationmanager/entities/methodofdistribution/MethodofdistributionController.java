@@ -217,14 +217,16 @@ public class MethodofdistributionController extends BaseController implements Se
     }
 
     public DataModel getItems() {
+        if (items == null){
             items = getPagination().createPageDataModel();
+        }
         return items;
     }
     /* 
     *   End of modified IDE code
     */    
 
-    private void recreateModel() {
+    public void recreateModel() {
         items = null;
     }
 

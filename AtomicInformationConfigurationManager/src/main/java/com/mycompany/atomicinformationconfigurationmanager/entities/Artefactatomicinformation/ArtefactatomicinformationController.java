@@ -311,14 +311,16 @@ public class ArtefactatomicinformationController extends BaseController implemen
     }
 
     public DataModel getItems() {
+        if (items == null){
             items = getPagination().createPageDataModel();
+        }
         return items;
     }
     /* 
     *   End of modified IDE code
     */  
 
-    private void recreateModel() {
+    public void recreateModel() {
         items = null;
     }
 

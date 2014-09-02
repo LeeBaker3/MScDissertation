@@ -1,9 +1,9 @@
 package com.mycompany.atomicinformationconfigurationmanager.entities.Artefact;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseController;
+import com.mycompany.atomicinformationconfigurationmanager.entities.project.ProjectController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
-import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -41,8 +41,9 @@ public class ArtefactController extends BaseController implements Serializable {
     *   02/08/14
     *   Added to get current selected project
     */
-    @Inject 
-    private SelectedProject selectedProject; 
+    
+    @Inject
+    private ProjectController projectController;
 
     public ArtefactController() {
     }
@@ -114,8 +115,8 @@ public class ArtefactController extends BaseController implements Serializable {
                 @Override
                 public int getItemsCount() {
                     int localCount;
-                        if (selectedProject.getProject() != null){
-                            localCount = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(selectedProject.getProject(), true, true);
+                        if (projectController.getCurrent()!= null){
+                            localCount = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(projectController.getCurrent(), true, true);
                             }
                         else {
                             localCount = getSaveRetrieve().countEntityActive(true, true);
@@ -129,8 +130,8 @@ public class ArtefactController extends BaseController implements Serializable {
                 */
                 @Override
                 public DataModel createPageDataModel(){
-                if (selectedProject.getProject() !=null){
-                        return new ListDataModel(getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true,selectedProject.getProject(), true));
+                if (projectController.getCurrent() !=null){
+                        return new ListDataModel(getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true,projectController.getCurrent(), true));
                     }
                 else {
                         return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
@@ -165,8 +166,8 @@ public class ArtefactController extends BaseController implements Serializable {
             *   If a project has been selected then create new Artefact with a reference selected Project
             *   and set entityActive when created
             */ 
-            if(selectedProject.getProject() != null){
-                current.setProjectID(selectedProject.getProject());
+            if(projectController.getCurrent() != null){
+                current.setProjectID(projectController.getCurrent());
             }
             setEntityActive(current);
             getSaveRetrieve().create(current);
@@ -205,8 +206,8 @@ public class ArtefactController extends BaseController implements Serializable {
 
     public String update() {
         try {
-            if(selectedProject.getProject() != null){
-                current.setProjectID(selectedProject.getProject());
+            if(projectController.getCurrent() != null){
+                current.setProjectID(projectController.getCurrent());
             }
             
             if (updating == true){
@@ -304,8 +305,8 @@ public class ArtefactController extends BaseController implements Serializable {
 
     private void updateCurrentItem() {
         int count;
-         if (selectedProject.getProject() != null){
-             count = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(selectedProject.getProject(), true, true);
+         if (projectController.getCurrent() != null){
+             count = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(projectController.getCurrent(), true, true);
          }
          else {
              count = getSaveRetrieve().countEntityActive(true, true);
@@ -320,8 +321,8 @@ public class ArtefactController extends BaseController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            if (selectedProject.getProject() != null){
-                current = getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true,selectedProject.getProject(),true).get(0);
+            if (projectController.getCurrent() != null){
+                current = getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true,projectController.getCurrent(),true).get(0);
             }
             else {
                 current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
@@ -330,16 +331,16 @@ public class ArtefactController extends BaseController implements Serializable {
     }
 
     public DataModel getItems() {
-        //if (items == null){
+        if (items == null){
             items = getPagination().createPageDataModel();
-        //}
+        }
         return items;
     }
     /* 
     *   End of modified IDE code
     */   
     
-    private void recreateModel() {
+    public void recreateModel() {
         items = null;
     }
 

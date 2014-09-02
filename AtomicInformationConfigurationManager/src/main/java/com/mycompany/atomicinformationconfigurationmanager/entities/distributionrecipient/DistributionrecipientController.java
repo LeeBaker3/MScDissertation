@@ -1,9 +1,9 @@
 package com.mycompany.atomicinformationconfigurationmanager.entities.distributionrecipient;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseController;
+import com.mycompany.atomicinformationconfigurationmanager.entities.project.ProjectController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
-import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -31,8 +31,8 @@ public class DistributionrecipientController extends BaseController implements S
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
-    @Inject
-    private SelectedProject selectedProject;
+    
+    @Inject ProjectController projectController;
 
     public DistributionrecipientController() {
     }
@@ -82,8 +82,8 @@ public class DistributionrecipientController extends BaseController implements S
                 @Override
                 public int getItemsCount() {
                     int localCount;
-                        if (selectedProject.getProject() != null){
-                            localCount = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(selectedProject.getProject(), true, true);
+                        if (projectController.getCurrent() != null){
+                            localCount = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(projectController.getCurrent(), true, true);
                             }
                         else {
                             localCount = getSaveRetrieve().countEntityActive(true, true);
@@ -93,8 +93,8 @@ public class DistributionrecipientController extends BaseController implements S
 
                 @Override
                 public DataModel createPageDataModel(){
-                if (selectedProject.getProject() !=null){
-                        return new ListDataModel(getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true,selectedProject.getProject(), true));
+                if (projectController.getCurrent() !=null){
+                        return new ListDataModel(getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true,projectController.getCurrent(), true));
                     }
                 else {
                         return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()},true, true));
@@ -129,8 +129,8 @@ public class DistributionrecipientController extends BaseController implements S
             *   If a project has been selected then create new Distrution Recipent with a reference selected Project
             *   and set entityActive when created
             */ 
-            if(selectedProject.getProject() != null){
-                current.setProjectID(selectedProject.getProject());
+            if(projectController.getCurrent() != null){
+                current.setProjectID(projectController.getCurrent());
             }
             setEntityActive(current);
             getSaveRetrieve().create(current);
@@ -230,8 +230,8 @@ public class DistributionrecipientController extends BaseController implements S
     
     private void updateCurrentItem() {
         int count;
-        if (selectedProject.getProject() != null){
-            count = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(selectedProject.getProject(), true, true);
+        if (projectController.getCurrent() != null){
+            count = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(projectController.getCurrent(), true, true);
         }
         else {
             count = getSaveRetrieve().countEntityActive(true, true);
@@ -246,8 +246,8 @@ public class DistributionrecipientController extends BaseController implements S
             }
         }
         if (selectedItemIndex >= 0) {
-            if (selectedProject.getProject() != null){
-                current = getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true,selectedProject.getProject(),true).get(0);
+            if (projectController.getCurrent() != null){
+                current = getSaveRetrieve().findRangeEntityActiveAndProjectIDAndIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true,projectController.getCurrent(),true).get(0);
             }
             else {
                 current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
@@ -265,7 +265,7 @@ public class DistributionrecipientController extends BaseController implements S
     *   End of modified IDE code
     */  
 
-    private void recreateModel() {
+    public void recreateModel() {
         items = null;
     }
 

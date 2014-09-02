@@ -22,12 +22,15 @@ import javax.inject.Named;
 public class ProjectController extends BaseController implements Serializable {
 
     private Project current;
+
     private boolean  itemSelected = false; //Set to true when an item is selected in the List DataTable
     private DataModel items = null;
     @EJB
     private com.mycompany.atomicinformationconfigurationmanager.entities.project.ProjectSaveRetrieve ejbSaveRetrieve;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+
 
     public ProjectController() {
     }
@@ -58,6 +61,14 @@ public class ProjectController extends BaseController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("NoRecordSelectedError"));
             return null;
         }
+    }
+    
+    public Project getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Project current) {
+        this.current = current;
     }
 
     private ProjectSaveRetrieve getSaveRetrieve() {
@@ -217,7 +228,9 @@ public class ProjectController extends BaseController implements Serializable {
     }
 
     public DataModel getItems() {
+        if (items == null){
             items = getPagination().createPageDataModel();
+        }
         return items;
     }
     /* 
@@ -225,7 +238,7 @@ public class ProjectController extends BaseController implements Serializable {
     */      
     
 
-    private void recreateModel() {
+    public void recreateModel() {
         items = null;
     }
 

@@ -219,14 +219,16 @@ public class TypeofatomicinformationController extends BaseController implements
     }
 
     public DataModel getItems() {
+        if (items == null){
             items = getPagination().createPageDataModel();
+        }
         return items;
     }
     /* 
     *   End of modified IDE code
     */  
 
-    private void recreateModel() {
+    public void recreateModel() {
         items = null;
     }
 

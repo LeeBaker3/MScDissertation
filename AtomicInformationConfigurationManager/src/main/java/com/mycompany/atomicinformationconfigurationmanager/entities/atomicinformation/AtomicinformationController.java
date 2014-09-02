@@ -2,6 +2,7 @@ package com.mycompany.atomicinformationconfigurationmanager.entities.atomicinfor
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.Artefactatomicinformation.Artefactatomicinformation;
 import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseController;
+import com.mycompany.atomicinformationconfigurationmanager.entities.project.ProjectController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
 import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
@@ -36,7 +37,7 @@ public class AtomicinformationController extends BaseController implements Seria
     private int selectedItemIndex;
     
     @Inject
-    private  SelectedProject selectedProject;
+    private ProjectController projectController;
     
 
     public AtomicinformationController() {
@@ -109,8 +110,8 @@ public class AtomicinformationController extends BaseController implements Seria
                 @Override
                 public int getItemsCount() {
                     int localCount;
-                    if (selectedProject.getProject()!=null){
-                        localCount = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(true, selectedProject.getProject(), true);
+                    if (projectController.getCurrent()!=null){
+                        localCount = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(true, projectController.getCurrent(), true);
                     }
                     else{
                         localCount = getSaveRetrieve().countEntityActive(true, true);
@@ -125,8 +126,8 @@ public class AtomicinformationController extends BaseController implements Seria
                 @Override
                 public DataModel createPageDataModel() {
                     
-                    if (selectedProject.getProject() != null){
-                        return  new  ListDataModel(getSaveRetrieve().findRangeEntityActiveAndProjectIDAndISCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, selectedProject.getProject(), true));
+                    if (projectController.getCurrent() != null){
+                        return  new  ListDataModel(getSaveRetrieve().findRangeEntityActiveAndProjectIDAndISCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, projectController.getCurrent(), true));
                     }
                     else{
                       return new ListDataModel(getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, true, true));  
@@ -177,8 +178,8 @@ public class AtomicinformationController extends BaseController implements Seria
             *   02/08/14 @Lee Baker
             *   If a project has been selected then create new AtomicInfromation with a reference selected Project
             */
-            if(selectedProject.getProject() !=null){
-                current.setProjectID(selectedProject.getProject());
+            if(projectController.getCurrent() !=null){
+                current.setProjectID(projectController.getCurrent());
             }
             setEntityActive(current);
             getSaveRetrieve().create(current);
@@ -230,8 +231,8 @@ public class AtomicinformationController extends BaseController implements Seria
 
     public String update() {
         try {
-            if(selectedProject.getProject() != null){
-                current.setProjectID(selectedProject.getProject());
+            if(projectController.getCurrent() != null){
+                current.setProjectID(projectController.getCurrent());
             }
             
             if (updating == true){
@@ -330,8 +331,8 @@ public class AtomicinformationController extends BaseController implements Seria
     
     private void updateCurrentItem() {
         int count;
-        if (selectedProject.getProject() != null){
-             count = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(true, selectedProject.getProject(), true);
+        if (projectController.getCurrent() != null){
+             count = getSaveRetrieve().countEntityActiveAndProjectIDAndIsCurrentVersion(true, projectController.getCurrent(), true);
          }
          else {
              count = getSaveRetrieve().countEntityActive(true, true);
@@ -346,8 +347,8 @@ public class AtomicinformationController extends BaseController implements Seria
             }
         }
         if (selectedItemIndex >= 0) {
-            if (selectedProject.getProject() != null){
-                current = getSaveRetrieve().findRangeEntityActiveAndProjectIDAndISCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, selectedProject.getProject(), true).get(0);
+            if (projectController.getCurrent() != null){
+                current = getSaveRetrieve().findRangeEntityActiveAndProjectIDAndISCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, projectController.getCurrent(), true).get(0);
             }
             else {
                 current = getSaveRetrieve().findRangeEntityActiveIsCurrentVersion(new int[]{selectedItemIndex, selectedItemIndex + 1},true, true).get(0);
@@ -356,14 +357,16 @@ public class AtomicinformationController extends BaseController implements Seria
     }
 
     public DataModel getItems() {
+        if (items == null){
             items = getPagination().createPageDataModel();
+        }
         return items;
     }
     /* 
     *   End of modified IDE code
     */  
 
-    private void recreateModel() {
+    public void recreateModel() {
         items = null;
     }
 

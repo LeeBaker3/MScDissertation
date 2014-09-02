@@ -26,13 +26,13 @@
                             <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
                             <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
                             <h:link outcome="/Faces/typeofatomicinformation/List" value="#{bundle.NavigationMenuListTypeofatomicinformationLink}"/>
-                            <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
-                            <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
-                            <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
-                            <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
                     </rich:toolbar>
                     <rich:toolbar>
-                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuArtefact}">
+                        <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefact}">
                             <rich:menuItem label="#{bundle.MenuItemCreateArtefactLink}" action="#{artefactController.prepareCreate}"/>
                             <rich:menuItem label="#{bundle.MenuItemEditArtefactLink}" action="/Faces/artefact/Edit"/>
                             <rich:menuItem label="#{bundle.MenuItemDeleteArtefactLink}" action="#{artefactController.deleteAndView()}"/>
@@ -40,16 +40,16 @@
                             <rich:menuItem label="#{bundle.MenuItemListArtefactLink}" action="/Faces/artefact/List"/>
                             <rich:menuItem label="#{bundle.MenuItemUploadNewArtefactVersionLink}"/>
                         </rich:dropDownMenu>
-                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuComapre}">
+                        <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuComapre}">
                            <rich:menuItem label="#{bundle.MenuItemCompareToCurrentArtefactLink}"/>
                         </rich:dropDownMenu>
-                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuAtomicinformation}">
+                        <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuAtomicinformation}">
                             <rich:menuItem label="#{bundle.MenuItemListAtomicinformationforArtefactLink}" action="/Faces/artefactatomicinformation/List"/>
                             <rich:menuItem label="#{bundle.MenuItemCreateAtomicInformationLink}"/>
                             <rich:menuItem label="#{bundle.MenuItemScanAtomicInformationLink}"/>
                             <rich:menuItem label="#{bundle.MenuItemCheckforUpdatedAtomicInformationLink}"/>
                         </rich:dropDownMenu>
-                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuArtefactdistribution}">
+                        <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefactdistribution}">
                             <rich:menuItem label="#{bundle.MenuItemListArtefactdistributionforArtefactLink}"/>
                             <rich:menuItem label="#{bundle.MenuItemCreateDistributionForArtefactLink}" action="#{artefactdistributionController.prepareCreateFromArtefact()}"/>
                         </rich:dropDownMenu>
@@ -64,7 +64,8 @@
                         <h:outputText value="#{bundle.ViewArtefactLabel_projectID}"/>
                         <h:outputText value="#{artefactController.selected.projectID.projectName} #{artefactController.selected.projectID.projectReference}" title="#{bundle.ViewArtefactTitle_projectID}"/>
                     </h:panelGrid>
-                        <h:form styleClass="jsfcrud_list_form">
+                    <br/>
+                    <h:form>
                         <h:outputText escape="false" value="#{bundle.ListArtefactatomicinformationEmpty}" rendered="#{artefactatomicinformationController.items.rowCount == 0}"/>
                         <h:panelGroup rendered="#{artefactatomicinformationController.items.rowCount > 0}">
                             <h:outputText value="#{artefactatomicinformationController.pagination.pageFirstItem + 1}..#{artefactatomicinformationController.pagination.pageLastItem + 1}/#{artefactatomicinformationController.pagination.itemsCount}"/>&nbsp;
@@ -86,7 +87,8 @@
                             </h:dataTable>
                         </h:panelGroup>
                     </h:form>
-                    <h:form styleClass="jsfcrud_list_form">
+                    <br/>
+                    <h:form>
                         <h:outputText escape="false" value="#{bundle.ListArtefactdistributionEmpty}" rendered="#{artefactdistributionController.items.rowCount == 0}"/>
                         <h:panelGroup rendered="#{artefactdistributionController.items.rowCount > 0}">
                             <h:outputText value="#{artefactdistributionController.pagination.pageFirstItem + 1}..#{artefactdistributionController.pagination.pageLastItem + 1}/#{artefactdistributionController.pagination.itemsCount}"/>&nbsp;

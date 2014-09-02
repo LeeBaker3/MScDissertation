@@ -26,13 +26,13 @@
                         <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
                         <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
                         <h:link outcome="/Faces/typeofatomicinformation/List" value="#{bundle.NavigationMenuListTypeofatomicinformationLink}"/>
-                        <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
-                        <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
-                        <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
-                        <h:link rendered="#{selectedProject.project !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
                     </rich:toolbar>
                     <rich:toolbar>
-                        <rich:dropDownMenu rendered="#{selectedProject.project !=null}" label="#{bundle.DropDownMenuArtefact}">
+                        <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefact}">
                             <rich:menuItem label="#{bundle.MenuItemViewArtefactLink}" action="#{artefactController.prepareView}"/>
                             <rich:menuItem label="#{bundle.MenuItemSaveArtefactLink}" action="#{updateArtefactAtomicInformationLinks.update}"/>
                             <rich:menuItem label="#{bundle.MenuItemListArtefactLink}" action="/Faces/artefact/List" immediate="true"/>

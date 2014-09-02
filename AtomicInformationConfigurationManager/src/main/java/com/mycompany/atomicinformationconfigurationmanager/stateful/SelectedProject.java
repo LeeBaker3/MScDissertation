@@ -7,11 +7,16 @@
 package com.mycompany.atomicinformationconfigurationmanager.stateful;
 
 import com.mycompany.atomicinformationconfigurationmanager.entities.Artefact.ArtefactController;
+import com.mycompany.atomicinformationconfigurationmanager.entities.Artefactatomicinformation.ArtefactatomicinformationController;
+import com.mycompany.atomicinformationconfigurationmanager.entities.artefactdistribution.ArtefactdistributionController;
+import com.mycompany.atomicinformationconfigurationmanager.entities.distributionrecipient.DistributionrecipientController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.project.Project;
+import com.mycompany.atomicinformationconfigurationmanager.entities.project.ProjectController;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -25,14 +30,34 @@ import javax.inject.Named;
 @SessionScoped
 public class SelectedProject implements Serializable {
 
-    private Project project;
+    @Inject
+    private ProjectController projectController;
+    @Inject
+    private ArtefactController artefactController;
+    @Inject
+    private ArtefactatomicinformationController artefactatomicinformationController;
+    @Inject
+    private DistributionrecipientController distributionrecipientController;
+    @Inject
+    private ArtefactdistributionController artefactdistributionController;
     
+            
+    private Project project;
+
     public Project getProject() {
         return project;
     }
 
     public void setProject(Project project) {
         this.project = project;
+        if(project != projectController.getCurrent()){
+            projectController.setCurrent(project);
+            artefactController.recreateModel();
+            artefactatomicinformationController.recreateModel();
+            distributionrecipientController.recreateModel();
+            artefactatomicinformationController.recreateModel(); 
+            artefactdistributionController.recreateModel();
+        }
     }
 
     @Override
