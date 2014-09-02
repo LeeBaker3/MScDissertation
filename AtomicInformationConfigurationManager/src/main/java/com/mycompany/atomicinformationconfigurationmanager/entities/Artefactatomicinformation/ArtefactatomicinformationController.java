@@ -31,6 +31,7 @@ public class ArtefactatomicinformationController extends BaseController implemen
     private Artefactatomicinformation old;
     private boolean updating = false;
     private boolean  itemSelected = false; //Set to true when an item is selected in the List DataTable
+    private Boolean selectedFromArtefact = false;
 
     private DataModel items = null;
     @EJB
@@ -146,29 +147,53 @@ public class ArtefactatomicinformationController extends BaseController implemen
         selectedItemIndex = -1;
         return "/Faces/artefactatomicinformation/Create";
     }
+    
+    public String prepareCreateFromArtefact(){
+        current = new Artefactatomicinformation();
+        current.setIsCurrentVersion(true);
+        selectedItemIndex = -1;
+        selectedFromArtefact = true;
+        return "/Faces/artefactatomicinformation/CreateFromArtefact";
+    }
 
-    public String create() {
+    public String create(String returnMethod) {
         try {
             /*  
             *   02/08/14 @Lee Baker
             *   If a Artefact has been selected then create new Artefactatomicinformation with a reference selected Artefact
             *   and set entityActive when created
             */
-            if(artefactController.getCurrent() !=null){
+            if(selectedFromArtefact==true){
                 current.setArtefactID(artefactController.getCurrent());
+                selectedFromArtefact=false;
             }
+
             setEntityActive(current);
             getSaveRetrieve().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArtefactatomicinformationCreated"));
-            return prepareCreate();
+             /*
+            *   13/08/14 @Lee Baker
+            *   Code modified to return from multiple calling xhtml pages
+            */
+            if ("prepareCreate".equals(returnMethod)){
+                return prepareCreate();
+                
+            }
+            if ("prepareCreateFromArtefact".equals(returnMethod)){
+                return prepareCreateFromArtefact();
+            }
+            else {
+                return prepareCreate();
+            }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            selectedFromArtefact=false;
             return null;
         }
     }
 
     public String prepareEdit() {
-        return prepareSelected("View");
+        return prepareSelected("Edit");
     }
 
     /*

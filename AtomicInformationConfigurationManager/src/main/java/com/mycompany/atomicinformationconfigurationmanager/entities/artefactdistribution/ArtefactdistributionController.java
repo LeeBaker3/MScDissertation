@@ -118,19 +118,18 @@ public class ArtefactdistributionController extends BaseController implements Se
     public String prepareList() {
         recreateModel();
         itemSelected = false;
-        return "List";
+        return "/Faces/artefactdistribution/List";
     }
 
     public String prepareView() {
-        return prepareSelected("View");
+        return prepareSelected("/Faces/artefactdistribution/View");
     }
 
     public String prepareCreate() {
         current = new Artefactdistribution();
         current.setIsCurrentVersion(true);
-        current.setIsCurrentVersion(true);
         selectedItemIndex = -1;
-        return "Create";
+        return "/Faces/artefactdistribution/Create";
     }
     
     public String prepareCreateFromArtefact() {
@@ -158,10 +157,11 @@ public class ArtefactdistributionController extends BaseController implements Se
             
             /*
             *   13/08/14 @Lee Baker
-            *   Code modified to return from multiple calling xHtml pages
+            *   Code modified to return from multiple calling xhtml pages
             */
             if ("prepareCreate".equals(returnMethod)){
                 return prepareCreate();
+                
             }
             if ("prepareCreateFromArtefact".equals(returnMethod)){
                 return prepareCreateFromArtefact();

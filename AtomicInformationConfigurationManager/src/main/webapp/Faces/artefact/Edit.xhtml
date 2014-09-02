@@ -17,11 +17,6 @@
             <h:form>
                 <rich:panel header="#{bundle.EditArtefactTitle}">
                     <rich:toolbar>
-                        <h:commandButton value="#{bundle.MainMenuSelectLink_selectProject}" action="/Faces/artefact/List"/>
-                        <h:selectOneMenu id="project" value="#{selectedProject.project}" title="#{bundle.MainMenuTitle_projectID}" required="true" requiredMessage="#{bundle.MainMenuRequiredMessage_projectID}">
-                             <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
-                             <f:ajax render="@form" />
-                        </h:selectOneMenu>
                         <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
                         <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
                         <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>

@@ -17,11 +17,6 @@
             <h:form>
                 <rich:panel header="#{bundle.ViewArtefactTitle}">
                     <rich:toolbar>
-                        <h:commandButton value="#{bundle.MainMenuSelectLink_selectProject}" action="/Faces/artefact/List"/>
-                            <h:selectOneMenu id="project" value="#{selectedProject.project}" title="#{bundle.MainMenuTitle_projectID}" required="true" requiredMessage="#{bundle.MainMenuRequiredMessage_projectID}">
-                                 <f:selectItems value="#{projectController.itemsAvailableSelectOne}"/>
-                                 <f:ajax render="@form" />
-                            </h:selectOneMenu>
                             <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
                             <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
                             <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
@@ -45,12 +40,12 @@
                         </rich:dropDownMenu>
                         <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuAtomicinformation}">
                             <rich:menuItem label="#{bundle.MenuItemListAtomicinformationforArtefactLink}" action="/Faces/artefactatomicinformation/List"/>
-                            <rich:menuItem label="#{bundle.MenuItemCreateAtomicInformationLink}"/>
+                            <rich:menuItem label="#{bundle.MenuItemCreateAtomicInformationLink}" action="#{artefactatomicinformationController.prepareCreateFromArtefact()}"/>
                             <rich:menuItem label="#{bundle.MenuItemScanAtomicInformationLink}"/>
                             <rich:menuItem label="#{bundle.MenuItemCheckforUpdatedAtomicInformationLink}"/>
                         </rich:dropDownMenu>
                         <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefactdistribution}">
-                            <rich:menuItem label="#{bundle.MenuItemListArtefactdistributionforArtefactLink}"/>
+                            <rich:menuItem label="#{bundle.MenuItemListArtefactdistributionforArtefactLink}" action="#{artefactdistributionController.prepareList()}"/>
                             <rich:menuItem label="#{bundle.MenuItemCreateDistributionForArtefactLink}" action="#{artefactdistributionController.prepareCreateFromArtefact()}"/>
                         </rich:dropDownMenu>
                     </rich:toolbar>

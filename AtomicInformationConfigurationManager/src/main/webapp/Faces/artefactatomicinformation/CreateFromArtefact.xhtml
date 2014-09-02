@@ -17,6 +17,7 @@
             <h:form>
                 <rich:panel header="#{bundle.CreateArtefactatomicinformationTitle}">
                     <rich:toolbar>
+                        <h:commandLink action="#{returnFromArtefactAtomicInformation.returnToArtefactView()}" value="#{bundle.NavigationMenuReturnLink}" immediate="true"/> 
                         <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
                         <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
                         <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
@@ -28,29 +29,18 @@
                     </rich:toolbar>
                     <rich:toolbar>
                         <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefactatomicinformation}">
-                            <rich:menuItem label="#{bundle.MenuItemSaveArtefactatomicinformationLink}" action="#{artefactatomicinformationController.create('prepareCreate')}"/>
+                            <rich:menuItem label="#{bundle.MenuItemSaveArtefactatomicinformationLink}" action="#{artefactatomicinformationController.create('prepareCreateFromArtefact')}"/>
                             <rich:menuItem label="#{bundle.MenuItemListArtefactatomicinformationLink}" action="#{artefactatomicinformationController.prepareList}" immediate="true"/>
                         </rich:dropDownMenu>
                     </rich:toolbar>
                     <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_artefactAtomicInformationID}" for="artefactAtomicInformationID" />
-                    <h:inputText id="artefactAtomicInformationID" value="#{artefactatomicinformationController.selected.artefactAtomicInformationID}" title="#{bundle.CreateArtefactatomicinformationTitle_artefactAtomicInformationID}" />
-                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_artefactID}" for="artefactID" />
-                    <h:selectOneMenu id="artefactID" value="#{artefactatomicinformationController.selected.artefactID}" title="#{bundle.CreateArtefactatomicinformationTitle_artefactID}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_artefactID}">
-                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_atomicInformationID}" for="atomicInformationID" />
                     <h:selectOneMenu id="atomicInformationID" value="#{artefactatomicinformationController.selected.atomicInformationID}" title="#{bundle.CreateArtefactatomicinformationTitle_atomicInformationID}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_atomicInformationID}">
                         <f:selectItems value="#{atomicinformationController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_versionNumber}" for="versionNumber" />
-                    <h:inputText id="versionNumber" value="#{artefactatomicinformationController.selected.versionNumber}" title="#{bundle.CreateArtefactatomicinformationTitle_versionNumber}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_versionNumber}"/>
-                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_previousVersionReference}" for="previousVersionReference" />
-                    <h:inputText id="previousVersionReference" value="#{artefactatomicinformationController.selected.previousVersionReference}" title="#{bundle.CreateArtefactatomicinformationTitle_previousVersionReference}" />
                 </h:panelGrid>
                 </rich:panel>
             </h:form>
         </ui:define>
     </ui:composition>
-
 </html>

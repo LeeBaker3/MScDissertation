@@ -15,12 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_methodOfDistributionID}" for="methodOfDistributionID" />
                     <h:selectOneMenu id="methodOfDistributionID" value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.CreateArtefactdistributionTitle_methodOfDistributionID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_distributionRecipientID}">
                         <f:selectItems value="#{methodofdistributionController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
-                    
                     <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_dateOfArtefactDistribution}" for="dateOfArtefactDistribution" />
                     <h:inputText id="dateOfArtefactDistribution" value="#{artefactdistributionController.selected.dateOfArtefactDistribution}" title="#{bundle.CreateArtefactdistributionTitle_dateOfArtefactDistribution}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_dateOfArtefactDistribution}">
                         <f:convertDateTime pattern="dd/MM/yyyy" />

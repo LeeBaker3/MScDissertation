@@ -5,7 +5,7 @@ import com.mycompany.atomicinformationconfigurationmanager.entities.base.BaseCon
 import com.mycompany.atomicinformationconfigurationmanager.entities.project.ProjectController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.JsfUtil;
 import com.mycompany.atomicinformationconfigurationmanager.entities.util.PaginationHelper;
-import com.mycompany.atomicinformationconfigurationmanager.stateful.SelectedProject;
+import com.mycompany.atomicinformationconfigurationmanager.businessrules.SelectedProject;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
