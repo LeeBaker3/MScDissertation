@@ -30,7 +30,7 @@
                         <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefactatomicinformation}">
                             <rich:menuItem label="#{bundle.MenuItemCreateArtefactatomicinformationtLink}" action="#{artefactatomicinformationController.prepareCreate}"/>
                             <rich:menuItem label="#{bundle.MenuItemListArtefactatomicinformationLink}" action="#{artefactatomicinformationController.prepareList}"/>
-                            <rich:menuItem label="#{bundle.MenuItemDeleteArtefactatomicinformationLink}" action="#{artefactatomicinformationController.delete}"/>
+                            <rich:menuItem label="#{bundle.MenuItemDeleteArtefactatomicinformationLink}" action="#{artefactatomicinformationController.deleteAndView}"/>
                         </rich:dropDownMenu>
                     </rich:toolbar>
                     <h:panelGrid columns="2">

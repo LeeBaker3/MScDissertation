@@ -29,7 +29,7 @@
                     <rich:toolbar>
                         <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefactdistribution}">
                             <rich:menuItem label="#{bundle.MenuItemCreateArtefactdistributionLink}" action="#{artefactdistributionController.prepareCreate}"/>
-                            <rich:menuItem label="#{bundle.MenuItemEditArtefactdistributionLink}" action="Faces/artefactdistribution/Edit"/>
+                            <rich:menuItem label="#{bundle.MenuItemEditArtefactdistributionLink}" action="/Faces/artefactdistribution/Edit"/>
                             <rich:menuItem label="#{bundle.MenuItemDeleteArtefactdistributionLink}" action="#{artefactdistributionController.deleteAndView}"/>
                             <rich:menuItem label="#{bundle.MenuItemListArtefactdistributionLink}" action="#{artefactdistributionController.prepareList}"/>
                         </rich:dropDownMenu>

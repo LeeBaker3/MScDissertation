@@ -34,7 +34,7 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <rich:panel header="#{bundle.ListArtefactTitle}">
+                    <rich:panel header="#{bundle.ListArtefactTitle}">
                     <rich:toolbar>
                         <h:commandButton value="#{bundle.MainMenuSelectLink_selectProject}" action="/Faces/artefact/List"/>
                         <h:selectOneMenu id="project" value="#{selectedProject.project}" title="#{bundle.MainMenuTitle_projectID}" required="true" requiredMessage="#{bundle.MainMenuRequiredMessage_projectID}">

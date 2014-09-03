@@ -36,7 +36,7 @@
             <h:form>
                 <rich:panel header="#{bundle.ListArtefactatomicinformationTitle}">
                     <rich:toolbar>
-                        <h:commandLink action="#{returnFromArtefactAtomicInformation.returnToArtefactView()}" value="#{bundle.NavigationMenuReturnLink}"/>    
+                        <h:commandLink action="#{returnToArtefactView.returnToView()}" value="#{bundle.NavigationMenuReturnLink}"/>    
                         <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
                         <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
                         <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
@@ -50,7 +50,7 @@
                         <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefactatomicinformation}">
                             <rich:menuItem label="#{bundle.MenuItemCreateArtefactatomicinformationtLink}" action="#{artefactatomicinformationController.prepareCreate}"/>
                             <rich:menuItem label="#{bundle.MenuItemViewArtefactatomicinformationLink}" action="#{artefactatomicinformationController.prepareView}"/>
-                            <rich:menuItem label="#{bundle.MenuItemDeleteArtefactatomicinformationLink}" action="#{artefactatomicinformationController.deleteAndView}"/>
+                            <rich:menuItem label="#{bundle.MenuItemDeleteArtefactatomicinformationLink}" action="#{artefactatomicinformationController.delete}"/>
                         </rich:dropDownMenu>
                     </rich:toolbar>
                     <h:outputText escape="false" value="#{bundle.ListArtefactatomicinformationEmpty}" rendered="#{artefactatomicinformationController.items.rowCount == 0}"/>

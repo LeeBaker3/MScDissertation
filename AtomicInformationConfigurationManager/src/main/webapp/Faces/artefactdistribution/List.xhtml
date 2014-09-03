@@ -33,7 +33,7 @@
             <h:form>
                 <rich:panel header="#{bundle.ListArtefactdistributionTitle}">
                     <rich:toolbar>
-                        <h:link outcome="/Faces/artefact/View" value="#{bundle.NavigationMenuReturnLink}"/>    
+                        <h:commandLink action="#{returnToArtefactView.returnToView}" value="#{bundle.NavigationMenuReturnLink}"/>    
                         <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
                         <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
                         <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
@@ -47,6 +47,7 @@
                         <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefactdistribution}">
                             <rich:menuItem label="#{bundle.MenuItemCreateArtefactdistributionLink}" action="#{artefactdistributionController.prepareCreate}"/>
                             <rich:menuItem label="#{bundle.MenuItemViewArtefactdistributionLink}" action="#{artefactdistributionController.prepareView}"/>
+                            <rich:menuItem label="#{bundle.MenuItemEditArtefactdistributionLink}" action="#{artefactdistributionController.prepareEdit}"/>
                             <rich:menuItem label="#{bundle.MenuItemDeleteArtefactdistributionLink}" action="#{artefactdistributionController.delete}"/>
                         </rich:dropDownMenu>
                     </rich:toolbar>

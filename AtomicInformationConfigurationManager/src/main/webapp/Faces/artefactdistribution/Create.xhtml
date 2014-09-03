@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,36 +15,43 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-
-                    <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_methodOfDistributionID}" for="methodOfDistributionID" />
-                    <h:selectOneMenu id="methodOfDistributionID" value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.CreateArtefactdistributionTitle_methodOfDistributionID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_distributionRecipientID}">
-                        <f:selectItems value="#{methodofdistributionController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    
-                    <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_dateOfArtefactDistribution}" for="dateOfArtefactDistribution" />
-                    <h:inputText id="dateOfArtefactDistribution" value="#{artefactdistributionController.selected.dateOfArtefactDistribution}" title="#{bundle.CreateArtefactdistributionTitle_dateOfArtefactDistribution}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_dateOfArtefactDistribution}">
-                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_distributionRecipientID}" for="distributionRecipientID" />
-                    <h:selectOneMenu id="distributionRecipientID" value="#{artefactdistributionController.selected.distributionRecipientID}" title="#{bundle.CreateArtefactdistributionTitle_distributionRecipientID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_distributionRecipientID}">
-                        <f:selectItems value="#{distributionrecipientController.itemsAvailableSelectOne}" />
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_artefactID}" for="artefactID" />
-                    <h:selectOneMenu id="artefactID" value="#{artefactdistributionController.selected.artefactID}" title="#{bundle.CreateArtefactdistributionTitle_artefactID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_artefactID}">
-                        <f:selectItems value="#{artefactController.itemsAvailableSelectOne}" itemLabel="#()"/>
-                    </h:selectOneMenu>               
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{artefactdistributionController.create('prepareCreate')}" value="#{bundle.CreateArtefactdistributionSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{artefactdistributionController.prepareList}" value="#{bundle.CreateArtefactdistributionShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.CreateArtefactdistributionMainMenuLink}" />
+                <rich:panel header="#{bundle.CreateArtefactdistributionTitle}">
+                    <rich:toolbar>
+                        <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
+                        <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
+                        <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
+                        <h:link outcome="/Faces/typeofatomicinformation/List" value="#{bundle.NavigationMenuListTypeofatomicinformationLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
+                    </rich:toolbar>
+                    <rich:toolbar>
+                        <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefactdistribution}">
+                            <rich:menuItem label="#{bundle.MenuItemSaveArtefactdistributionLink}" action="#{artefactdistributionController.create('prepareCreate')}"/>
+                            <rich:menuItem label="#{bundle.MenuItemListArtefactdistributionLink}" action="#{artefactdistributionController.prepareList}" immediate="true"/>
+                        </rich:dropDownMenu>
+                    </rich:toolbar>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_methodOfDistributionID}" for="methodOfDistributionID" />
+                        <h:selectOneMenu id="methodOfDistributionID" value="#{artefactdistributionController.selected.methodOfDistributionID}" title="#{bundle.CreateArtefactdistributionTitle_methodOfDistributionID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_distributionRecipientID}">
+                            <f:selectItems value="#{methodofdistributionController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_dateOfArtefactDistribution}" for="dateOfArtefactDistribution" />
+                        <h:inputText id="dateOfArtefactDistribution" value="#{artefactdistributionController.selected.dateOfArtefactDistribution}" title="#{bundle.CreateArtefactdistributionTitle_dateOfArtefactDistribution}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_dateOfArtefactDistribution}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:inputText>
+                        <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_distributionRecipientID}" for="distributionRecipientID" />
+                        <h:selectOneMenu id="distributionRecipientID" value="#{artefactdistributionController.selected.distributionRecipientID}" title="#{bundle.CreateArtefactdistributionTitle_distributionRecipientID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_distributionRecipientID}">
+                            <f:selectItems value="#{distributionrecipientController.itemsAvailableSelectOne}" />
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{bundle.CreateArtefactdistributionLabel_artefactID}" for="artefactID" />
+                        <h:selectOneMenu id="artefactID" value="#{artefactdistributionController.selected.artefactID}" title="#{bundle.CreateArtefactdistributionTitle_artefactID}" required="true" requiredMessage="#{bundle.CreateArtefactdistributionRequiredMessage_artefactID}">
+                            <f:selectItems value="#{artefactController.itemsAvailableSelectOne}" itemLabel="#()"/>
+                        </h:selectOneMenu>               
+                    </h:panelGrid>
+                </rich:panel>    
             </h:form>
         </ui:define>
     </ui:composition>
-
 </html>
