@@ -142,7 +142,7 @@ public class AtomicinformationController extends BaseController implements Seria
     public String prepareList() {
         recreateModel();
         itemSelected = false;
-        return "List";
+        return "/Faces/atomicinformation/List";
     }
 
     public String prepareView() {
@@ -152,7 +152,7 @@ public class AtomicinformationController extends BaseController implements Seria
         }
         itemSelected = false;
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "/Faces/atomicinformation/View";
     }
 
     public String prepareCreate() {
@@ -205,7 +205,7 @@ public class AtomicinformationController extends BaseController implements Seria
     }
 
     public String prepareEdit() {
-        return prepareSelected("View");
+        return prepareSelected("/Faces/atomicinformation/Edit");
     }
 
     /*
@@ -219,7 +219,7 @@ public class AtomicinformationController extends BaseController implements Seria
         prepareVersion(old, ejbSaveRetrieve);
         current = new Atomicinformation();
         copy(old, current);
-        return "Edit";
+        return "/Faces/atomicinformation/Edit";
     }
      
     public Atomicinformation copy(Atomicinformation oldAtomicinformation, Atomicinformation newAtomicinformation){

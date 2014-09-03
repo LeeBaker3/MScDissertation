@@ -9,6 +9,7 @@ package com.mycompany.atomicinformationconfigurationmanager.businessrules;
 import com.mycompany.atomicinformationconfigurationmanager.entities.Artefact.Artefact;
 import com.mycompany.atomicinformationconfigurationmanager.entities.Artefactatomicinformation.ArtefactatomicinformationController;
 import com.mycompany.atomicinformationconfigurationmanager.entities.artefactdistribution.ArtefactdistributionController;
+import com.mycompany.atomicinformationconfigurationmanager.entities.atomicinformation.AtomicinformationController;
 import java.util.Objects;
 import javax.ejb.Stateless;
 import javax.enterprise.context.SessionScoped;
@@ -21,18 +22,25 @@ import javax.inject.Named;
  * 
  * This class is used to hold a reference to the currently selected artefact by the user
  */
-@Named("returnToArtefactView")
+@Named("returnToJSFPage")
 @Stateless
-public class ReturnToArtefactView {
+public class ReturnToJSFPage {
     
     @Inject
     private ArtefactatomicinformationController artefactatomicinformationController;
     @Inject
     private ArtefactdistributionController artefactdistributionController;
+    @Inject
+    private AtomicinformationController atomicinformationController;
     
-    public String returnToView(){
+    public String returnToArtefactView(){
         artefactatomicinformationController.recreateModel();
         artefactdistributionController.recreateModel();
         return "/Faces/artefact/View";
+    }
+    
+    public String returnToArtefactAtomicinformationView(){
+        atomicinformationController.recreateModel();
+        return "/Faces/artefactatomicinformation/View";
     }
 }

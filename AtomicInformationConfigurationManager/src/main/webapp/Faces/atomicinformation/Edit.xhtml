@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:rich="http://richfaces.org/rich">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,23 +15,33 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_content}" for="content" />
-                    <h:inputText id="content" value="#{atomicinformationController.selected.content}" title="#{bundle.EditAtomicinformationTitle_content}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_content}"/>
-                    <h:outputLabel value="#{bundle.EditAtomicinformationLabel_typeOfAtomicInformationID}" for="typeOfAtomicInformationID" />
-                    <h:selectOneMenu id="typeOfAtomicInformationID" value="#{atomicinformationController.selected.typeOfAtomicInformationID}" title="#{bundle.EditAtomicinformationTitle_typeOfAtomicInformationID}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_typeOfAtomicInformationID}">
-                        <f:selectItems value="#{typeofatomicinformationController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{atomicinformationController.update}" value="#{bundle.EditAtomicinformationSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditAtomicinformationViewLink}"/>
-                <br />
-                <h:commandLink action="#{atomicinformationController.prepareList}" value="#{bundle.EditAtomicinformationShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.EditAtomicinformationMainMenuLink}" />
+                <rich:panel header="#{bundle.EditAtomicinformationTitle}">
+                    <rich:toolbar>
+                        <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
+                        <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
+                        <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
+                        <h:link outcome="/Faces/typeofatomicinformation/List" value="#{bundle.NavigationMenuListTypeofatomicinformationLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
+                    </rich:toolbar>
+                    <rich:toolbar>
+                        <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuAtomicinformation}">
+                            <rich:menuItem label="#{bundle.MenuItemSaveAtomicInformationLink}" action="#{atomicinformationController.update}"/>
+                            <rich:menuItem label="#{bundle.MenuItemViewAtomicInformationLink}" action="#{atomicinformationController.prepareView}"/>    
+                            <rich:menuItem label="#{bundle.MenuItemListAtomicInformationLink}"  action="#{atomicinformationController.prepareList}" immediate="true"/>
+                        </rich:dropDownMenu>
+                    </rich:toolbar> 
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{bundle.EditAtomicinformationLabel_content}" for="content" />
+                        <h:inputText id="content" value="#{atomicinformationController.selected.content}" title="#{bundle.EditAtomicinformationTitle_content}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_content}"/>
+                        <h:outputLabel value="#{bundle.EditAtomicinformationLabel_typeOfAtomicInformationID}" for="typeOfAtomicInformationID" />
+                        <h:selectOneMenu id="typeOfAtomicInformationID" value="#{atomicinformationController.selected.typeOfAtomicInformationID}" title="#{bundle.EditAtomicinformationTitle_typeOfAtomicInformationID}" required="true" requiredMessage="#{bundle.EditAtomicinformationRequiredMessage_typeOfAtomicInformationID}">
+                            <f:selectItems value="#{typeofatomicinformationController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                </rich:panel>
             </h:form>
         </ui:define>
     </ui:composition>

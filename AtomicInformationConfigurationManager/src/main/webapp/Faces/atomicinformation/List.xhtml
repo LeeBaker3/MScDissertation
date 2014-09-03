@@ -55,6 +55,7 @@
                             <rich:menuItem label="#{bundle.MenuItemCreateAtomicInformationLink}" action="#{atomicinformationController.prepareCreate}"/>
                             <rich:menuItem label="#{bundle.MenuItemViewAtomicInformationLink}" action="#{atomicinformationController.prepareView}"/>
                             <rich:menuItem label="#{bundle.MenuItemEditAtomicInformationLink}" action="#{atomicinformationController.prepareEdit}"/>
+                            <rich:menuItem label="#{bundle.MenuItemUpdateAtomicInformationLink}" action="#{atomicinformationController.prepareUpdateVersion}"/>
                             <rich:menuItem label="#{bundle.MenuItemDeleteAtomicInformationLink}" action="#{atomicinformationController.delete}"/>  
                         </rich:dropDownMenu>
                     </rich:toolbar>
@@ -68,7 +69,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Select"/>
                                 </f:facet>
-                                <h:selectOneRadio onclick="radioButton(this);" valueChangeListener="#{artefactController.setSelected}">                                                
+                                <h:selectOneRadio onclick="radioButton(this);" valueChangeListener="#{atomicinformationController.setSelected}">                                                
                                     <f:selectItem itemValue="null"/>
                                 </h:selectOneRadio>
                             </h:column>

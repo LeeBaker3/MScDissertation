@@ -8,16 +8,16 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateArtefactatomicinformationTitle}"></h:outputText>
+            <h:outputText value="#{bundle.AddArtefactatomicinformationTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <rich:panel header="#{bundle.CreateArtefactatomicinformationTitle}">
+                <rich:panel header="#{bundle.AddArtefactatomicinformationTitle}">
                     <rich:toolbar>
-                        <h:commandLink action="#{returnToArtefactView.returnToView()}" value="#{bundle.NavigationMenuReturnLink}" immediate="true"/> 
+                        <h:commandLink action="#{returnToJSFPage.returnToArtefactView}" value="#{bundle.NavigationMenuReturnLink}" immediate="true"/> 
                         <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
                         <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
                         <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
