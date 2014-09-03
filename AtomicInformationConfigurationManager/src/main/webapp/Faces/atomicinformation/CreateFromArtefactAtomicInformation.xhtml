@@ -17,7 +17,7 @@
             <h:form>
                 <rich:panel header="#{bundle.CreateAtomicinformationTitle}">
                     <rich:toolbar>
-                        <h:commandLink action="#{returnToJSFPage.returnToArtefactAtomicinformationView}" value="#{bundle.NavigationMenuReturnLink}"/> 
+                        <h:commandLink action="#{returnToJSFPage.returnToArtefactAtomicinformationCreate}" value="#{bundle.NavigationMenuReturnLink}" immediate="true"/> 
                             <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
                             <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
                             <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
@@ -30,7 +30,6 @@
                     <rich:toolbar>
                         <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuAtomicinformation}">
                             <rich:menuItem label="#{bundle.MenuItemSaveAtomicInformationLink}" action="#{atomicinformationController.create('prepareCreateFormArtefactAtomicInformation')}"/>
-                            <rich:menuItem label="#{bundle.MenuItemListAtomicInformationLink}"  action="#{atomicinformationController.prepareList}" immediate="true"/>
                         </rich:dropDownMenu>
                     </rich:toolbar> 
                     <h:panelGrid columns="2">

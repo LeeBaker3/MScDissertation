@@ -30,15 +30,16 @@
                     <rich:toolbar>
                         <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuArtefactatomicinformation}">
                             <rich:menuItem label="#{bundle.MenuItemSaveArtefactatomicinformationLink}" action="#{artefactatomicinformationController.create('prepareCreateFromArtefact')}"/>
+                            <rich:menuItem label="#{bundle.MenuItemCreateAtomicArtefacatomicinformationLink}" action="#{atomicinformationController.prepareCreateFormArtefactAtomicInformation}" immediate="true"/>
                             <rich:menuItem label="#{bundle.MenuItemListArtefactatomicinformationLink}" action="#{artefactatomicinformationController.prepareList}" immediate="true"/>
                         </rich:dropDownMenu>
                     </rich:toolbar>
                     <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_atomicInformationID}" for="atomicInformationID" />
-                    <h:selectOneMenu id="atomicInformationID" value="#{artefactatomicinformationController.selected.atomicInformationID}" title="#{bundle.CreateArtefactatomicinformationTitle_atomicInformationID}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_atomicInformationID}">
-                        <f:selectItems value="#{atomicinformationController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
+                        <h:outputLabel value="#{bundle.CreateArtefactatomicinformationLabel_atomicInformationID}" for="atomicInformationID" />
+                        <h:selectOneMenu id="atomicInformationID" value="#{artefactatomicinformationController.selected.atomicInformationID}" title="#{bundle.CreateArtefactatomicinformationTitle_atomicInformationID}" required="true" requiredMessage="#{bundle.CreateArtefactatomicinformationRequiredMessage_atomicInformationID}">
+                            <f:selectItems value="#{atomicinformationController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
                 </rich:panel>
             </h:form>
         </ui:define>

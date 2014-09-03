@@ -39,8 +39,8 @@ public class ReturnToJSFPage {
         return "/Faces/artefact/View";
     }
     
-    public String returnToArtefactAtomicinformationView(){
+    public String returnToArtefactAtomicinformationCreate(){
         atomicinformationController.recreateModel();
-        return "/Faces/artefactatomicinformation/View";
+        return "/Faces/artefactatomicinformation/CreateFromArtefact";
     }
 }

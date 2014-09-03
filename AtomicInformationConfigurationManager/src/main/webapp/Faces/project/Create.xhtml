@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,20 +15,28 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateProjectLabel_projectReference}" for="projectReference" />
-                    <h:inputText id="projectReference" value="#{projectController.selected.projectReference}" title="#{bundle.CreateProjectTitle_projectReference}" />
-                    <h:outputLabel value="#{bundle.CreateProjectLabel_projectName}" for="projectName" />
-                    <h:inputText id="projectName" value="#{projectController.selected.projectName}" title="#{bundle.CreateProjectTitle_projectName}" />
-                    </h:panelGrid>
-                <br />
-                <h:commandLink action="#{projectController.create}" value="#{bundle.CreateProjectSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{projectController.prepareList}" value="#{bundle.CreateProjectShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.CreateProjectMainMenuLink}" />
+                <rich:panel header="#{bundle.CreateProjectTitle}">
+                    <rich:toolbar>
+                        <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
+                        <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
+                        <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
+                        <h:link outcome="/Faces/typeofatomicinformation/List" value="#{bundle.NavigationMenuListTypeofatomicinformationLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
+                    </rich:toolbar>
+                    <rich:dropDownMenu label="#{bundle.DropDownMenuproject}">
+                        <rich:menuItem label="#{bundle.MenuItemSaveProjectLink}" action="#{projectController.create}"/>
+                        <rich:menuItem label="#{bundle.MenuItemListProjectLink}" action="#{projectController.prepareList}" immediate="true"/>
+                    </rich:dropDownMenu>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{bundle.CreateProjectLabel_projectReference}" for="projectReference" />
+                        <h:inputText id="projectReference" value="#{projectController.selected.projectReference}" title="#{bundle.CreateProjectTitle_projectReference}" />
+                        <h:outputLabel value="#{bundle.CreateProjectLabel_projectName}" for="projectName" />
+                        <h:inputText id="projectName" value="#{projectController.selected.projectName}" title="#{bundle.CreateProjectTitle_projectName}" />
+                        </h:panelGrid>
+                </rich:panel>
             </h:form>
         </ui:define>
     </ui:composition>
