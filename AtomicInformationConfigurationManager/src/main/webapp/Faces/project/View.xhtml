@@ -27,12 +27,14 @@
                             <h:link rendered="#{projectController.current !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
                             <h:link rendered="#{projectController.current !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
                     </rich:toolbar>
-                    <rich:dropDownMenu label="#{bundle.DropDownMenuProject}">
-                            <rich:menuItem label="#{bundle.MenuItemCreateProjectLink}" action="#{projectController.prepareCreate}"/>
-                            <rich:menuItem label="#{bundle.MenuItemEditProjectLink}" action="/Faces/project/Edit"/>
-                            <rich:menuItem label="#{bundle.MenuItemDeleteProjectLink}" action="#{projectController.deleteAndView()}"/>
-                            <rich:menuItem label="#{bundle.MenuItemListProjectLink}" action="#{projectController.prepareList}"/>
-                    </rich:dropDownMenu>
+                    <rich:toolbar>
+                        <rich:dropDownMenu label="#{bundle.DropDownMenuProject}">
+                                <rich:menuItem label="#{bundle.MenuItemCreateProjectLink}" action="#{projectController.prepareCreate}"/>
+                                <rich:menuItem label="#{bundle.MenuItemEditProjectLink}" action="/Faces/project/Edit"/>
+                                <rich:menuItem label="#{bundle.MenuItemDeleteProjectLink}" action="#{projectController.deleteAndView()}"/>
+                                <rich:menuItem label="#{bundle.MenuItemListProjectLink}" action="#{projectController.prepareList}"/>
+                        </rich:dropDownMenu>
+                    </rich:toolbar>
                     <h:panelGrid columns="2">
                         <h:outputText value="#{bundle.ViewProjectLabel_projectReference}"/>
                         <h:outputText value="#{projectController.selected.projectReference}" title="#{bundle.ViewProjectTitle_projectReference}"/>

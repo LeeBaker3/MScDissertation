@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,22 +15,30 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewTypeofatomicinformationLabel_type}"/>
-                    <h:outputText value="#{typeofatomicinformationController.selected.type}" title="#{bundle.ViewTypeofatomicinformationTitle_type}"/>                  
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{typeofatomicinformationController.deleteAndView}" value="#{bundle.ViewTypeofatomicinformationDeleteLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewTypeofatomicinformationEditLink}"/>
-                <br />
-                <h:commandLink action="#{typeofatomicinformationController.prepareCreate}" value="#{bundle.ViewTypeofatomicinformationCreateLink}" />
-                <br />
-                <h:commandLink action="#{typeofatomicinformationController.prepareList}" value="#{bundle.ViewTypeofatomicinformationShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ViewTypeofatomicinformationIndexLink}" />
+                <rich:panel header="#{bundle.ViewTypeofatomicinformationTitle}">
+                    <rich:toolbar>
+                            <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
+                            <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
+                            <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
+                            <h:link outcome="/Faces/typeofatomicinformation/List" value="#{bundle.NavigationMenuListTypeofatomicinformationLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
+                    </rich:toolbar>
+                    <rich:toolbar>
+                        <rich:dropDownMenu label="#{bundle.DropDownMenuTypeofatomicinformation}">
+                                <rich:menuItem label="#{bundle.MenuItemCreateTypeofatomicinformationLink}" action="#{typeofatomicinformationController.prepareCreate}"/>
+                                <rich:menuItem label="#{bundle.MenuItemEditTypeofatomicinformationLink}" action="/Faces/typeofatomicinformation/Edit"/>
+                                <rich:menuItem label="#{bundle.MenuItemDeleteTypeofatomicinformationLink}" action="#{typeofatomicinformationController.deleteAndView}"/>
+                                <rich:menuItem label="#{bundle.MenuItemListTypeofatomicinformationLink}" action="#{typeofatomicinformationController.prepareList}"/>
+                        </rich:dropDownMenu>
+                    </rich:toolbar>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="#{bundle.ViewTypeofatomicinformationLabel_type}"/>
+                        <h:outputText value="#{typeofatomicinformationController.selected.type}" title="#{bundle.ViewTypeofatomicinformationTitle_type}"/>                  
+                    </h:panelGrid>
+                </rich:panel>    
             </h:form>
         </ui:define>
     </ui:composition>

@@ -26,11 +26,13 @@
                         <h:link rendered="#{projectController.current !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
                         <h:link rendered="#{projectController.current !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
                     </rich:toolbar>
-                    <rich:dropDownMenu label="#{bundle.DropDownMenuproject}">
-                        <rich:menuItem label="#{bundle.MenuItemViewProjectLink}" action="#{projectController.prepareView}"/>
-                        <rich:menuItem label="#{bundle.MenuItemSaveProjectLink}" action="#{projectController.update}"/>
-                        <rich:menuItem label="#{bundle.MenuItemListProjectLink}" action="#{projectController.prepareList}" immediate="true"/>
-                    </rich:dropDownMenu>
+                    <rich:toolbar>
+                        <rich:dropDownMenu label="#{bundle.DropDownMenuProject}">
+                            <rich:menuItem label="#{bundle.MenuItemViewProjectLink}" action="#{projectController.prepareView}"/>
+                            <rich:menuItem label="#{bundle.MenuItemSaveProjectLink}" action="#{projectController.update}"/>
+                            <rich:menuItem label="#{bundle.MenuItemListProjectLink}" action="#{projectController.prepareList}" immediate="true"/>
+                        </rich:dropDownMenu>
+                    </rich:toolbar>
                     <h:panelGrid columns="2">
                         <h:outputLabel value="#{bundle.EditProjectLabel_projectReference}" for="projectReference" />
                         <h:inputText id="projectReference" value="#{projectController.selected.projectReference}" title="#{bundle.EditProjectTitle_projectReference}" />

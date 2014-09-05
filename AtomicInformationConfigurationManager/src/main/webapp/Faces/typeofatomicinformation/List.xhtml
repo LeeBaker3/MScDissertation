@@ -3,46 +3,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    
+    <script type="text/javascript">
+        //<![CDATA[ 
+	function radioButton(radio) { 
+	var id = radio.name.substring(radio.name.lastIndexOf(':')); 
+	var el = radio.form.elements; 
+	for (var i = 0; i < el.length; i++) { 
+            if (el[i].name.substring(el[i].name.lastIndexOf(':')) == id) { 
+                el[i].checked = false; 
+            } 
+	} 
+	radio.checked = true; 
+        //]]> 
+    } 
+    </script>
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.ListTypeofatomicinformationTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
+            <h:form>
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListTypeofatomicinformationEmpty}" rendered="#{typeofatomicinformationController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{typeofatomicinformationController.items.rowCount > 0}">
-                    <h:outputText value="#{typeofatomicinformationController.pagination.pageFirstItem + 1}..#{typeofatomicinformationController.pagination.pageLastItem + 1}/#{typeofatomicinformationController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{typeofatomicinformationController.previous}" value="#{bundle.Previous} #{typeofatomicinformationController.pagination.pageSize}" rendered="#{typeofatomicinformationController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{typeofatomicinformationController.next}" value="#{bundle.Next} #{typeofatomicinformationController.pagination.pageSize}" rendered="#{typeofatomicinformationController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{typeofatomicinformationController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTypeofatomicinformationTitle_type}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.type}"/>
-                        </h:column>       
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{typeofatomicinformationController.prepareView}" value="#{bundle.ListTypeofatomicinformationViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{typeofatomicinformationController.prepareEdit}" value="#{bundle.ListTypeofatomicinformationEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{typeofatomicinformationController.delete}" value="#{bundle.ListTypeofatomicinformationDeleteLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{typeofatomicinformationController.prepareCreate}" value="#{bundle.ListTypeofatomicinformationCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ListTypeofatomicinformationMainMenuLink}" />
+                <rich:panel header="#{bundle.ListTypeofatomicinformationTitle}">
+                    <rich:toolbar>
+                        <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
+                        <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
+                        <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
+                        <h:link outcome="/Faces/typeofatomicinformation/List" value="#{bundle.NavigationMenuListTypeofatomicinformationLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
+                        <h:link rendered="#{projectController.current !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
+                    </rich:toolbar>
+                    <rich:toolbar>
+                        <rich:dropDownMenu label="#{bundle.DropDownMenuTypeofatomicinformation}">
+                            <rich:menuItem label="#{bundle.MenuItemCreateTypeofatomicinformationLink}" action="#{typeofatomicinformationController.prepareCreate}"/>
+                            <rich:menuItem label="#{bundle.MenuItemViewTypeofatomicinformationLink}" action="#{typeofatomicinformationController.prepareView}"/>
+                            <rich:menuItem label="#{bundle.MenuItemEditTypeofatomicinformationLink}" action="#{typeofatomicinformationController.prepareEdit}"/>
+                            <rich:menuItem label="#{bundle.MenuItemDeleteTypeofatomicinformationLink}" action="#{typeofatomicinformationController.delete}"/>
+                        </rich:dropDownMenu>
+                    </rich:toolbar>
+                    <h:outputText escape="false" value="#{bundle.ListTypeofatomicinformationEmpty}" rendered="#{typeofatomicinformationController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{typeofatomicinformationController.items.rowCount > 0}">
+                        <h:outputText value="#{typeofatomicinformationController.pagination.pageFirstItem + 1}..#{typeofatomicinformationController.pagination.pageLastItem + 1}/#{typeofatomicinformationController.pagination.itemsCount}"/>&nbsp;
+                        <h:commandLink action="#{typeofatomicinformationController.previous}" value="#{bundle.Previous} #{typeofatomicinformationController.pagination.pageSize}" rendered="#{typeofatomicinformationController.pagination.hasPreviousPage}"/>&nbsp;
+                        <h:commandLink action="#{typeofatomicinformationController.next}" value="#{bundle.Next} #{typeofatomicinformationController.pagination.pageSize}" rendered="#{typeofatomicinformationController.pagination.hasNextPage}"/>&nbsp;
+                        <h:dataTable value="#{typeofatomicinformationController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Select"/>
+                                </f:facet>
+                                <h:selectOneRadio onclick="radioButton(this);" valueChangeListener="#{typeofatomicinformationController.setSelected}">                                                
+                                    <f:selectItem itemValue="null"/>
+                                </h:selectOneRadio>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListTypeofatomicinformationTitle_type}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.type}"/>
+                            </h:column>       
+                        </h:dataTable>
+                    </h:panelGroup>
+                </rich:panel>        
             </h:form>
         </ui:define>
     </ui:composition>

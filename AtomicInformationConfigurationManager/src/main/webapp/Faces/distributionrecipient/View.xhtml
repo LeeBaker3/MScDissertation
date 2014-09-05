@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,37 +15,43 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_firstName}"/>
-                    <h:outputText value="#{distributionrecipientController.selected.firstName}" title="#{bundle.ViewDistributionrecipientTitle_firstName}"/>
-                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_surname}"/>
-                    <h:outputText value="#{distributionrecipientController.selected.surname}" title="#{bundle.ViewDistributionrecipientTitle_surname}"/>
-                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_EMailAddress}"/>
-                    <h:outputText value="#{distributionrecipientController.selected.EMailAddress}" title="#{bundle.ViewDistributionrecipientTitle_EMailAddress}"/>
-                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_mobileNumber}"/>
-                    <h:outputText value="#{distributionrecipientController.selected.mobileNumber}" title="#{bundle.ViewDistributionrecipientTitle_mobileNumber}"/>
-                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_officeNumber}"/>
-                    <h:outputText value="#{distributionrecipientController.selected.officeNumber}" title="#{bundle.ViewDistributionrecipientTitle_officeNumber}"/>
-                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_companyName}"/>
-                    <h:outputText value="#{distributionrecipientController.selected.companyName}" title="#{bundle.ViewDistributionrecipientTitle_companyName}"/>
-                    <h:outputText value="#{bundle.ViewDistributionrecipientLabel_projectID}"/>
-                    <h:outputText value="#{distributionrecipientController.selected.projectID.projectName} #{distributionrecipientController.selected.projectID.projectReference}" title="#{bundle.ViewDistributionrecipientTitle_projectID}"/>   
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{distributionrecipientController.deleteAndView}" value="#{bundle.ViewDistributionrecipientDeleteLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewDistributionrecipientEditLink}"/>
-                <br />
-                <h:commandLink action="#{distributionrecipientController.prepareCreate}" value="#{bundle.ViewDistributionrecipientCreateLink}" />
-                <br />
-                <h:commandLink action="#{distributionrecipientController.prepareList}" value="#{bundle.ViewDistributionrecipientShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.ViewDistributionrecipientMainMenuLink}" />
-
+                <rich:panel header="#{bundle.ViewDistributionrecipientTitle}">
+                    <rich:toolbar>
+                            <h:link outcome="/Faces/mainmenu/MainMenu" value="#{bundle.NavigationMenuMainMenuLink}"/>
+                            <h:link outcome="/Faces/project/List" value="#{bundle.NavigationMenuListProjectLink}"/>
+                            <h:link outcome="/Faces/methodofdistribution/List" value="#{bundle.NavigationMenuListMethodofdistributionLink}"/>
+                            <h:link outcome="/Faces/typeofatomicinformation/List" value="#{bundle.NavigationMenuListTypeofatomicinformationLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefact/List" value="#{bundle.NavigationMenuListArtefactLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/artefactdistribution/List" value="#{bundle.NavigationMenuListArtefactdistributionLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/atomicinformation/List" value="#{bundle.NavigationMenuListAtomicinformationLink}"/>
+                            <h:link rendered="#{projectController.current !=null}" outcome="/Faces/distributionrecipient/List" value="#{bundle.NavigationMenuListDistributionrecipientLink}"/>
+                    </rich:toolbar>
+                    <rich:toolbar>
+                        <rich:dropDownMenu rendered="#{projectController.current !=null}" label="#{bundle.DropDownMenuDistributionrecipient}">
+                            <rich:menuItem label="#{bundle.MenuItemCreateDistributionrecipientLink}" action="#{distributionrecipientController.prepareCreate}"/>
+                            <rich:menuItem label="#{bundle.MenuItemEditDistributionrecipientLink}" action="/Faces/distributionrecipient/Edit"/>
+                            <rich:menuItem label="#{bundle.MenuItemDeleteDistributionrecipientLink}" action="#{distributionrecipientController.deleteAndView}"/>
+                            <rich:menuItem label="#{bundle.MenuItemListDistributionrecipientLink}"  action="#{distributionrecipientController.prepareList}"/>
+                        </rich:dropDownMenu>
+                    </rich:toolbar>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="#{bundle.ViewDistributionrecipientLabel_firstName}"/>
+                        <h:outputText value="#{distributionrecipientController.selected.firstName}" title="#{bundle.ViewDistributionrecipientTitle_firstName}"/>
+                        <h:outputText value="#{bundle.ViewDistributionrecipientLabel_surname}"/>
+                        <h:outputText value="#{distributionrecipientController.selected.surname}" title="#{bundle.ViewDistributionrecipientTitle_surname}"/>
+                        <h:outputText value="#{bundle.ViewDistributionrecipientLabel_EMailAddress}"/>
+                        <h:outputText value="#{distributionrecipientController.selected.EMailAddress}" title="#{bundle.ViewDistributionrecipientTitle_EMailAddress}"/>
+                        <h:outputText value="#{bundle.ViewDistributionrecipientLabel_mobileNumber}"/>
+                        <h:outputText value="#{distributionrecipientController.selected.mobileNumber}" title="#{bundle.ViewDistributionrecipientTitle_mobileNumber}"/>
+                        <h:outputText value="#{bundle.ViewDistributionrecipientLabel_officeNumber}"/>
+                        <h:outputText value="#{distributionrecipientController.selected.officeNumber}" title="#{bundle.ViewDistributionrecipientTitle_officeNumber}"/>
+                        <h:outputText value="#{bundle.ViewDistributionrecipientLabel_companyName}"/>
+                        <h:outputText value="#{distributionrecipientController.selected.companyName}" title="#{bundle.ViewDistributionrecipientTitle_companyName}"/>
+                        <h:outputText value="#{bundle.ViewDistributionrecipientLabel_projectID}"/>
+                        <h:outputText value="#{distributionrecipientController.selected.projectID.projectName} #{distributionrecipientController.selected.projectID.projectReference}" title="#{bundle.ViewDistributionrecipientTitle_projectID}"/>   
+                    </h:panelGrid>
+                </rich:panel>            
             </h:form>
         </ui:define>
     </ui:composition>
-
 </html>
